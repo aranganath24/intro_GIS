@@ -1,0 +1,29 @@
+# Loading data
+
+
+```{r, cache=TRUE}
+co_traffic_stops<-read_csv("https://www.dropbox.com/s/r7oydximjp46ylh/co_statewide_2020_04_01.csv?dl=1")
+```
+
+```{r}
+co_traffic_stops
+```
+
+```{r}
+# Select 2010 Observations; first, create "year" field
+co_traffic_stops<-co_traffic_stops %>% mutate(Year=substr(co_traffic_stops$date, 1,4))
+
+# Select 2010 Observations; filter based on year
+co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
+
+```
+
+
+```{r}
+co_traffic_stops_2010
+```
+
+
+
+
+
