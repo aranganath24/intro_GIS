@@ -24,6 +24,39 @@ co_traffic_stops_2010
 ```
 
 
+```{r}
+# Compute county-level count of traffic stops by race
+co_county_summary<-co_traffic_stops_2010 %>% 
+                    group_by(county_name) %>% 
+                    count(subject_race) 
+
+# Reshape "co_county_summary" to make racial categories into separate fields
+co_county_summary<-co_county_summary %>% 
+                    spread(subject_race, n) %>% 
+                    rename("NA"="<NA>")
+
+# Generate field containing information on total number of stops
+co_county_summary<-co_county_summary %>% rowwise() %>% 
+                                         mutate(total_stops=sum(c_across(where(is.integer)), na.rm=TRUE)) 
+
+
+# Make a new dataset based on "co_county_summary" that selects only the "county_name", 
+#"black", and "total_stops" variables, then renames "black" as "black_stops" 
+#(to avoid confusion with census measures), and then deletes the record in which "county_name" is "NA"
+
+co_county_summary_black_stops<-co_county_summary %>% select(county_name, black, total_stops) %>% 
+                                                     rename(black_stops=black) %>% 
+                                                     filter(county_name!="NA")
+```
+
+
+
+
+
+
+
+
+
 
 
 

@@ -213,6 +213,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # … with 470,274 more rows, and 12 more variables: officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;,
 ## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
 ## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;, Year &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="loading-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute county-level count of traffic stops by race</span></span>
+<span id="cb9-2"><a href="loading-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_county_summary<span class="ot">&lt;-</span>co_traffic_stops_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="loading-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="loading-data.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">count</span>(subject_race) </span>
+<span id="cb9-5"><a href="loading-data.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="loading-data.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape &quot;co_county_summary&quot; to make racial categories into separate fields</span></span>
+<span id="cb9-7"><a href="loading-data.html#cb9-7" aria-hidden="true" tabindex="-1"></a>co_county_summary<span class="ot">&lt;-</span>co_county_summary <span class="sc">%&gt;%</span> </span>
+<span id="cb9-8"><a href="loading-data.html#cb9-8" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">spread</span>(subject_race, n) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-9"><a href="loading-data.html#cb9-9" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">rename</span>(<span class="st">&quot;NA&quot;</span><span class="ot">=</span><span class="st">&quot;&lt;NA&gt;&quot;</span>)</span>
+<span id="cb9-10"><a href="loading-data.html#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="loading-data.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate field containing information on total number of stops</span></span>
+<span id="cb9-12"><a href="loading-data.html#cb9-12" aria-hidden="true" tabindex="-1"></a>co_county_summary<span class="ot">&lt;-</span>co_county_summary <span class="sc">%&gt;%</span> <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-13"><a href="loading-data.html#cb9-13" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">mutate</span>(<span class="at">total_stops=</span><span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="fu">where</span>(is.integer)), <span class="at">na.rm=</span><span class="cn">TRUE</span>)) </span>
+<span id="cb9-14"><a href="loading-data.html#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="loading-data.html#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="loading-data.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new dataset based on &quot;co_county_summary&quot; that selects only the &quot;county_name&quot;, </span></span>
+<span id="cb9-17"><a href="loading-data.html#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&quot;black&quot;, and &quot;total_stops&quot; variables, then renames &quot;black&quot; as &quot;black_stops&quot; </span></span>
+<span id="cb9-18"><a href="loading-data.html#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#(to avoid confusion with census measures), and then deletes the record in which &quot;county_name&quot; is &quot;NA&quot;</span></span>
+<span id="cb9-19"><a href="loading-data.html#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="loading-data.html#cb9-20" aria-hidden="true" tabindex="-1"></a>co_county_summary_black_stops<span class="ot">&lt;-</span>co_county_summary <span class="sc">%&gt;%</span> <span class="fu">select</span>(county_name, black, total_stops) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="loading-data.html#cb9-21" aria-hidden="true" tabindex="-1"></a>                                                     <span class="fu">rename</span>(<span class="at">black_stops=</span>black) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-22"><a href="loading-data.html#cb9-22" aria-hidden="true" tabindex="-1"></a>                                                     <span class="fu">filter</span>(county_name<span class="sc">!=</span><span class="st">&quot;NA&quot;</span>)</span></code></pre></div>
 
 </div>
             </section>
