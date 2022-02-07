@@ -15,3 +15,4 @@ visualize-county-level-variation-in-the-bias-index-using-ggplot
 join-co_counties_census_trafficestops-to-a-shapefile-of-colorado-counties
 read-in-and-view-the-shapefile-of-co-counties
 join-dataset-with-census-and-traffic-stop-information-to-shapefile
+mapping-the-bias-index

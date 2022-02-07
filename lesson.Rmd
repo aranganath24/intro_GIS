@@ -219,7 +219,7 @@ county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_
 county_shapefile_biasIndex
 ```
 
-
+# Mapping the Bias Index
 
 
 [https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7](https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7)
