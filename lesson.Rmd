@@ -91,7 +91,9 @@ co_county_black_stops<-co_county_black_stops %>%
 co_county_black_stops
 ```
 
-# Read in and join 2010 census data to ```co_county_black_stops```
+# Define an index of racial bias in traffic stops
+
+## Read in and join 2010 census data to ```co_county_black_stops```
 
 Read in census data
 
@@ -105,7 +107,7 @@ co_counties_census_2010<-read_csv("https://www.dropbox.com/s/kq94707fmcdbc0w/co_
 co_counties_census_2010
 ```
 
-Join census data to ```co_counties_census_2010```
+## Join census data to ```co_counties_census_2010```
 
 ```{r}
 co_counties_census_trafficstops<-full_join(co_county_black_stops, co_counties_census_2010,
@@ -116,7 +118,7 @@ co_counties_census_trafficstops<-full_join(co_county_black_stops, co_counties_ce
 co_counties_census_trafficstops
 ```
 
-# Define an index of racial bias in traffic stops
+## Define the variables that will be used in the bias index
 
 ```{r}
 co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
@@ -128,6 +130,8 @@ co_counties_census_trafficstops<-co_counties_census_trafficstops %>%
 co_counties_census_trafficstops
 ```
 
+## Calculate the bias index
+
 ```{r}
 co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
                                   mutate(excess_stops_index=black_stop_pct-black_pop_pct)
@@ -137,7 +141,7 @@ co_counties_census_trafficstops<-co_counties_census_trafficstops %>%
 co_counties_census_trafficstops
 ```
 
-# Visualize county-level variation in the bias index using ```ggplot```
+## Visualize county-level variation in the bias index using ```ggplot```
 
 ```{r}
 co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
@@ -161,7 +165,7 @@ bias_graph<-co_counties_census_trafficstops %>%
 bias_graph
 ```
 
-# Join ```co_counties_census_trafficestops``` to a shapefile of Colorado counties
+# Mapping the bias index
 
 ## Read in and view the shapefile of CO counties
 
@@ -174,7 +178,6 @@ co_counties_shapefile<-st_read("tl_2019_08_county.shp")
 ```{r}
 co_counties_shapefile
 ```
-
 
 ```{r, fig.asp=0.5, echo=-1}
 tmap_mode("plot")
@@ -203,12 +206,11 @@ co_counties_map
 tmap_mode("plot")
 ```
 
-
 ```{r, fig.asp=0.5}
 co_counties_map
 ```
 
-## Join dataset with census and traffic stop information to shapefile
+## Join ```co_counties_census_trafficestops``` to the shapefile of Colorado counties
 
 ```{r}
 county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_trafficstops, 
@@ -219,7 +221,54 @@ county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_
 county_shapefile_biasIndex
 ```
 
-# Mapping the Bias Index
+## Display the bias index on a map of Colorado counties
+
+```{r, fig.asp=0.5}
+traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+                  tm_polygons(col="excess_stops_index", 
+                              palette="YlOrRd", 
+                              textNA="No Data", 
+                              n=4, 
+                              style="jenks", 
+                              midpoint=F)+
+                  tm_layout(frame=FALSE, 
+                            legend.outside=TRUE)
+
+traffic_map_race
+```
+
+```{r, fig.asp=0.5}
+traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+                  tm_polygons(col="excess_stops_index", 
+                              palette="YlOrRd", 
+                              textNA="No Data", 
+                              n=4, 
+                              breaks=c(-10,-5, 0, 2.5, 5),
+                              midpoint=F)+
+                  tm_layout(frame=FALSE, 
+                            legend.outside=TRUE)
+traffic_map_race
+```
+
+```{r, fig.asp=0.5}
+my_colors<-c("white", "peachpuff", "red1", "red4")
+traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+                  tm_polygons(col="excess_stops_index", 
+                              palette=my_colors, 
+                              textNA="No Data", 
+                              n=4, 
+                              breaks=c(-10,-5, 0, 2.5, 5))+
+                  tm_layout(frame=FALSE, 
+                            legend.outside=TRUE)
+traffic_map_race
+```
+
+
+
+
+
+
+
 
 
 [https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7](https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7)
