@@ -223,6 +223,8 @@ county_shapefile_biasIndex
 
 ## Display the bias index on a map of Colorado counties
 
+Draft map 
+
 ```{r, fig.asp=0.5}
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
@@ -237,6 +239,8 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
 traffic_map_race
 ```
 
+Map with custom breaks
+
 ```{r, fig.asp=0.5}
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
@@ -249,6 +253,8 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                             legend.outside=TRUE)
 traffic_map_race
 ```
+
+Map with custom colors and custom breaks 
 
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4")
@@ -263,8 +269,25 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
 traffic_map_race
 ```
 
+Categorical Map
 
+Define categorical column 
 
+```{r}
+county_shapefile_biasIndex<-
+  county_shapefile_biasIndex %>% 
+            mutate(apparent_bias=ifelse(excess_stops_index>0, "Apparent Bias", "No Apparent Bias"))
+```
+
+```{r, fig.asp=0.5}
+categorical_map<-tm_shape(county_shapefile_biasIndex)+
+                    tm_polygons(col="apparent_bias", title="", pal=c("orangered1", "white"), 
+                                textNA="No Data")+
+                    tm_layout(frame=FALSE, 
+                              legend.outside=TRUE)
+                    
+categorical_map
+```
 
 
 
