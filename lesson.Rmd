@@ -1,55 +1,110 @@
 # Loading data
 
+Reading in data
 
 ```{r, cache=TRUE}
 co_traffic_stops<-read_csv("https://www.dropbox.com/s/r7oydximjp46ylh/co_statewide_2020_04_01.csv?dl=1")
 ```
 
+Printing contents of ```co_traffic_stops``` object
+
 ```{r}
 co_traffic_stops
 ```
 
+# Basic data cleaning and filtering
+
+## Create a "Year" field
+
 ```{r}
-# Select 2010 Observations; first, create "year" field
+# Create "year" field
 co_traffic_stops<-co_traffic_stops %>% mutate(Year=substr(co_traffic_stops$date, 1,4))
-
-# Select 2010 Observations; filter based on year
-co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
-
 ```
 
+## Filter by year
 
 ```{r}
+# Filter 2010 observations and assign to a new object
+co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
+```
+
+## View the newly created ```co_traffic_stops_2010``` object 
+
+```{r}
+# Print contents of "co_traffic_stops_2010" object
 co_traffic_stops_2010
 ```
 
+# Data transformation
+
+## Tabulate county-level count of traffice stops by race
 
 ```{r}
 # Compute county-level count of traffic stops by race
 co_county_summary<-co_traffic_stops_2010 %>% 
                     group_by(county_name) %>% 
                     count(subject_race) 
+```
 
-# Reshape "co_county_summary" to make racial categories into separate fields
-co_county_summary<-co_county_summary %>% 
-                    spread(subject_race, n) %>% 
-                    rename("NA"="<NA>")
+## Reshape the data
 
-# Generate field containing information on total number of stops
-co_county_summary<-co_county_summary %>% rowwise() %>% 
-                                         mutate(total_stops=sum(c_across(where(is.integer)), na.rm=TRUE)) 
+```{r}
+co_county_summary_wide<-co_county_summary %>% 
+                        pivot_wider(names_from=subject_race, values_from=n)
+```
 
+## Calculate total stops for each county in ```co_county_summary_wide```
 
-# Make a new dataset based on "co_county_summary" that selects only the "county_name", 
-#"black", and "total_stops" variables, then renames "black" as "black_stops" 
-#(to avoid confusion with census measures), and then deletes the record in which "county_name" is "NA"
+```{r}
+co_county_summary_wide<-co_county_summary_wide %>% 
+                        rowwise() %>% 
+                        mutate(total_stops=sum(c_across(where(is.integer)), na.rm=TRUE)) 
+```
 
-co_county_summary_black_stops<-co_county_summary %>% select(county_name, black, total_stops) %>% 
-                                                     rename(black_stops=black) %>% 
-                                                     filter(county_name!="NA")
+```{r}
+co_county_summary_wide
+```
+
+## Clean ```co_county_summary_wide``` and assign to new object
+
+```{r}
+co_county_black_stops<-co_county_summary_wide %>%
+                        select(county_name, black, total_stops) 
+                        
 ```
 
 
+```{r}
+co_county_black_stops<-co_county_black_stops %>%
+                        rename(black_stops=black)
+```
+
+
+```{r}
+co_county_black_stops<-co_county_black_stops %>% 
+                        filter(county_name!="NA")
+
+```
+
+
+```{r}
+co_county_black_stops
+```
+
+# Read in and join 2010 census data to ```co_county_black_stops```
+
+Read in census data
+
+```{r}
+# Read in census data and assigns to object named "co_counties_census_2010"
+co_counties_census_2010<-read_csv("https://www.dropbox.com/s/kq94707fmcdbc0w/co_county_decennial_census.csv?dl=1") 
+```
+
+
+```{r}
+# Prints contents of "co_counties_census_2010"
+co_counties_census_2010
+```
 
 
 

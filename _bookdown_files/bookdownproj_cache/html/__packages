@@ -1,4 +1,3 @@
-base
 tidycensus
 tidyverse
 ggplot2
@@ -30,3 +29,4 @@ stargazer
 ggeffects
 foreign
 gapminder
+gtsummary
