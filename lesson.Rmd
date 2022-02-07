@@ -137,6 +137,30 @@ co_counties_census_trafficstops<-co_counties_census_trafficstops %>%
 co_counties_census_trafficstops
 ```
 
+# Visualize county-level variation in the bias index using ```ggplot```
+
+```{r}
+co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
+                                 mutate(County=str_remove(county_name, " County"))
+```
+
+```{r}
+bias_graph<-co_counties_census_trafficstops %>% 
+            drop_na(excess_stops_index) %>% 
+            ggplot()+
+            geom_col(aes(x=reorder(County, excess_stops_index), y=excess_stops_index))+
+            coord_flip()+
+            labs(title="Racial Discrimination in Police Stops, by County (Colorado)", x="County", y="Bias Index=\nBlack Percentage of Overall Traffice Stops – Black Percentage of Overall Over-17 Population")+
+            theme(axis.title.x = element_text(size = 9))+      
+            scale_y_continuous(breaks=c(-10, -7.5, -5, -2.5, 0, 2.5, 5, 7.5))+
+            expand_limits(y=c(-10,10))+
+            theme(plot.title=element_text(hjust=0.5)) 
+```
+
+```{r, fig.width=8, fig.height=10}
+bias_graph
+```
+
 # Join ```co_counties_census_trafficestops``` to a shapefile of Colorado counties
 
 ## Read in and view the shapefile of CO counties
@@ -185,6 +209,15 @@ co_counties_map
 ```
 
 ## Join dataset with census and traffic stop information to shapefile
+
+```{r}
+county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_trafficstops, 
+                                   by="GEOID")
+```
+
+```{r}
+county_shapefile_biasIndex
+```
 
 
 
