@@ -119,13 +119,72 @@ co_counties_census_trafficstops
 # Define an index of racial bias in traffic stops
 
 ```{r}
+co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
+                                    mutate(black_stop_pct=((black_stops/total_stops)*100),
+                                           black_pop_pct=((total_black_pop_over17/total_pop_over17)*100))
+```
 
+```{r}
+co_counties_census_trafficstops
+```
+
+```{r}
+co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
+                                  mutate(excess_stops_index=black_stop_pct-black_pop_pct)
+```
+
+```{r}
+co_counties_census_trafficstops
+```
+
+# Join ```co_counties_census_trafficestops``` to a shapefile of Colorado counties
+
+## Read in and view the shapefile of CO counties
+
+```{r, echo=-1}
+setwd("/Users/adra7980/Documents/CU_workshops/gis/data/tl_2019_08_county")
+# Reads in shapefile and assigns to object named "co_counties_shapefile"
+co_counties_shapefile<-st_read("tl_2019_08_county.shp")
+```
+
+```{r}
+co_counties_shapefile
 ```
 
 
+```{r, fig.asp=0.5, echo=-1}
+tmap_mode("plot")
+tm_shape(co_counties_shapefile)+
+  tm_polygons()
+```
+
+```{r}
+co_counties_map<-tm_shape(co_counties_shapefile)+
+                    tm_polygons()
+```
+
+```{r, fig.asp=0.5}
+co_counties_map
+```
+
+```{r}
+tmap_mode("view")
+```
+
+```{r}
+co_counties_map
+```
+
+```{r}
+tmap_mode("plot")
+```
 
 
+```{r, fig.asp=0.5}
+co_counties_map
+```
 
+## Join dataset with census and traffic stop information to shapefile
 
 
 

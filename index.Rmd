@@ -9,5 +9,7 @@ site: bookdown::bookdown_site
 
 ```{}
 library(tidyverse)
+library(tmap)
+library(sf)
 ```
 
