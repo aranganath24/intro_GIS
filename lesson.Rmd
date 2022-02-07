@@ -100,10 +100,26 @@ Read in census data
 co_counties_census_2010<-read_csv("https://www.dropbox.com/s/kq94707fmcdbc0w/co_county_decennial_census.csv?dl=1") 
 ```
 
-
 ```{r}
 # Prints contents of "co_counties_census_2010"
 co_counties_census_2010
+```
+
+Join census data to ```co_counties_census_2010```
+
+```{r}
+co_counties_census_trafficstops<-full_join(co_county_black_stops, co_counties_census_2010,
+                                           by=c("county_name"="County"))
+```
+
+```{r}
+co_counties_census_trafficstops
+```
+
+# Define an index of racial bias in traffic stops
+
+```{r}
+
 ```
 
 
@@ -112,6 +128,9 @@ co_counties_census_2010
 
 
 
+
+
+[https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7](https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7)
 
 
 

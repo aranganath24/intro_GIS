@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="data-transformation.html"/>
-
+<link rel="next" href="define-an-index-of-racial-bias-in-traffic-stops.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -152,6 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="data-transformation.html"><a href="data-transformation.html#clean-co_county_summary_wide-and-assign-to-new-object"><i class="fa fa-check"></i><b>4.4</b> Clean <code>co_county_summary_wide</code> and assign to new object</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-in-and-join-2010-census-data-to-co_county_black_stops.html"><a href="read-in-and-join-2010-census-data-to-co_county_black_stops.html"><i class="fa fa-check"></i><b>5</b> Read in and join 2010 census data to <code>co_county_black_stops</code></a></li>
+<li class="chapter" data-level="6" data-path="define-an-index-of-racial-bias-in-traffic-stops.html"><a href="define-an-index-of-racial-bias-in-traffic-stops.html"><i class="fa fa-check"></i><b>6</b> Define an index of racial bias in traffic stops</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -201,15 +202,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 08039 Elbert County       23086                    122            17232
 ## 10 08041 El Paso County     622263                  27280           459587
 ## # … with 54 more rows</code></pre>
-
+<p>Join census data to <code>co_counties_census_2010</code></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="read-in-and-join-2010-census-data-to-co_county_black_stops.html#cb24-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span><span class="fu">full_join</span>(co_county_black_stops, co_counties_census_2010,</span>
+<span id="cb24-2"><a href="read-in-and-join-2010-census-data-to-co_county_black_stops.html#cb24-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;county_name&quot;</span><span class="ot">=</span><span class="st">&quot;County&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="read-in-and-join-2010-census-data-to-co_county_black_stops.html#cb25-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
+<pre><code>## # A tibble: 64 × 7
+## # Rowwise:  county_name
+##    county_name       black_stops total_stops GEOID total_pop total_black_pop_over17 total_pop_over17
+##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Adams County             1208       34350 08001    441603                   9396           315480
+##  2 Alamosa County             43        4478 08003     15445                    142            11617
+##  3 Arapahoe County          1819       17520 08005    572003                  40558           424679
+##  4 Archuleta County           28        5091 08007     12084                     19             9676
+##  5 Baca County                61        1511 08009      3788                     15             2974
+##  6 Bent County                46        1808 08011      6499                    486             5403
+##  7 Boulder County            192       13053 08013    294567                   1961           231813
+##  8 Broomfield County          22        1095 08014     55889                    415            41237
+##  9 Chaffee County             37        6521 08015     17809                    264            14821
+## 10 Cheyenne County            38        1106 08017      1836                      4             1386
+## # … with 54 more rows</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="data-transformation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="define-an-index-of-racial-bias-in-traffic-stops.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

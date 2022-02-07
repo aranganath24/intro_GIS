@@ -10,3 +10,4 @@ reshape-the-data
 calculate-total-stops-for-each-county-in-co_county_summary_wide
 clean-co_county_summary_wide-and-assign-to-new-object
 read-in-and-join-2010-census-data-to-co_county_black_stops
+define-an-index-of-racial-bias-in-traffic-stops
