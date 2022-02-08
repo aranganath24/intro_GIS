@@ -216,9 +216,131 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="using-tidycensus-to-extract-relevant-census-data" class="section level1" number="10">
 <h1><span class="header-section-number">A</span> Using tidycensus to extract relevant census data</h1>
 <p>Introduction</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb69-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">census_api_key</span>(<span class="st">&quot;INSERT HERE&quot;</span>)</span></code></pre></div>
 <div id="step-1" class="section level2" number="10.1">
 <h2><span class="header-section-number">A.1</span> Step 1</h2>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and name variables for census API call</span></span>
+<span id="cb71-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-3" aria-hidden="true" tabindex="-1"></a>my_vars<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="at">total_pop=</span><span class="st">&quot;P001001&quot;</span>,</span>
+<span id="cb71-4"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_men_u5=</span><span class="st">&quot;P012003&quot;</span>,</span>
+<span id="cb71-5"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_men_5to9=</span><span class="st">&quot;P012004&quot;</span>,</span>
+<span id="cb71-6"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_men_10to14=</span><span class="st">&quot;P012005&quot;</span>,</span>
+<span id="cb71-7"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_men_15to17=</span><span class="st">&quot;P012006&quot;</span>,</span>
+<span id="cb71-8"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_women_u5=</span><span class="st">&quot;P012027&quot;</span>,</span>
+<span id="cb71-9"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_women_5to9=</span><span class="st">&quot;P012028&quot;</span>,</span>
+<span id="cb71-10"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_women_10to14=</span><span class="st">&quot;P012029&quot;</span>,</span>
+<span id="cb71-11"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">totalpop_women_15to17=</span><span class="st">&quot;P012030&quot;</span>,</span>
+<span id="cb71-12"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_totalpop=</span><span class="st">&quot;PCT012B001&quot;</span>,</span>
+<span id="cb71-13"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_u1=</span><span class="st">&quot;PCT012B003&quot;</span>,</span>
+<span id="cb71-14"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_1=</span><span class="st">&quot;PCT012B004&quot;</span>,</span>
+<span id="cb71-15"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_2=</span><span class="st">&quot;PCT012B005&quot;</span>,</span>
+<span id="cb71-16"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_3=</span><span class="st">&quot;PCT012B006&quot;</span>,</span>
+<span id="cb71-17"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_4=</span><span class="st">&quot;PCT012B007&quot;</span>,</span>
+<span id="cb71-18"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_5=</span><span class="st">&quot;PCT012B008&quot;</span>,</span>
+<span id="cb71-19"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_6=</span><span class="st">&quot;PCT012B009&quot;</span>,</span>
+<span id="cb71-20"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_7=</span><span class="st">&quot;PCT012B010&quot;</span>,</span>
+<span id="cb71-21"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_8=</span><span class="st">&quot;PCT012B011&quot;</span>,</span>
+<span id="cb71-22"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_9=</span><span class="st">&quot;PCT012B012&quot;</span>,</span>
+<span id="cb71-23"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_10=</span><span class="st">&quot;PCT012B013&quot;</span>,</span>
+<span id="cb71-24"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_11=</span><span class="st">&quot;PCT012B014&quot;</span>,</span>
+<span id="cb71-25"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_12=</span><span class="st">&quot;PCT012B015&quot;</span>,</span>
+<span id="cb71-26"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_13=</span><span class="st">&quot;PCT012B016&quot;</span>,</span>
+<span id="cb71-27"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-27" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_14=</span><span class="st">&quot;PCT012B017&quot;</span>,</span>
+<span id="cb71-28"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_15=</span><span class="st">&quot;PCT012B018&quot;</span>,</span>
+<span id="cb71-29"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-29" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_16=</span><span class="st">&quot;PCT012B019&quot;</span>,</span>
+<span id="cb71-30"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_men_17=</span><span class="st">&quot;PCT012B020&quot;</span>,</span>
+<span id="cb71-31"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_u1=</span><span class="st">&quot;PCT012B107&quot;</span>,</span>
+<span id="cb71-32"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-32" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_1=</span><span class="st">&quot;PCT012B108&quot;</span>,</span>
+<span id="cb71-33"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_2=</span><span class="st">&quot;PCT012B109&quot;</span>,</span>
+<span id="cb71-34"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_3=</span><span class="st">&quot;PCT012B110&quot;</span>,</span>
+<span id="cb71-35"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_4=</span><span class="st">&quot;PCT012B111&quot;</span>,</span>
+<span id="cb71-36"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_5=</span><span class="st">&quot;PCT012B112&quot;</span>,</span>
+<span id="cb71-37"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_6=</span><span class="st">&quot;PCT012B113&quot;</span>,</span>
+<span id="cb71-38"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-38" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_7=</span><span class="st">&quot;PCT012B114&quot;</span>,</span>
+<span id="cb71-39"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-39" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_8=</span><span class="st">&quot;PCT012B115&quot;</span>,</span>
+<span id="cb71-40"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-40" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_9=</span><span class="st">&quot;PCT012B116&quot;</span>,</span>
+<span id="cb71-41"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-41" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_10=</span><span class="st">&quot;PCT012B117&quot;</span>,</span>
+<span id="cb71-42"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-42" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_11=</span><span class="st">&quot;PCT012B118&quot;</span>,</span>
+<span id="cb71-43"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-43" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_12=</span><span class="st">&quot;PCT012B119&quot;</span>,</span>
+<span id="cb71-44"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-44" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_13=</span><span class="st">&quot;PCT012B120&quot;</span>,</span>
+<span id="cb71-45"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-45" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_14=</span><span class="st">&quot;PCT012B121&quot;</span>,</span>
+<span id="cb71-46"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_15=</span><span class="st">&quot;PCT012B122&quot;</span>,</span>
+<span id="cb71-47"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-47" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_16=</span><span class="st">&quot;PCT012B123&quot;</span>,</span>
+<span id="cb71-48"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-48" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_17=</span><span class="st">&quot;PCT012B124&quot;</span>)</span>
+<span id="cb71-49"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-49" aria-hidden="true" tabindex="-1"></a>           </span>
+<span id="cb71-50"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Issue call to Census API</span></span>
+<span id="cb71-51"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-51" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span><span class="fu">get_decennial</span>(</span>
+<span id="cb71-52"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography=</span><span class="st">&quot;county&quot;</span>, </span>
+<span id="cb71-53"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables=</span>my_vars,</span>
+<span id="cb71-54"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">state=</span><span class="st">&quot;CO&quot;</span>,</span>
+<span id="cb71-55"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey=</span><span class="st">&quot;sf1&quot;</span>,</span>
+<span id="cb71-56"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">output=</span><span class="st">&quot;wide&quot;</span>,</span>
+<span id="cb71-57"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">year=</span><span class="dv">2010</span>,</span>
+<span id="cb71-58"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb71-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry=</span><span class="cn">FALSE</span>)           </span></code></pre></div>
+<pre><code>## Getting data from the 2010 decennial Census</code></pre>
+<pre><code>## Using FIPS code &#39;08&#39; for state &#39;CO&#39;</code></pre>
+<pre><code>## Using Census Summary File 1</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-1" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span><span class="fu">as.tibble</span>(co_counties_race)</span>
+<span id="cb75-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove state name from name field</span></span>
+<span id="cb75-4"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-4" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> <span class="fu">separate</span>(<span class="at">col=</span>NAME, <span class="fu">c</span>(<span class="st">&quot;County&quot;</span>, <span class="st">&quot;x&quot;</span>), <span class="at">sep=</span><span class="st">&quot;,&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-5"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">select</span>(<span class="sc">-</span>x)           </span>
+<span id="cb75-6"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-8"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="co"># List variables</span></span>
+<span id="cb75-9"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb75-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(co_counties_race)</span></code></pre></div>
+<pre><code>##  [1] &quot;GEOID&quot;                 &quot;County&quot;                &quot;total_pop&quot;             &quot;totalpop_men_u5&quot;      
+##  [5] &quot;totalpop_men_5to9&quot;     &quot;totalpop_men_10to14&quot;   &quot;totalpop_men_15to17&quot;   &quot;totalpop_women_u5&quot;    
+##  [9] &quot;totalpop_women_5to9&quot;   &quot;totalpop_women_10to14&quot; &quot;totalpop_women_15to17&quot; &quot;black_totalpop&quot;       
+## [13] &quot;black_men_u1&quot;          &quot;black_men_1&quot;           &quot;black_men_2&quot;           &quot;black_men_3&quot;          
+## [17] &quot;black_men_4&quot;           &quot;black_men_5&quot;           &quot;black_men_6&quot;           &quot;black_men_7&quot;          
+## [21] &quot;black_men_8&quot;           &quot;black_men_9&quot;           &quot;black_men_10&quot;          &quot;black_men_11&quot;         
+## [25] &quot;black_men_12&quot;          &quot;black_men_13&quot;          &quot;black_men_14&quot;          &quot;black_men_15&quot;         
+## [29] &quot;black_men_16&quot;          &quot;black_men_17&quot;          &quot;black_women_u1&quot;        &quot;black_women_1&quot;        
+## [33] &quot;black_women_2&quot;         &quot;black_women_3&quot;         &quot;black_women_4&quot;         &quot;black_women_5&quot;        
+## [37] &quot;black_women_6&quot;         &quot;black_women_7&quot;         &quot;black_women_8&quot;         &quot;black_women_9&quot;        
+## [41] &quot;black_women_10&quot;        &quot;black_women_11&quot;        &quot;black_women_12&quot;        &quot;black_women_13&quot;       
+## [45] &quot;black_women_14&quot;        &quot;black_women_15&quot;        &quot;black_women_16&quot;        &quot;black_women_17&quot;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new variables</span></span>
+<span id="cb77-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable for total over-17 population</span></span>
+<span id="cb77-4"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-5" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">total_pop_over17=</span>total_pop<span class="sc">-</span>totalpop_men_u5<span class="sc">-</span>totalpop_men_5to9<span class="sc">-</span></span>
+<span id="cb77-6"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-6" aria-hidden="true" tabindex="-1"></a>                                                totalpop_men_10to14<span class="sc">-</span>totalpop_men_15to17<span class="sc">-</span>totalpop_women_u5<span class="sc">-</span></span>
+<span id="cb77-7"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-7" aria-hidden="true" tabindex="-1"></a>                                                totalpop_women_5to9<span class="sc">-</span>totalpop_women_10to14<span class="sc">-</span>totalpop_women_15to17)</span>
+<span id="cb77-8"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-9"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable for total over--17 black population</span></span>
+<span id="cb77-10"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-11"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-11" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">total_black_pop_over17=</span>black_totalpop<span class="sc">-</span>black_men_u1<span class="sc">-</span>black_men_1<span class="sc">-</span></span>
+<span id="cb77-12"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-12" aria-hidden="true" tabindex="-1"></a>                                                black_men_2<span class="sc">-</span>black_men_3<span class="sc">-</span>black_men_4<span class="sc">-</span>black_men_5<span class="sc">-</span>black_men_6<span class="sc">-</span></span>
+<span id="cb77-13"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-13" aria-hidden="true" tabindex="-1"></a>                                                black_men_7<span class="sc">-</span>black_men_8<span class="sc">-</span>black_men_9<span class="sc">-</span>black_men_10<span class="sc">-</span>black_men_11<span class="sc">-</span></span>
+<span id="cb77-14"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-14" aria-hidden="true" tabindex="-1"></a>                                                black_men_12<span class="sc">-</span>black_men_13<span class="sc">-</span>black_men_14<span class="sc">-</span>black_men_15<span class="sc">-</span>black_men_16<span class="sc">-</span></span>
+<span id="cb77-15"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-15" aria-hidden="true" tabindex="-1"></a>                                                black_men_17<span class="sc">-</span>black_women_u1<span class="sc">-</span>black_women_1<span class="sc">-</span>black_women_2<span class="sc">-</span>black_women_3<span class="sc">-</span></span>
+<span id="cb77-16"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-16" aria-hidden="true" tabindex="-1"></a>                                                black_women_4<span class="sc">-</span>black_women_5<span class="sc">-</span>black_women_6<span class="sc">-</span>black_women_7<span class="sc">-</span>black_women_8<span class="sc">-</span></span>
+<span id="cb77-17"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-17" aria-hidden="true" tabindex="-1"></a>                                                black_women_9<span class="sc">-</span>black_women_10<span class="sc">-</span>black_women_11<span class="sc">-</span>black_women_12<span class="sc">-</span></span>
+<span id="cb77-18"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-18" aria-hidden="true" tabindex="-1"></a>                                                black_women_13<span class="sc">-</span>black_women_14<span class="sc">-</span>black_women_15<span class="sc">-</span>black_women_16<span class="sc">-</span></span>
+<span id="cb77-19"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-19" aria-hidden="true" tabindex="-1"></a>                                                black_women_17)</span>
+<span id="cb77-20"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-21"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Select relevant variables</span></span>
+<span id="cb77-22"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-22" aria-hidden="true" tabindex="-1"></a>co_counties_race_census_dataset<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> <span class="fu">select</span>(GEOID, County, total_pop, total_black_pop_over17, </span>
+<span id="cb77-23"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb77-23" aria-hidden="true" tabindex="-1"></a>                                              total_pop_over17)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb78-1" aria-hidden="true" tabindex="-1"></a>co_counties_race_census_dataset</span></code></pre></div>
+<pre><code>## # A tibble: 64 × 5
+##    GEOID County          total_pop total_black_pop_over17 total_pop_over17
+##    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+##  1 08023 Costilla County      3524                     18             2788
+##  2 08025 Crowley County       5823                    556             5034
+##  3 08027 Custer County        4255                     37             3525
+##  4 08029 Delta County        30952                    139            24101
+##  5 08031 Denver County      600158                  45338           471392
+##  6 08035 Douglas County     285465                   2447           198453
+##  7 08033 Dolores County       2064                      4             1602
+##  8 08049 Grand County        14843                     43            11825
+##  9 08039 Elbert County       23086                    122            17232
+## 10 08041 El Paso County     622263                  27280           459587
+## # … with 54 more rows</code></pre>
 
 </div>
 </div>
