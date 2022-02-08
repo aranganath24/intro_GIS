@@ -296,12 +296,13 @@ categorical_map
 ```
 
 
-# Refining and formatting the Colorado bias index map
+# Refining and formatting the maps of the Colorado traffic-stop bias index
+
+## Refining the map of the continuous bias variable
 
 ```{r, echo=F}
 county_shapefile_biasIndex<-county_shapefile_biasIndex %>% relocate(NAME)
 ```
-
 
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
@@ -347,6 +348,8 @@ traffic_map_race
 ```{r}
 tmap_mode("plot")
 ```
+
+## Refining the map of the categorical bias variable 
 
 # Exporting maps
 

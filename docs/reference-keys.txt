@@ -24,7 +24,9 @@ make-a-rough-draft-of-a-map
 make-a-map-with-custom-breaks
 make-a-map-with-custom-colors
 make-a-categorical-map
-refining-and-formatting-the-colorado-bias-index-map
+refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index
+refining-the-map-of-the-continuous-bias-variable
+refining-the-map-of-the-categorical-bias-variable
 exporting-maps
 summary-script
 using-tidycensus-to-extract-relevant-census-data
