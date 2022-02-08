@@ -297,7 +297,7 @@ my_colors<-c("white", "peachpuff", "red1", "red4")
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="excess_stops_index", 
               palette=my_colors,
-              title="Traffic Stop Racial Bias Index",
+              title="(Black % of Traffic Stops) - (Black % of Population)",
               textNA="No Data", 
               n=4, 
               breaks=c(-10,-5, 0.01, 2.5, 5))+
@@ -305,7 +305,11 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
             legend.outside=TRUE,
             legend.text.size=0.68,
             legend.title.size=0.75,
-            legend.title.fontface = 2)
+            title="Traffic Stop Racial Bias Index",
+            title.size=0.75,
+            title.fontface = 2,
+            main.title="Racial Bias in Traffic Stops, by County (Colorado)",
+            main.title.position="left")
 
 traffic_map_race
 ```
