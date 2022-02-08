@@ -4,4 +4,8 @@
 
 Introduction
 
+```{r}
+library(tidycensus)
+```
+
 ## Step 1
