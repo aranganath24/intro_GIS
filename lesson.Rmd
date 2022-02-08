@@ -309,7 +309,13 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
             title.size=0.75,
             title.fontface = 2,
             main.title="Racial Bias in Traffic Stops, by County (Colorado)",
-            main.title.position="left")
+            main.title.position=0.03,
+            main.title.size=1,
+            attr.outside=TRUE)+
+  tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
+                    position=c(0.02,0.01), # Specifies location of map credits
+                    size=0.38)    
+
 
 traffic_map_race
 ```
