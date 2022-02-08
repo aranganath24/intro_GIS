@@ -351,6 +351,25 @@ tmap_mode("plot")
 
 ## Refining the map of the categorical bias variable 
 
+```{r}
+categorical_map<-tm_shape(county_shapefile_biasIndex)+
+                    tm_polygons(col="apparent_bias", title="", pal=c("orangered1", "white"), 
+                                textNA="No Data")+
+                    tm_layout(frame=FALSE, 
+                              legend.outside=TRUE,
+                              main.title="Racial Bias in Traffic Stops, by County (Colorado)",
+                              main.title.position=0.03,
+                              main.title.size=1,
+                              attr.outside=TRUE)+
+                 tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
+                    position=c(0.02,0.01), # Specifies location of map credits
+                    size=0.38)+
+  tm_text("NAME", size=0.30, fontface=2)
+      
+                    
+categorical_map
+```
+
 # Exporting maps
 
 # Summary script
