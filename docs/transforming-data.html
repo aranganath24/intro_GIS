@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Loading data | Introduction to Geographic Information Systems</title>
-  <meta name="description" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <title>4 Transforming Data | Introduction to Geographic Information Systems</title>
+  <meta name="description" content="4 Transforming Data | Introduction to Geographic Information Systems" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta property="og:title" content="4 Transforming Data | Introduction to Geographic Information Systems" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta name="twitter:title" content="4 Transforming Data | Introduction to Geographic Information Systems" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="cleaning-and-filtering-data.html"/>
+<link rel="prev" href="cleaning-and-filtering-data.html"/>
+<link rel="next" href="defining-an-index-of-racial-bias-in-traffic-stops.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -204,50 +204,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-data" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Loading data</h1>
-<p>Reading in data</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.dropbox.com/s/r7oydximjp46ylh/co_statewide_2020_04_01.csv?dl=1&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
-## cols(
-##   .default = col_character(),
-##   date = col_date(format = &quot;&quot;),
-##   time = col_logical(),
-##   subject_age = col_double(),
-##   arrest_made = col_logical(),
-##   citation_issued = col_logical(),
-##   warning_issued = col_logical(),
-##   contraband_found = col_logical(),
-##   search_conducted = col_logical()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
-<p>Printing contents of <code>co_traffic_stops</code> object</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
-<pre><code>## # A tibble: 3,112,853 × 20
-##    raw_row_number      date       time  location county_name subject_age subject_race subject_sex officer_id_hash
-##    &lt;chr&gt;               &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          
-##  1 1947986|1947987     2013-06-19 NA    19, I70… Mesa County          26 hispanic     male        b942632983     
-##  2 1537576             2012-08-24 NA    254, H2… Jefferson …          NA &lt;NA&gt;         &lt;NA&gt;        f3d4f46927     
-##  3 1581594             2012-09-23 NA    115, I7… Logan Coun…          52 white        male        6e49e2fbc8     
-##  4 1009205             2011-08-25 NA    197, H8… Douglas Co…          32 white        female      eaea851669     
-##  5 1932619             2013-06-08 NA    107, H2… Kiowa Coun…          33 hispanic     male        d18e34d749     
-##  6 1179436             2011-12-23 NA    48, 384… Boulder Co…          NA &lt;NA&gt;         &lt;NA&gt;        b84c696aed     
-##  7 1326795             2012-04-07 NA    0, R250… Boulder Co…          39 white        male        4c0279748e     
-##  8 1786795             2013-03-03 NA    19, E47… Arapahoe C…          44 white        female      e6b5b9bb98     
-##  9 1552164             2012-09-02 NA    224, H2… Park County          NA &lt;NA&gt;         &lt;NA&gt;        43f1f150d3     
-## 10 1004281|1004282|10… 2011-08-21 NA    R2000, … Adams Coun…          32 hispanic     male        dd2f10b6f8     
-## # … with 3,112,843 more rows, and 11 more variables: officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;,
-## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
-## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+<div id="transforming-data" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Transforming Data</h1>
+<div id="tabulate-county-level-count-of-traffice-stops-by-race" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Tabulate county-level count of traffice stops by race</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="transforming-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute county-level count of traffic stops by race</span></span>
+<span id="cb10-2"><a href="transforming-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>co_county_summary<span class="ot">&lt;-</span>co_traffic_stops_2010 <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="transforming-data.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">group_by</span>(county_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="transforming-data.html#cb10-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">count</span>(subject_race) </span></code></pre></div>
+</div>
+<div id="reshape-the-data" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Reshape the data</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="transforming-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide<span class="ot">&lt;-</span>co_county_summary <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="transforming-data.html#cb11-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>subject_race, <span class="at">values_from=</span>n)</span></code></pre></div>
+</div>
+<div id="calculate-total-stops-for-each-county-in-co_county_summary_wide" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Calculate total stops for each county in <code>co_county_summary_wide</code></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="transforming-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide<span class="ot">&lt;-</span>co_county_summary_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="transforming-data.html#cb12-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="transforming-data.html#cb12-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">mutate</span>(<span class="at">total_stops=</span><span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="fu">where</span>(is.integer)), <span class="at">na.rm=</span><span class="cn">TRUE</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="transforming-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide</span></code></pre></div>
+<pre><code>## # A tibble: 65 × 9
+## # Rowwise:  county_name
+##    county_name       `asian/pacific islander` black hispanic other unknown white  `NA` total_stops
+##    &lt;chr&gt;                                &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;       &lt;int&gt;
+##  1 Adams County                           582  1208     8012    36     462 20225  3825       34350
+##  2 Alamosa County                          18    43     1537     9      30  2427   414        4478
+##  3 Arapahoe County                        540  1819     1862    12     300 11089  1898       17520
+##  4 Archuleta County                        17    28      392    71      41  4125   417        5091
+##  5 Baca County                             11    61      288    NA       6   971   174        1511
+##  6 Bent County                              8    46      314     1       6  1155   278        1808
+##  7 Boulder County                         345   192     1050    10     180  9682  1594       13053
+##  8 Broomfield County                       32    22      104     3      18   690   226        1095
+##  9 Chaffee County                          43    37      361     9      71  4806  1194        6521
+## 10 Cheyenne County                         10    38      147     3       2   821    85        1106
+## # … with 55 more rows</code></pre>
+</div>
+<div id="clean-co_county_summary_wide-and-assign-to-new-object" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Clean <code>co_county_summary_wide</code> and assign to new object</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="transforming-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a>co_county_black_stops<span class="ot">&lt;-</span>co_county_summary_wide <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="transforming-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">select</span>(county_name, black, total_stops) </span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="transforming-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a>co_county_black_stops<span class="ot">&lt;-</span>co_county_black_stops <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="transforming-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rename</span>(<span class="at">black_stops=</span>black)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="transforming-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a>co_county_black_stops<span class="ot">&lt;-</span>co_county_black_stops <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="transforming-data.html#cb17-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">filter</span>(county_name<span class="sc">!=</span><span class="st">&quot;NA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="transforming-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
+<pre><code>## # A tibble: 64 × 3
+## # Rowwise:  county_name
+##    county_name       black_stops total_stops
+##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
+##  1 Adams County             1208       34350
+##  2 Alamosa County             43        4478
+##  3 Arapahoe County          1819       17520
+##  4 Archuleta County           28        5091
+##  5 Baca County                61        1511
+##  6 Bent County                46        1808
+##  7 Boulder County            192       13053
+##  8 Broomfield County          22        1095
+##  9 Chaffee County             37        6521
+## 10 Cheyenne County            38        1106
+## # … with 54 more rows</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cleaning-and-filtering-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cleaning-and-filtering-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="defining-an-index-of-racial-bias-in-traffic-stops.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

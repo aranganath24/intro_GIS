@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Loading data | Introduction to Geographic Information Systems</title>
-  <meta name="description" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <title>8 Exporting maps | Introduction to Geographic Information Systems</title>
+  <meta name="description" content="8 Exporting maps | Introduction to Geographic Information Systems" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta property="og:title" content="8 Exporting maps | Introduction to Geographic Information Systems" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta name="twitter:title" content="8 Exporting maps | Introduction to Geographic Information Systems" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="cleaning-and-filtering-data.html"/>
+<link rel="prev" href="refining-and-formatting-the-colorado-bias-index-map.html"/>
+<link rel="next" href="summary-script.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -204,50 +204,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-data" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Loading data</h1>
-<p>Reading in data</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.dropbox.com/s/r7oydximjp46ylh/co_statewide_2020_04_01.csv?dl=1&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
-## cols(
-##   .default = col_character(),
-##   date = col_date(format = &quot;&quot;),
-##   time = col_logical(),
-##   subject_age = col_double(),
-##   arrest_made = col_logical(),
-##   citation_issued = col_logical(),
-##   warning_issued = col_logical(),
-##   contraband_found = col_logical(),
-##   search_conducted = col_logical()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
-<p>Printing contents of <code>co_traffic_stops</code> object</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
-<pre><code>## # A tibble: 3,112,853 × 20
-##    raw_row_number      date       time  location county_name subject_age subject_race subject_sex officer_id_hash
-##    &lt;chr&gt;               &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          
-##  1 1947986|1947987     2013-06-19 NA    19, I70… Mesa County          26 hispanic     male        b942632983     
-##  2 1537576             2012-08-24 NA    254, H2… Jefferson …          NA &lt;NA&gt;         &lt;NA&gt;        f3d4f46927     
-##  3 1581594             2012-09-23 NA    115, I7… Logan Coun…          52 white        male        6e49e2fbc8     
-##  4 1009205             2011-08-25 NA    197, H8… Douglas Co…          32 white        female      eaea851669     
-##  5 1932619             2013-06-08 NA    107, H2… Kiowa Coun…          33 hispanic     male        d18e34d749     
-##  6 1179436             2011-12-23 NA    48, 384… Boulder Co…          NA &lt;NA&gt;         &lt;NA&gt;        b84c696aed     
-##  7 1326795             2012-04-07 NA    0, R250… Boulder Co…          39 white        male        4c0279748e     
-##  8 1786795             2013-03-03 NA    19, E47… Arapahoe C…          44 white        female      e6b5b9bb98     
-##  9 1552164             2012-09-02 NA    224, H2… Park County          NA &lt;NA&gt;         &lt;NA&gt;        43f1f150d3     
-## 10 1004281|1004282|10… 2011-08-21 NA    R2000, … Adams Coun…          32 hispanic     male        dd2f10b6f8     
-## # … with 3,112,843 more rows, and 11 more variables: officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;,
-## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
-## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+<div id="exporting-maps" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Exporting maps</h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cleaning-and-filtering-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="refining-and-formatting-the-colorado-bias-index-map.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-script.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

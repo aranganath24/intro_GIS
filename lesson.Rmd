@@ -12,7 +12,7 @@ Printing contents of ```co_traffic_stops``` object
 co_traffic_stops
 ```
 
-# Basic data cleaning and filtering
+# Cleaning and filtering data
 
 ## Create a "Year" field
 
@@ -35,7 +35,7 @@ co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
 co_traffic_stops_2010
 ```
 
-# Data transformation
+# Transforming Data
 
 ## Tabulate county-level count of traffice stops by race
 
@@ -91,7 +91,7 @@ co_county_black_stops<-co_county_black_stops %>%
 co_county_black_stops
 ```
 
-# Define an index of racial bias in traffic stops
+# Defining an index of racial bias in traffic stops
 
 ## Read in and join 2010 census data to ```co_county_black_stops```
 
@@ -139,6 +139,12 @@ co_counties_census_trafficstops<-co_counties_census_trafficstops %>%
 
 ```{r}
 co_counties_census_trafficstops
+```
+
+## Compute summary statistics for the bias index
+
+```{r}
+describe(co_counties_census_trafficstops$excess_stops_index)
 ```
 
 ## Visualize county-level variation in the bias index using ```ggplot```
@@ -230,7 +236,7 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette="YlOrRd", 
                               textNA="No Data", 
-                              n=4, 
+                              n=5, 
                               style="jenks", 
                               midpoint=F)+
                   tm_layout(frame=FALSE, 
@@ -246,8 +252,8 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette="YlOrRd", 
                               textNA="No Data", 
-                              n=4, 
-                              breaks=c(-10,-5, 0, 2.5, 5),
+                              n=5, 
+                              breaks=c(-10,-5, 0, 2, 4, 5),
                               midpoint=F)+
                   tm_layout(frame=FALSE, 
                             legend.outside=TRUE)
@@ -257,13 +263,13 @@ traffic_map_race
 ### Make a map with custom colors 
 
 ```{r, fig.asp=0.5}
-my_colors<-c("white", "peachpuff", "red1", "red4")
+my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette=my_colors, 
                               textNA="No Data", 
-                              n=4, 
-                              breaks=c(-10,-5, 0, 2.5, 5))+
+                              n=5, 
+                              breaks=c(-10,-5, 0, 2, 4, 5))+
                   tm_layout(frame=FALSE, 
                             legend.outside=TRUE)
 traffic_map_race
@@ -298,14 +304,14 @@ county_shapefile_biasIndex<-county_shapefile_biasIndex %>% relocate(NAME)
 
 
 ```{r, fig.asp=0.5}
-my_colors<-c("white", "peachpuff", "red1", "red4")
+my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="excess_stops_index", 
               palette=my_colors,
               title="(Black % of Traffic Stops) - (Black % of Population)",
               textNA="No Data", 
-              n=4, 
-              breaks=c(-10,-5, 0.01, 2.5, 5))+
+              n=5, 
+              breaks=c(-10,-5, 0.01, 2, 4, 5))+
   tm_layout(frame=FALSE, 
             legend.outside=TRUE,
             legend.text.size=0.68,
@@ -332,7 +338,6 @@ traffic_map_race_labeled<-traffic_map_race+
 traffic_map_race_labeled
 ```
 
-
 ```{r}
 tmap_mode("view")
 
@@ -343,8 +348,9 @@ traffic_map_race
 tmap_mode("plot")
 ```
 
+# Exporting maps
 
-
+# Summary script
 
 
 lower bound on legend is inclusive, upper bound exclusive
