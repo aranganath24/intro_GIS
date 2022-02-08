@@ -30,4 +30,8 @@ refining-the-map-of-the-categorical-bias-variable
 exporting-maps
 summary-script
 using-tidycensus-to-extract-relevant-census-data
-step-1
+step-1-define-your-variables
+step-2-extract-the-variables-using-tidycensus
+step-3-clean-the-tidycensus-dataset
+step-4-define-new-variables
+step-5-finalize-the-dataset

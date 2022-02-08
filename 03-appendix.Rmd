@@ -2,18 +2,27 @@
 
 # Using tidycensus to extract relevant census data
 
-Introduction
+This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, it is recommended to prepare the census dataset required to create the relevant index beforehand, and simply provide students with the relevant dataset. However, if you are looking for a way to extract the census dataset within R, the following script can be used as a guide. 
+
+Load packages
 
 ```{r}
 library(tidycensus)
 library(tidyverse)
 ```
 
+Enter your census API key with the following code:
+
 ```{r, eval=FALSE}
 census_api_key("INSERT HERE")
 ```
 
-## Step 1
+## Step 1: Define your variables
+
+```{r}
+# Variable list for 2010 Decennial
+decennial_2010_variables<-load_variables(2010, "sf1")
+```
 
 ```{r}
 # Define and name variables for census API call
@@ -64,7 +73,11 @@ my_vars<-c(total_pop="P001001",
            black_women_15="PCT012B122",
            black_women_16="PCT012B123",
            black_women_17="PCT012B124")
-           
+```
+
+## Step 2: Extract the variables using tidycensus
+
+```{r}
 # Issue call to Census API
 co_counties_race<-get_decennial(
   geography="county", 
@@ -73,46 +86,52 @@ co_counties_race<-get_decennial(
   survey="sf1",
   output="wide",
   year=2010,
-  geometry=FALSE)           
+  geometry=FALSE)          
+```
 
-co_counties_race<-as.tibble(co_counties_race)
+## Step 3: Clean the tidycensus dataset
 
+```{r}
 # Remove state name from name field
 co_counties_race<-co_counties_race %>% separate(col=NAME, c("County", "x"), sep=",") %>% 
-                  select(-x)           
+                  select(-x)     
+```
 
+## Step 4: Define new variables
 
-# List variables
-names(co_counties_race)
-
-# Create new variables
-
+```{r}
 # Create variable for total over-17 population
+co_counties_race<-co_counties_race %>% 
+                      mutate(total_pop_over17=total_pop-totalpop_men_u5-totalpop_men_5to9-
+                             totalpop_men_10to14-totalpop_men_15to17-totalpop_women_u5-
+                             totalpop_women_5to9-totalpop_women_10to14-totalpop_women_15to17)
+```
 
-co_counties_race<-co_counties_race %>% mutate(total_pop_over17=total_pop-totalpop_men_u5-totalpop_men_5to9-
-                                                totalpop_men_10to14-totalpop_men_15to17-totalpop_women_u5-
-                                                totalpop_women_5to9-totalpop_women_10to14-totalpop_women_15to17)
-
+```{r}
 # Create variable for total over--17 black population
+co_counties_race<-co_counties_race %>% 
+                            mutate(total_black_pop_over17=black_totalpop-black_men_u1-black_men_1-
+                                  black_men_2-black_men_3-black_men_4-black_men_5-black_men_6-
+                                  black_men_7-black_men_8-black_men_9-black_men_10-black_men_11-
+                                  black_men_12-black_men_13-black_men_14-black_men_15-black_men_16-
+                                  black_men_17-black_women_u1-black_women_1-black_women_2-black_women_3-
+                                  black_women_4-black_women_5-black_women_6-black_women_7-black_women_8-
+                                  black_women_9-black_women_10-black_women_11-black_women_12-
+                                  black_women_13-black_women_14-black_women_15-black_women_16-
+                                  black_women_17)
+```
 
-co_counties_race<-co_counties_race %>% mutate(total_black_pop_over17=black_totalpop-black_men_u1-black_men_1-
-                                                black_men_2-black_men_3-black_men_4-black_men_5-black_men_6-
-                                                black_men_7-black_men_8-black_men_9-black_men_10-black_men_11-
-                                                black_men_12-black_men_13-black_men_14-black_men_15-black_men_16-
-                                                black_men_17-black_women_u1-black_women_1-black_women_2-black_women_3-
-                                                black_women_4-black_women_5-black_women_6-black_women_7-black_women_8-
-                                                black_women_9-black_women_10-black_women_11-black_women_12-
-                                                black_women_13-black_women_14-black_women_15-black_women_16-
-                                                black_women_17)
+## Step 5: Finalize the dataset
 
-# Select relevant variables
-co_counties_race_census_dataset<-co_counties_race %>% select(GEOID, County, total_pop, total_black_pop_over17, 
-                                              total_pop_over17)
+```{r}
+#Select relevant variables
+co_counties_census_2010<-co_counties_race %>% 
+                                    select(GEOID, County, total_pop, total_black_pop_over17, total_pop_over17)
 ```
 
 
 ```{r}
-co_counties_race_census_dataset
+co_counties_census_2010
 ```
 
 
