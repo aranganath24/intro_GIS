@@ -27,3 +27,5 @@ make-a-categorical-map
 refining-and-formatting-the-colorado-bias-index-map
 exporting-maps
 summary-script
+using-tidycensus-to-extract-relevant-census-data
+step-1

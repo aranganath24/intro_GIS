@@ -1,0 +1,7 @@
+# (APPENDIX) Appendix {-} 
+
+# Using tidycensus to extract relevant census data
+
+Introduction
+
+## Step 1
