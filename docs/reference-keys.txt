@@ -19,3 +19,8 @@ mapping-the-bias-index
 read-in-and-view-the-shapefile-of-co-counties
 join-co_counties_census_trafficestops-to-the-shapefile-of-colorado-counties
 display-the-bias-index-on-a-map-of-colorado-counties
+make-a-rough-draft-of-a-map
+make-a-map-with-custom-breaks
+make-a-map-with-custom-colors
+make-a-categorical-map
+refining-and-formatting-the-colorado-bias-index-map

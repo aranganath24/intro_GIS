@@ -223,7 +223,7 @@ county_shapefile_biasIndex
 
 ## Display the bias index on a map of Colorado counties
 
-Draft map 
+### Make a rough draft of a map 
 
 ```{r, fig.asp=0.5}
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
@@ -239,7 +239,7 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
 traffic_map_race
 ```
 
-Map with custom breaks
+### Make a map with custom breaks
 
 ```{r, fig.asp=0.5}
 traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
@@ -254,7 +254,7 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
 traffic_map_race
 ```
 
-Map with custom colors and custom breaks 
+### Make a map with custom colors 
 
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4")
@@ -269,7 +269,7 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
 traffic_map_race
 ```
 
-Categorical Map
+### Make a categorical map 
 
 Define categorical column 
 
@@ -290,6 +290,36 @@ categorical_map
 ```
 
 
+# Refining and formatting the Colorado bias index map
+
+```{r, fig.asp=0.5}
+my_colors<-c("white", "peachpuff", "red1", "red4")
+traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+  tm_polygons(col="excess_stops_index", 
+              palette=my_colors,
+              title="Traffic Stop Racial Bias Index",
+              textNA="No Data", 
+              n=4, 
+              breaks=c(-10,-5, 0.01, 2.5, 5))+
+  tm_layout(frame=FALSE, 
+            legend.outside=TRUE,
+            legend.text.size=0.68,
+            legend.title.size=0.75,
+            legend.title.fontface = 2)
+
+traffic_map_race
+```
+
+
+
+
+
+
+
+
+
+
+lower bound on legend is inclusive, upper bound exclusive
 
 
 
