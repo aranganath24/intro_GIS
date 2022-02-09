@@ -151,7 +151,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html#create-a-year-field"><i class="fa fa-check"></i><b>3.1</b> Create a “Year” field</a></li>
 <li class="chapter" data-level="3.2" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html#filter-by-year"><i class="fa fa-check"></i><b>3.2</b> Filter by year</a></li>
-<li class="chapter" data-level="3.3" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html#view-the-newly-created-co_traffic_stops_2010-object"><i class="fa fa-check"></i><b>3.3</b> View the newly created <code>co_traffic_stops_2010</code> object</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>4</b> Transforming Data</a>
 <ul>
@@ -222,36 +221,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="create-a-year-field" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Create a “Year” field</h2>
 <p>To create this new “Year” field within <code>co_traffic_stops</code>, we can use the <code>mutate</code> function, which is a <code>tidyverse</code> function that allows us to define new variables within a dataset, and the <code>substr</code> function, which allows us to extract a subset of a given string.</p>
-<p>The code below takes the</p>
+<p>The code below takes the data in the <code>co_traffic_stops</code> object, and then (<code>%&gt;%</code>) creates a new field named “Year” using the <code>mutate</code> function; this field is set equal to the the first four digits of the existing “date” field by passing <code>co_traffic_stops$data, 1, 4</code> to the <code>substr</code> function:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cleaning-and-filtering-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
 <span id="cb7-2"><a href="cleaning-and-filtering-data.html#cb7-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
 <span id="cb7-3"><a href="cleaning-and-filtering-data.html#cb7-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
+<p>We can check to make sure that the “Year” field has been successfully created by viewing <code>co_traffic_stops</code> in the R Studio data viewer with <code>View(co_traffic_stops)</code>.</p>
 </div>
 <div id="filter-by-year" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Filter by year</h2>
+<p>Now that we have created the “Year” field, we can use it to filter the 2010 observations, and assign the 2010 stops to a new object named <code>co_traffic_stops_2010</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cleaning-and-filtering-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
 <span id="cb8-2"><a href="cleaning-and-filtering-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
-</div>
-<div id="view-the-newly-created-co_traffic_stops_2010-object" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> View the newly created <code>co_traffic_stops_2010</code> object</h2>
+<p>When we print the contents of the newly created <code>co_traffic_stops_2010</code> object, note that the observations are now only from 2010.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
 <span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
-##    raw_row_number      date       time  location county_name subject_age subject_race subject_sex officer_id_hash
-##    &lt;chr&gt;               &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          
-##  1 188721|188722       2010-04-17 NA    2, 989,… Montezuma …          16 white        female      b737c978e4     
-##  2 187958              2010-04-17 NA    991, 32  Montezuma …          54 white        male        89066a8ce8     
-##  3 188451              2010-04-17 NA    9, 280,… Montezuma …          49 hispanic     male        7346f3aeb5     
-##  4 186989|186990|1869… 2010-04-17 NA    3, 277,… Montezuma …          16 white        male        3c174e7733     
-##  5 186997|186998|1869… 2010-04-17 NA    3, 277,… Montezuma …          37 white        male        3c174e7733     
-##  6 186993|186994|1869… 2010-04-17 NA    3, 277,… Montezuma …          39 white        male        3c174e7733     
-##  7 600865              2010-12-21 NA    164.5, … Mineral Co…         110 &lt;NA&gt;         &lt;NA&gt;        0e48f16a6a     
-##  8 600477              2010-12-21 NA    163, 29… Mineral Co…         110 &lt;NA&gt;         &lt;NA&gt;        c85c943fb9     
-##  9 36625|36626         2010-01-20 NA    312, H5… Pueblo Cou…          45 hispanic     male        5054b33e13     
-## 10 275                 2010-01-01 NA    127, H2… Chaffee Co…          17 white        female      750fd84f12     
-## # … with 470,274 more rows, and 12 more variables: officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;,
-## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
-## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;, Year &lt;chr&gt;</code></pre>
+##    date       Year  county_name      subject_race raw_row_number           time  location subject_age subject_sex
+##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;                    &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;      
+##  1 2010-04-17 2010  Montezuma County white        188721|188722            NA    2, 989,…          16 female     
+##  2 2010-04-17 2010  Montezuma County white        187958                   NA    991, 32           54 male       
+##  3 2010-04-17 2010  Montezuma County hispanic     188451                   NA    9, 280,…          49 male       
+##  4 2010-04-17 2010  Montezuma County white        186989|186990|186991|18… NA    3, 277,…          16 male       
+##  5 2010-04-17 2010  Montezuma County white        186997|186998|186999|18… NA    3, 277,…          37 male       
+##  6 2010-04-17 2010  Montezuma County white        186993|186994|186995|18… NA    3, 277,…          39 male       
+##  7 2010-12-21 2010  Mineral County   &lt;NA&gt;         600865                   NA    164.5, …         110 &lt;NA&gt;       
+##  8 2010-12-21 2010  Mineral County   &lt;NA&gt;         600477                   NA    163, 29…         110 &lt;NA&gt;       
+##  9 2010-01-20 2010  Pueblo County    hispanic     36625|36626              NA    312, H5…          45 male       
+## 10 2010-01-01 2010  Chaffee County   white        275                      NA    127, H2…          17 female     
+## # … with 470,274 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;, type &lt;chr&gt;,
+## #   violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;,
+## #   contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 </div>
 </div>
             </section>

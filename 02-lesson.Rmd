@@ -33,7 +33,7 @@ To make things tractable (after all, the entire dataset has more than 3,000,000 
 
 To create this new "Year" field within ```co_traffic_stops```, we can use the ```mutate``` function, which is a ```tidyverse``` function that allows us to define new variables within a dataset, and the ```substr``` function, which allows us to extract a subset of a given string.
 
-The code below takes the 
+The code below takes the data in the ```co_traffic_stops``` object, and then (``` %>% ```) creates a new field named "Year" using the ```mutate``` function; this field is set equal to the the first four digits of the existing "date" field by passing ```co_traffic_stops$data, 1, 4``` to the ```substr``` function: 
 
 ```{r}
 # Creates "Year" field, that contains the year of a given stop, in "co_traffic_stops"
@@ -41,14 +41,22 @@ co_traffic_stops<-co_traffic_stops %>%
                     mutate(Year=substr(co_traffic_stops$date, 1,4))
 ```
 
+We can check to make sure that the "Year" field has been successfully created by viewing ```co_traffic_stops``` in the R Studio data viewer with ```View(co_traffic_stops)```.
+
 ## Filter by year
+
+Now that we have created the "Year" field, we can use it to filter the 2010 observations, and assign the 2010 stops to a new object named ```co_traffic_stops_2010```:
 
 ```{r}
 # Filter 2010 observations and assign to a new object
 co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
 ```
 
-## View the newly created ```co_traffic_stops_2010``` object 
+```{r, echo=FALSE}
+co_traffic_stops_2010<-co_traffic_stops_2010 %>% relocate(date, Year, county_name, subject_race)
+```
+
+When we print the contents of the newly created ```co_traffic_stops_2010``` object, note that the observations are now only from 2010. 
 
 ```{r}
 # Print contents of "co_traffic_stops_2010" object
@@ -57,13 +65,25 @@ co_traffic_stops_2010
 
 # Transforming Data
 
+Now that we have created a new data object that contains information on traffic stops from our year of interest (2010), let's do a bit of work with the data so that we can find out the total number of traffic stops within each county, and the number of stops within each county in which the person stopped by the traffic police was Black. 
+
 ## Tabulate county-level count of traffic stops by race
+
+First, let's find out the racial breakdown of stops for each county, using the data in the "subject_race" field of ```co_traffice_stops_2010```.
+
+Below, we take ```co_traffic_stops_2010``` object, declare "county_name" as a grouping variable using ```group_by(county_name)```, and then count up the number of stops associated with each racial category within each county using ```count(subject_race)```. The dataset thats results from these operations is assigned to a new object named ```co_county_summary```:
 
 ```{r}
 # Compute county-level count of traffic stops by race
 co_county_summary<-co_traffic_stops_2010 %>% 
                     group_by(county_name) %>% 
                     count(subject_race) 
+```
+
+Let's print the first few rows from the dataset and observe its structure:
+
+```{r}
+co_county_summary
 ```
 
 ## Reshape the data

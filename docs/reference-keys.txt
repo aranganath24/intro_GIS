@@ -3,7 +3,6 @@ loading-data
 cleaning-and-filtering-data
 create-a-year-field
 filter-by-year
-view-the-newly-created-co_traffic_stops_2010-object
 transforming-data
 tabulate-county-level-count-of-traffic-stops-by-race
 reshape-the-data
