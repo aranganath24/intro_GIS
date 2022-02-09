@@ -21,10 +21,9 @@
   
   
 
-<meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-02-08" />
+<meta name="date" content="2022-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -219,20 +218,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="cleaning-and-filtering-data" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Cleaning and filtering data</h1>
+<p>To make things tractable (after all, the entire dataset has more than 3,000,000 observations), let’s focus our attention on Colorado traffic patrol from the year 2010; this also has the advantage of allowing us to eventually use 2010 census data in crafting our measure of racial bias in traffic stops. Note that currently, there isn’t a separate field which contains the year in which a particular stop took place; rather, there is a “date” field, in which the date is stored in YYYY-MM-DD format. The easiest way to extract observations from the year 2010 is therefore to first extract the YYYY information from the “date” field, and use that information to make a new “Year” field, which only contains the year of a given stop.</p>
 <div id="create-a-year-field" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Create a “Year” field</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="cleaning-and-filtering-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create &quot;year&quot; field</span></span>
-<span id="cb6-2"><a href="cleaning-and-filtering-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
+<p>To create this new “Year” field within <code>co_traffic_stops</code>, we can use the <code>mutate</code> function, which is a <code>tidyverse</code> function that allows us to define new variables within a dataset, and the <code>substr</code> function, which allows us to extract a subset of a given string.</p>
+<p>The code below takes the</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cleaning-and-filtering-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
+<span id="cb7-2"><a href="cleaning-and-filtering-data.html#cb7-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="cleaning-and-filtering-data.html#cb7-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
 </div>
 <div id="filter-by-year" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Filter by year</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cleaning-and-filtering-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
-<span id="cb7-2"><a href="cleaning-and-filtering-data.html#cb7-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cleaning-and-filtering-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
+<span id="cb8-2"><a href="cleaning-and-filtering-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
 </div>
 <div id="view-the-newly-created-co_traffic_stops_2010-object" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> View the newly created <code>co_traffic_stops_2010</code> object</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cleaning-and-filtering-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
-<span id="cb8-2"><a href="cleaning-and-filtering-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
+<span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
 ##    raw_row_number      date       time  location county_name subject_age subject_race subject_sex officer_id_hash
 ##    &lt;chr&gt;               &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          
@@ -299,7 +302,7 @@ gitbook.start({
 "link": "https://github.com/aranganath24/intro_GIS/blob/master/02-lesson.Rmd",
 "text": null
 },
-"download": null,
+"download": ["bookdownproj.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

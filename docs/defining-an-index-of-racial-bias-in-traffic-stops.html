@@ -21,10 +21,9 @@
   
   
 
-<meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-02-08" />
+<meta name="date" content="2022-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -222,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="read-in-and-join-2010-census-data-to-co_county_black_stops" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Read in and join 2010 census data to <code>co_county_black_stops</code></h2>
 <p>Read in census data</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb20-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_county_decennial_census.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb21-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_county_decennial_census.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
 ## cols(
@@ -232,8 +231,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   total_black_pop_over17 = col_double(),
 ##   total_pop_over17 = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_census_2010&quot;</span></span>
-<span id="cb22-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb22-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_census_2010&quot;</span></span>
+<span id="cb23-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb23-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 5
 ##    GEOID County          total_pop total_black_pop_over17 total_pop_over17
 ##    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
@@ -251,9 +250,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="join-census-data-to-co_county_black_stops" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Join census data to <code>co_county_black_stops</code></h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb24-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span><span class="fu">full_join</span>(co_county_black_stops, co_counties_census_2010,</span>
-<span id="cb24-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb24-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;county_name&quot;</span><span class="ot">=</span><span class="st">&quot;County&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb25-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb25-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span><span class="fu">full_join</span>(co_county_black_stops, co_counties_census_2010,</span>
+<span id="cb25-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb25-2" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;county_name&quot;</span><span class="ot">=</span><span class="st">&quot;County&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb26-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 7
 ## # Rowwise:  county_name
 ##    county_name       black_stops total_stops GEOID total_pop total_black_pop_over17 total_pop_over17
@@ -272,10 +271,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="define-the-variables-that-will-be-used-in-the-bias-index" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Define the variables that will be used in the bias index</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb27-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb27-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">black_stop_pct=</span>((black_stops<span class="sc">/</span>total_stops)<span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb27-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb27-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">black_pop_pct=</span>((total_black_pop_over17<span class="sc">/</span>total_pop_over17)<span class="sc">*</span><span class="dv">100</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb28-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb28-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb28-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="fu">mutate</span>(<span class="at">black_stop_pct=</span>((black_stops<span class="sc">/</span>total_stops)<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb28-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">black_pop_pct=</span>((total_black_pop_over17<span class="sc">/</span>total_pop_over17)<span class="sc">*</span><span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb29-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 9
 ## # Rowwise:  county_name
 ##    county_name       black_stops total_stops GEOID total_pop total_black_pop_ove… total_pop_over17 black_stop_pct
@@ -294,9 +293,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="calculate-the-bias-index" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Calculate the bias index</h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb30-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb30-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mutate</span>(<span class="at">excess_stops_index=</span>black_stop_pct<span class="sc">-</span>black_pop_pct)</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb31-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb31-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb31-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mutate</span>(<span class="at">excess_stops_index=</span>black_stop_pct<span class="sc">-</span>black_pop_pct)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb32-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 10
 ## # Rowwise:  county_name
 ##    county_name       black_stops total_stops GEOID total_pop total_black_pop_ove… total_pop_over17 black_stop_pct
@@ -315,26 +314,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="compute-summary-statistics-for-the-bias-index" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Compute summary statistics for the bias index</h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(co_counties_census_trafficstops<span class="sc">$</span>excess_stops_index)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(co_counties_census_trafficstops<span class="sc">$</span>excess_stops_index)</span></code></pre></div>
 <pre><code>##    vars  n mean   sd median trimmed  mad   min  max range  skew kurtosis   se
 ## X1    1 62 0.53 2.04   0.47    0.65 0.59 -9.84 4.26  14.1 -2.45    10.67 0.26</code></pre>
 </div>
 <div id="visualize-county-level-variation-in-the-bias-index-using-ggplot" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> Visualize county-level variation in the bias index using <code>ggplot</code></h2>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb35-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb35-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(county_name, <span class="st">&quot; County&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-1" aria-hidden="true" tabindex="-1"></a>bias_graph<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">drop_na</span>(excess_stops_index) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb36-4"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(County, excess_stops_index), <span class="at">y=</span>excess_stops_index))<span class="sc">+</span></span>
-<span id="cb36-5"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb36-6"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Racial Discrimination in Police Stops, by County (Colorado)&quot;</span>, <span class="at">x=</span><span class="st">&quot;County&quot;</span>, <span class="at">y=</span><span class="st">&quot;Bias Index=</span><span class="sc">\n</span><span class="st">Black Percentage of Overall Traffic Stops – Black Percentage of Overall Over-17 Population&quot;</span>)<span class="sc">+</span></span>
-<span id="cb36-7"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))<span class="sc">+</span>      </span>
-<span id="cb36-8"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">7.5</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">5</span>, <span class="fl">7.5</span>))<span class="sc">+</span></span>
-<span id="cb36-9"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">expand_limits</span>(<span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb36-10"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>)) </span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-1" aria-hidden="true" tabindex="-1"></a>bias_graph</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-35-1.png" width="768" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove</span>(county_name, <span class="st">&quot; County&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-1" aria-hidden="true" tabindex="-1"></a>bias_graph<span class="ot">&lt;-</span>co_counties_census_trafficstops <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">drop_na</span>(excess_stops_index) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb37-4"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(County, excess_stops_index), <span class="at">y=</span>excess_stops_index))<span class="sc">+</span></span>
+<span id="cb37-5"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb37-6"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Racial Discrimination in Police Stops, by County (Colorado)&quot;</span>, <span class="at">x=</span><span class="st">&quot;County&quot;</span>, <span class="at">y=</span><span class="st">&quot;Bias Index=</span><span class="sc">\n</span><span class="st">Black Percentage of Overall Traffic Stops – Black Percentage of Overall Over-17 Population&quot;</span>)<span class="sc">+</span></span>
+<span id="cb37-7"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>))<span class="sc">+</span>      </span>
+<span id="cb37-8"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">7.5</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="dv">0</span>, <span class="fl">2.5</span>, <span class="dv">5</span>, <span class="fl">7.5</span>))<span class="sc">+</span></span>
+<span id="cb37-9"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">expand_limits</span>(<span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb37-10"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb38-1" aria-hidden="true" tabindex="-1"></a>bias_graph</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
 </div>
 </div>
             </section>
@@ -385,7 +384,7 @@ gitbook.start({
 "link": "https://github.com/aranganath24/intro_GIS/blob/master/02-lesson.Rmd",
 "text": null
 },
-"download": null,
+"download": ["bookdownproj.pdf"],
 "search": {
 "engine": "fuse",
 "options": null

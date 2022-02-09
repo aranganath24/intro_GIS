@@ -1,6 +1,6 @@
 --- 
 title: "Introduction to Geographic Information Systems"
-author: "Aditya Ranganath"
+author: ""
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
