@@ -42,7 +42,7 @@ co_traffic_stops_2010
 
 # Transforming Data
 
-## Tabulate county-level count of traffice stops by race
+## Tabulate county-level count of traffic stops by race
 
 ```{r}
 # Compute county-level count of traffic stops by race
@@ -114,7 +114,7 @@ co_counties_census_2010<-read_csv("https://www.dropbox.com/s/kq94707fmcdbc0w/co_
 co_counties_census_2010
 ```
 
-## Join census data to ```co_counties_census_2010```
+## Join census data to ```co_county_black_stops```
 
 ```{r}
 co_counties_census_trafficstops<-full_join(co_county_black_stops, co_counties_census_2010,
@@ -167,7 +167,7 @@ bias_graph<-co_counties_census_trafficstops %>%
             ggplot()+
             geom_col(aes(x=reorder(County, excess_stops_index), y=excess_stops_index))+
             coord_flip()+
-            labs(title="Racial Discrimination in Police Stops, by County (Colorado)", x="County", y="Bias Index=\nBlack Percentage of Overall Traffice Stops – Black Percentage of Overall Over-17 Population")+
+            labs(title="Racial Discrimination in Police Stops, by County (Colorado)", x="County", y="Bias Index=\nBlack Percentage of Overall Traffic Stops – Black Percentage of Overall Over-17 Population")+
             theme(axis.title.x = element_text(size = 9))+      
             scale_y_continuous(breaks=c(-10, -7.5, -5, -2.5, 0, 2.5, 5, 7.5))+
             expand_limits(y=c(-10,10))+
@@ -223,7 +223,7 @@ tmap_mode("plot")
 co_counties_map
 ```
 
-## Join ```co_counties_census_trafficestops``` to the shapefile of Colorado counties
+## Join ```co_counties_census_trafficstops``` to the shapefile of Colorado counties
 
 ```{r}
 county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_trafficstops, 
@@ -239,7 +239,7 @@ county_shapefile_biasIndex
 ### Make a rough draft of a map 
 
 ```{r, fig.asp=0.5}
-traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+traffic_stop_bias_map<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette="YlOrRd", 
                               textNA="No Data", 
@@ -249,13 +249,13 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                   tm_layout(frame=FALSE, 
                             legend.outside=TRUE)
 
-traffic_map_race
+traffic_stop_bias_map
 ```
 
 ### Make a map with custom breaks
 
 ```{r, fig.asp=0.5}
-traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+traffic_stop_bias_map<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette="YlOrRd", 
                               textNA="No Data", 
@@ -264,14 +264,14 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                               midpoint=F)+
                   tm_layout(frame=FALSE, 
                             legend.outside=TRUE)
-traffic_map_race
+traffic_stop_bias_map
 ```
 
 ### Make a map with custom colors 
 
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
-traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+traffic_stop_bias_map<-tm_shape(county_shapefile_biasIndex)+
                   tm_polygons(col="excess_stops_index", 
                               palette=my_colors, 
                               textNA="No Data", 
@@ -279,7 +279,7 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                               breaks=c(-10,-5, 0, 2, 4, 5))+
                   tm_layout(frame=FALSE, 
                             legend.outside=TRUE)
-traffic_map_race
+traffic_stop_bias_map
 ```
 
 ### Make a categorical map 
@@ -313,7 +313,7 @@ county_shapefile_biasIndex<-county_shapefile_biasIndex %>% relocate(NAME)
 
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
-traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
+traffic_stop_bias_map<-tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="excess_stops_index", 
               palette=my_colors,
               title="(Black % of Traffic Stops) - (Black % of Population)",
@@ -335,21 +335,21 @@ traffic_map_race<-tm_shape(county_shapefile_biasIndex)+
                     position=c(0.02,0.01), # Specifies location of map credits
                     size=0.38)
 
-traffic_map_race
+traffic_stop_bias_map
 ```
 
 
 ```{r}
-traffic_map_race_labeled<-traffic_map_race+
+traffic_stop_bias_labeled<-traffic_stop_bias_map+
                           tm_text("NAME", size=0.30, fontface=2)
 
-traffic_map_race_labeled
+traffic_stop_bias_labeled
 ```
 
 ```{r}
 tmap_mode("view")
 
-traffic_map_race
+traffic_stop_bias_labeled
 ```
 
 ```{r}
@@ -380,10 +380,124 @@ categorical_map
 # Exporting maps
 
 ```{r}
-tmap_save(traffic_map_race_labeled, "co_traffic_stop_bias_map.png")
+tmap_save(traffic_stop_bias_labeled, "traffic_stop_bias_labeled.png")
 ```
 
 # Summary script
+
+```{r, eval=F}
+# Read in Stanford police data for Colorado and assign to object named "co_traffic_stops" 
+co_traffic_stops<-read_csv("co_statewide_2020_04_01.csv")
+
+# Create "Year" field based on existing "date" field
+co_traffic_stops<-co_traffic_stops %>% 
+                    mutate(Year=substr(co_traffic_stops$date, 1,4))# Filter 2010 observations and assign to a # 
+# Filter 2010 observations and assign to a new object named "co_traffic_stops_2010"
+co_traffic_stops_2010<-co_traffic_stops %>% filter(Year==2010)
+
+# Compute county-level count of traffic stops by race and assign to object named "co_county_summary"
+co_county_summary<-co_traffic_stops_2010 %>% 
+                    group_by(county_name) %>% 
+                    count(subject_race) 
+
+# Reshape the data so that the racial categories are transposed
+# from rows into columns and assign the result to an object named
+# "co_county_summary_wide"
+co_county_summary_wide<-co_county_summary %>% 
+                        pivot_wider(names_from=subject_race, values_from=n)
+
+
+# Creates a new column named "total_stops" in "co_county_summary_wide" that
+# contains information on the total number of stops for each county (across all racial categories)
+co_county_summary_wide<-co_county_summary_wide %>% 
+                        rowwise() %>% 
+                        mutate(total_stops=sum(c_across(where(is.integer)), na.rm=TRUE))
+
+# Selects "county_name", "black", and "total_stops" variables from "co_county_summary_wide";
+# then renames the "black" variable to "black_stops" for clarity; then removes counties that
+# are named "NA" due to an error in the dataset
+co_county_black_stops<-co_county_summary_wide %>%
+                        select(county_name, black, total_stops) %>% 
+                        rename(black_stops=black) %>% 
+                        filter(county_name!="NA")
+
+# Read in the pre-prepared demographic data from the 2010 decennial census and assign
+# to an object named "co_counties_census_2010"
+co_counties_census_2010<-read_csv("co_county_decennial_census.csv")
+
+# Join "co_counties_census_2010" to "co_county_black_stops" and assign the result
+# to an object named "co_counties_census_trafficstops"
+co_counties_census_trafficstops<-full_join(co_county_black_stops, co_counties_census_2010,
+                                           by=c("county_name"="County"))
+
+# Use the information in "co_counties_census_trafficstops" to define new variables that will be used
+# to compute the racial bias index: "black_stop_pct" (the black percentage of overall traffic stops within
+# a county) and "black_pop_pct" (the black percentage of the county's over-17 population)
+
+co_counties_census_trafficstops<-
+  co_counties_census_trafficstops %>% 
+    mutate(black_stop_pct=((black_stops/total_stops)*100),
+          black_pop_pct=((total_black_pop_over17/total_pop_over17)*100))
+
+# Calculate the bias index and include it as a new variable in "co_counties_census_trafficstops"
+co_counties_census_trafficstops<-co_counties_census_trafficstops %>% 
+                                  mutate(excess_stops_index=black_stop_pct-black_pop_pct)
+
+# Reads in Colorado county shapefile and assigns the shapefile to a new object named 
+# "co_counties_shapefile"
+co_counties_shapefile<-st_read("tl_2019_08_county.shp")
+
+# Join "co_counties_census_trafficstops" to "co_counties_shapefile" using "GEOID" as the join field; 
+# assign the result to a new object named "county_shapefile_biasIndex"
+county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_trafficstops, 
+                                   by="GEOID")
+
+# make a map of the continuous "excess_stops_index" 
+my_colors<-c("white", "peachpuff", "red1", "red4", "navy") # create color vector
+traffic_stop_bias_map<- # object assignment; assigns map to object named "traffic_stop_bias_map"
+  tm_shape(county_shapefile_biasIndex)+ # declares the spatial object that is the basis for the map
+  tm_polygons(col="excess_stops_index", # declares variable containing data to be mapped
+              palette=my_colors, # sets color scheme (based on "my_colors" vector)
+              title="(Black % of Traffic Stops) - (Black % of Population)", # sets legend subtitle
+              textNA="No Data", # Sets the name of the legend label for "NA" values
+              n=5, # defines the number of intervals in the legend
+              breaks=c(-10,-5, 0.01, 2, 4, 5))+ # sets custom legend breaks
+  tm_layout(frame=FALSE, # removes bounding box
+            legend.outside=TRUE, # sets legend outside (invisible) bounding box
+            legend.text.size=0.68, # sets size of legend text elements
+            legend.title.size=0.75, # sets size of legend main title
+            title="Traffic Stop Racial Bias Index", # sets legend's main title
+            title.size=0.75, # sets relative size of legend's subtitle
+            title.fontface = 2, # Makes legend title bold
+            main.title="Racial Bias in Traffic Stops, by County (Colorado)", # specifies main title of map
+            main.title.position=0.03, # specifies position of main title
+            main.title.size=1, # specifies size of main title
+            attr.outside=TRUE)+ # specifies that map credits should be placed outside bounding box
+  tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
+                    position=c(0.02,0.01), # Specifies location of map credits
+                    size=0.38) # sets title of credits
+
+# Prints map
+traffic_stop_bias_map
+
+```
+
+```{r, echo=FALSE}
+traffic_stop_bias_map
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 lower bound on legend is inclusive, upper bound exclusive
