@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-2-extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Step 2: Extract the variables using tidycensus</a></li>
 <li class="chapter" data-level="A.3" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-3-clean-the-tidycensus-dataset"><i class="fa fa-check"></i><b>A.3</b> Step 3: Clean the tidycensus dataset</a></li>
 <li class="chapter" data-level="A.4" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-4-define-new-variables"><i class="fa fa-check"></i><b>A.4</b> Step 4: Define new variables</a></li>
-<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-5-finalize-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Step 5: Finalize the dataset</a></li>
+<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-5-finalize-and-export-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Step 5: Finalize and export the dataset</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -222,8 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="read-in-and-join-2010-census-data-to-co_county_black_stops" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Read in and join 2010 census data to <code>co_county_black_stops</code></h2>
 <p>Read in census data</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in census data and assigns to object named &quot;co_counties_census_2010&quot;</span></span>
-<span id="cb20-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb20-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;https://www.dropbox.com/s/kq94707fmcdbc0w/co_county_decennial_census.csv?dl=1&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb20-1" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_county_decennial_census.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
 ## cols(
@@ -335,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-9"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">expand_limits</span>(<span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>))<span class="sc">+</span></span>
 <span id="cb36-10"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb36-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>)) </span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-1" aria-hidden="true" tabindex="-1"></a>bias_graph</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-25-1.png" width="768" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-1.png" width="768" /></p>
 </div>
 </div>
             </section>

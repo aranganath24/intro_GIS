@@ -34,4 +34,4 @@ step-1-define-your-variables
 step-2-extract-the-variables-using-tidycensus
 step-3-clean-the-tidycensus-dataset
 step-4-define-new-variables
-step-5-finalize-the-dataset
+step-5-finalize-and-export-the-dataset

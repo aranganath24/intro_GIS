@@ -2,7 +2,12 @@
 
 Reading in data
 
-```{r, cache=TRUE}
+```{r, eval=FALSE}
+# Read in Stanford police data for Colorado and assign to object named "co_traffic_stops"
+co_traffic_stops<-read_csv("co_statewide_2020_04_01.csv")
+```
+
+```{r, cache=TRUE, echo=F}
 co_traffic_stops<-read_csv("https://www.dropbox.com/s/r7oydximjp46ylh/co_statewide_2020_04_01.csv?dl=1")
 ```
 
@@ -73,7 +78,6 @@ co_county_black_stops<-co_county_summary_wide %>%
                         
 ```
 
-
 ```{r}
 co_county_black_stops<-co_county_black_stops %>%
                         rename(black_stops=black)
@@ -86,7 +90,6 @@ co_county_black_stops<-co_county_black_stops %>%
 
 ```
 
-
 ```{r}
 co_county_black_stops
 ```
@@ -97,7 +100,11 @@ co_county_black_stops
 
 Read in census data
 
-```{r}
+```{r, eval=FALSE}
+co_counties_census_2010<-read_csv("co_county_decennial_census.csv")
+```
+
+```{r, echo=FALSE}
 # Read in census data and assigns to object named "co_counties_census_2010"
 co_counties_census_2010<-read_csv("https://www.dropbox.com/s/kq94707fmcdbc0w/co_county_decennial_census.csv?dl=1") 
 ```
@@ -371,6 +378,10 @@ categorical_map
 ```
 
 # Exporting maps
+
+```{r}
+tmap_save(traffic_map_race_labeled, "co_traffic_stop_bias_map.png")
+```
 
 # Summary script
 

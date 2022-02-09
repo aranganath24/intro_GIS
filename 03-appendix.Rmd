@@ -121,7 +121,7 @@ co_counties_race<-co_counties_race %>%
                                   black_women_17)
 ```
 
-## Step 5: Finalize the dataset
+## Step 5: Finalize and export the dataset
 
 ```{r}
 #Select relevant variables
@@ -129,12 +129,14 @@ co_counties_census_2010<-co_counties_race %>%
                                     select(GEOID, County, total_pop, total_black_pop_over17, total_pop_over17)
 ```
 
-
 ```{r}
 co_counties_census_2010
 ```
 
-
+```{r, eval=FALSE}
+# Export the data
+write_csv(co_counties_census_2010, "co_counties_census_2010.csv")
+```
 
 
 
