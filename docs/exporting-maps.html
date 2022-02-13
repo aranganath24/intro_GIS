@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-12" />
+<meta name="date" content="2022-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"/>
-<link rel="next" href="summary-script.html"/>
+<link rel="next" href="summary-scripts.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -182,11 +182,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><i class="fa fa-check"></i><b>7</b> Refining and formatting the maps of the Colorado traffic-stop bias index</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-map-of-the-continuous-bias-variable"><i class="fa fa-check"></i><b>7.1</b> Refining the map of the continuous bias variable</a></li>
-<li class="chapter" data-level="7.2" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-map-of-the-categorical-bias-variable"><i class="fa fa-check"></i><b>7.2</b> Refining the map of the categorical bias variable</a></li>
+<li class="chapter" data-level="7.1" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-map-of-the-continuous-bias_index-variable"><i class="fa fa-check"></i><b>7.1</b> Refining the map of the continuous “bias_index” variable</a></li>
+<li class="chapter" data-level="7.2" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-categorical-map"><i class="fa fa-check"></i><b>7.2</b> Refining the categorical map</a></li>
+<li class="chapter" data-level="7.3" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#making-a-dynamic-map-of-the-bias-index"><i class="fa fa-check"></i><b>7.3</b> Making a dynamic map of the bias index</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="exporting-maps.html"><a href="exporting-maps.html"><i class="fa fa-check"></i><b>8</b> Exporting maps</a></li>
-<li class="chapter" data-level="9" data-path="summary-script.html"><a href="summary-script.html"><i class="fa fa-check"></i><b>9</b> Summary script</a></li>
+<li class="chapter" data-level="9" data-path="summary-scripts.html"><a href="summary-scripts.html"><i class="fa fa-check"></i><b>9</b> Summary scripts</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-to-prepare-data-for-mapping"><i class="fa fa-check"></i><b>9.1</b> Summary script to prepare data for mapping</a></li>
+<li class="chapter" data-level="9.2" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-map-of-continuous-bias_index-variable"><i class="fa fa-check"></i><b>9.2</b> Summary script for map of continuous “bias_index” variable</a></li>
+<li class="chapter" data-level="9.3" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-categorical-map"><i class="fa fa-check"></i><b>9.3</b> Summary script for categorical map</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using tidycensus to extract relevant census data</a>
 <ul>
@@ -217,10 +223,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="exporting-maps" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Exporting maps</h1>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="exporting-maps.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(traffic_bias_map_continuous_labeled, <span class="st">&quot;traffic_bias_map_continuous_labeled.png&quot;</span>)</span></code></pre></div>
+<p>Once you have made a map and are satisfied with its appearance, it is straightforward to export the map from R Studio to a local directory on your computer, where you can then embed your map in papers, projects, presentations, or websites.</p>
+<p>The easiest way to export maps is by using the <code>tmap_save</code> function. This function allows users to specify the desired dimensions and resolution of the exported map, among other things. For our purposes, we’ll simply export the map assigned to <code>traffic_bias_map_continuous_labeled</code> using the default settings. Below, the first argument is the name of the object to which the map we’d like to export has been assigned; here, that is <code>traffic_bias_map_continuous_labeled</code>. The second argument is the desired file name and extension; it is possible to pick any number of extensions, such as PDF, jpeg, and png. Here, we’ll export the map as a png file.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exporting-maps.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(traffic_bias_map_continuous_labeled, <span class="st">&quot;traffic_bias_map_continuous_labeled.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Map saved to traffic_bias_map_continuous_labeled.png</code></pre>
 <pre><code>## Resolution: 2448.943 by 1800.777 pixels</code></pre>
 <pre><code>## Size: 8.163142 by 6.002591 inches (300 dpi)</code></pre>
+<p>Because we didn’t specify the path to a directory in the second argument, the map will be exported to our working directory.</p>
+<p>Note that if we’d like to export a dynamic/interactive map, we can use the same code as above; the only difference is that we would use an “html” extension. The interactive map would then be exported to our working directory as an html file, which can then easily be uploaded to a website.</p>
 </div>
             </section>
 
@@ -228,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="summary-script.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="summary-scripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

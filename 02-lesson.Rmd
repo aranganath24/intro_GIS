@@ -698,7 +698,7 @@ traffic_bias_map_categorical
 
 In this section, we'll continue to refine and customize these maps (for example, by adding titles, map credits, county labels, and labels and titles for the legend). 
 
-## Refining the map of the continuous bias variable
+## Refining the map of the continuous "bias_index" variable
 
 ```{r, echo=F}
 county_shapefile_biasIndex<-county_shapefile_biasIndex %>% relocate(NAME)
@@ -747,42 +747,27 @@ Now, let's unpack the various components of the code.
 * The first function that is called is ```tm_shape```; we pass the name of the object that contains the data we want to map to this function ```county_shapefile_biasIndex```, which yields ```tm_shape(county_shapefile_biasIndex)```. 
 * After specifying our dataset with ```tm_shape```, we call the ```tm_polygons``` function. The ```tm_polygons``` function takes several arguments, beginning with ```col="bias_index``` (which specifies the column within ```county_shapefile_biasIndex``` that we want to map), and ```palette=my_colors``` (which specifies that we want to use the colors from the ```my_colors``` vector to represent different interval ranges for the "bias_index" variable). Next, in ```title="(Black % of Traffic Stops) - (Black % of Population)```, we define a subtitle for the legend, so that viewers of the map can discern the intuition behind the bias index that is being mapped. Finally, ```textNA="No Data"``` defines the legend label for "NA" values, and ```breaks=c(-10,-5, 0.01, 2, 4, 5)``` sets the data intervals, which are communicated in the map's legend. Notice that instead of setting one of the break points at 0, this version of the map uses 0.01; that is because the lower bound on data intervals is inclusive, while the upper bound is exclusive (i.e. a hypothetical county with a bias index of exactly 4.00 would be assigned the color that corresponds with the 4.00 to 5.00 legend interval, not the one corresponding to 2.00 to 4.00). As a result, a county with a bias index value of exactly zero would be grouped with counties with a positive value on the index, when it would make more sense to group such a county with counties with negative values on the index. Setting the break point slightly above 0 avoids a scenario where a county with an index value of exactly 0 is grouped together with counties with an index value greater than zero. 
 * The next *tmap* function that is called is the ```tm_layout``` function, which allows us to specify various parameters that shape the map's layout. Recall from before that ```frame=FALSE``` removes the map's bounding box (which surrounds the area displayed on the map), while ```legend.outside=TRUE``` places the legend outside the map's domain, so that it doesn't overlap with any of the counties that are displayed. Next, ```legend.text.size=0.68``` sets the size for legend text elements (that are not part of the legend's title or subtitle), while ```legend.title.size=0.75``` sets the size of the legend's subtitle, and ```title.size=0.75``` sets the size of the text in the legend's main title. Note that when setting the size of text elements on your map, the best approach to use is usually trial and error; start with an arbitrary size, and then iterate from there. ```title="Traffic Stop Racial Bias Index"``` sets the text for legend's main title, and ```title.fontface = 2``` sets the legend's main title text in boldface. ```main.title="Racial Bias in Traffic Stops, by County (Colorado)"``` sets the map's main title, ```main.title.position=0.03``` sets the position/justification of the title, and ```main.title.size=1``` sets the size of the main title's text. Finally, ```attr.outside=TRUE``` specifies that any map elements other than the legend (such as the map credits) are to be placed outside the map boundary. 
-* The ```tm_credits``` function is a *tmap* function which allows us to add a credits section on the map, to convey information about things such as the name of the map author and the sources of the data used to create the map. In the code above, the first argument to the ```tm_credits``` function is simply the text we would like to include in the credits; new lines are indicated by text that reads ```\n```. Second, 
+* The ```tm_credits``` function is a *tmap* function which allows us to add a credits section on the map, to convey information about things such as the name of the map author and the sources of the data used to create the map. In the code above, the first argument to the ```tm_credits``` function is simply the text we would like to include in the credits; new lines are indicated by text that reads ```\n```. Second, ```position=c(0.02,0.01)``` specifies the position of the credits section with respect to the map (the first element of the vector, 0.02, can be thought of as the x-coordinate, while the second element, 0.01, can be thought of as a y-coordinate); these coordinates place the credits below the map on the left-hand side. Finally, ```size=0.38``` specifies the size of the text used in the credits section. 
 
-
-
-
-
-
-lower bound on legend is inclusive, upper bound exclusive
-
-
-
-
-
-
-
+Notice that our map currently does not have labels for county names; these can easily be added using the ```tm_text``` function that is part of the *tmap* package. Instead of rewriting all of the code from above, we can simply append the ```tm_text``` function and its arguments to the map object we already created above (```traffic_bias_map_continuous```). The code below takes the existing ```traffic_bias_map_continous``` object, which we updated above, and adds a line of code that reads ```tm_text("NAME", size=0.30, fontface=2)```. This labels map's polygons using information from the underlying dataset's "NAME" field (which contains county names), using a text size of 0.3; the argument ```fontface=2``` specifies that the county name labels are to be printed in boldface. No other changes  or additions are made to ```traffic_bias_map_continuous```. The version of the map that is labelled is assigned to a new object, named ```traffic_bias_map_continuous_labeled```. 
 
 
 ```{r}
 traffic_bias_map_continuous_labeled<-
   traffic_bias_map_continuous+
     tm_text("NAME", size=0.30, fontface=2)
+```
 
+When we open ```traffic_bias_map_continuous_labeled```, we can see the map with labels:
+
+```{r}
+# prints contents of "traffic_bias_map_continuous_labeled"
 traffic_bias_map_continuous_labeled
 ```
 
-```{r}
-tmap_mode("view")
+## Refining the categorical map
 
-traffic_bias_map_continuous_labeled
-```
-
-```{r}
-tmap_mode("plot")
-```
-
-## Refining the map of the categorical bias variable 
+The code below refines the categorical map we created in Section 6.3.4. The map is largely the same as the one created in that section, but adds and customizes the appearance of the maps title using arguments to the  ```tm_layout``` function that we have already discussed in the context of refining the continuous map, and also adds a map crredits section that is identical to the one we used for the continuous map in the previous subsection. The map is assigned to the ```traffic_bias_map_categorical``` object, which overwrites the map we previously assigned to this object in Section 6.3.4. 
 
 ```{r}
 traffic_bias_map_categorical<-
@@ -801,18 +786,48 @@ traffic_bias_map_categorical<-
               position=c(0.02,0.01), # Specifies location of map credits
              size=0.38)+
   tm_text("NAME", size=0.30, fontface=2)
-      
-                    
+```
+
+We can print the contents of ```traffic_bias_map_categorical``` to view the updated map in the "Plots" window:
+
+```{r, fig.asp=0.5}
+# prints contents of "traffic_bias_map_categorical"
 traffic_bias_map_categorical
 ```
 
+## Making a dynamic map of the bias index
+
+Recall from Section 6.1 that it is possible to render both static maps and interactive maps using the *tmap* package. Thus far, our focus has been on creating static maps to display county-level variation in the "bias_index" variable (or the derivative "apparent_bias" variable). It's worth briefly reminding ourselves that we can easily turn these static maps into dynamic maps by changing the *tmap* mode to "view." For example, let's say we want to display the map assigned to ```traffic_bias_map_continuous``` in a dynamic setting. 
+
+```{r}
+tmap_mode("view")
+```
+
+```{r}
+traffic_bias_map_continuous
+```
+
+```{r, echo=FALSE}
+tmap_mode("plot")
+```
+
 # Exporting maps
+
+Once you have made a map and are satisfied with its appearance, it is straightforward to export the map from R Studio to a local directory on your computer, where you can then embed your map in papers, projects, presentations, or websites. 
+
+The easiest way to export maps is by using the ```tmap_save``` function. This function allows users to specify the desired dimensions and resolution of the exported map, among other things. For our purposes, we'll simply export the map assigned to ```traffic_bias_map_continuous_labeled``` using the default settings. Below, the first argument is the name of the object to which the map we'd like to export has been assigned; here, that is ```traffic_bias_map_continuous_labeled```. The second argument is the desired file name and extension; it is possible to pick any number of extensions, such as PDF, jpeg, and png. Here, we'll export the map as a png file. 
 
 ```{r}
 tmap_save(traffic_bias_map_continuous_labeled, "traffic_bias_map_continuous_labeled.png")
 ```
 
-# Summary script
+Because we didn't specify the path to a directory in the second argument, the map will be exported to our working directory.
+
+Note that if we'd like to export a dynamic/interactive map, we can use the same code as above; the only difference is that we would use an "html" extension. The interactive map would then be exported to our working directory as an html file, which can then easily be uploaded to a website. 
+
+# Summary scripts
+
+## Summary script to prepare data for mapping
 
 ```{r, eval=F}
 # Read in Stanford police data for Colorado and assign to object named "co_traffic_stops" 
@@ -878,8 +893,13 @@ co_counties_shapefile<-st_read("tl_2019_08_county.shp")
 
 # Join "co_counties_census_trafficstops" to "co_counties_shapefile" using "GEOID" as the join field; assign the result to a new object named "county_shapefile_biasIndex"
 county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_trafficstops, by="GEOID")
+```
 
-# make a map of the continuous "excess_stops_index" 
+## Summary script for map of continuous "bias_index" variable
+
+```{r}
+
+# make a map of the continuous "bias_index" variable
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy") # create color vector
 traffic_bias_map_continuous_labeled<- # object assignment; assigns map to object named "traffic_stop_bias_map"
   tm_shape(county_shapefile_biasIndex)+ # declares the spatial object that is the basis for the map
@@ -902,16 +922,37 @@ traffic_bias_map_continuous_labeled<- # object assignment; assigns map to object
             attr.outside=TRUE)+ # specifies that map credits should be placed outside bounding box
   tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
                     position=c(0.02,0.01), # Specifies location of map credits
-                    size=0.38) # sets title of credits
-
-
+                    size=0.38)+ # sets title of credits
+  tm_text("NAME", size=0.30, fontface=2)
 ```
+
 
 ```{r, fig.asp=0.5}
 # Prints map
 traffic_bias_map_continuous_labeled
 ```
 
+
+## Summary script for categorical map
+
+```{r, fig.asp=0.5}
+traffic_bias_map_categorical<-
+  tm_shape(county_shapefile_biasIndex)+
+    tm_polygons(col="apparent_bias", 
+                title="", 
+                palette=c("orangered1", "white"), 
+                textNA="No Data")+
+    tm_layout(frame=FALSE, 
+              legend.outside=TRUE,
+              main.title="Racial Bias in Traffic Stops, by County (Colorado)",
+              main.title.position=0.03,
+              main.title.size=1,
+              attr.outside=TRUE)+
+  tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
+              position=c(0.02,0.01), # Specifies location of map credits
+             size=0.38)+
+  tm_text("NAME", size=0.30, fontface=2)
+```
 
 
 
