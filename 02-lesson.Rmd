@@ -547,7 +547,7 @@ tm_shape(county_shapefile_biasIndex)+
 
 Now, to display actual data from the dataset on the Colorado county pologyons, we can simply pass an argument to the ```tm_polygons``` function. In particular, we can specify the column that contains the data we want to represent on the map using the ```col``` argument to the ```tm_polygons``` function. In our case, the name of the column that contains the data we want to display on the map is "bias_index", so we will specify ```col="bias_index"``` within the ```tm_polygons``` function:
 
-```{r, fig.asp=0.5}
+```{r, fig.asp=0.5, warning=FALSE}
 tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="bias_index")
 ```
@@ -612,11 +612,11 @@ tm_shape(county_shapefile_biasIndex)+
 
 Note that these colors are easier to distinguish, which makes it easier to quickly scan the map for relevant patterns.  
 
-It is also worth reminding ourselves that it's possible to assign the maps we create using *tmap* to objects. For example, let's assign the last map we created to a new object named ```traffic_stop_map_continuous```:
+It is also worth reminding ourselves that it's possible to assign the maps we create using *tmap* to objects. For example, let's assign the last map we created to a new object named ```traffic_bias_map_continuous```:
 
 ```{r}
 # Creates map showing variation in "bias_index" across CO counties, and assigns the map to object named "traffic_stop_map_continuous"
-traffic_stop_map_continuous<-
+traffic_bias_map_continuous<-
 tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="bias_index", 
               palette=my_colors, 
@@ -630,7 +630,7 @@ Now, we can bring up this map whenever we need it:
 
 ```{r, fig.asp=0.5}
 # Prints contents of "traffic_stop_map_continuous"
-traffic_stop_map_continuous
+traffic_bias_map_continuous
 ```
 
 ### Make a categorical map 
@@ -659,10 +659,10 @@ Let's take a look at what the new variable looks like:
 county_shapefile_biasIndex
 ```
 
-Now that we have created this new categorical variable, let's go ahead and create a map that displays it on our map of Colorado counties. The code below looks very similar to the code used to map the original "bias_index" variable. The main difference is that instead of setting ```col=bias_index```, we set the ```col``` argument equal to ```"apparent_bias``` (i.e. ```col="apparent_bias"```). Another difference worth pointing out is that we use a different 2-color palette (since there are now only two categories to map); this palette is defined by the vector ```c("orangered1", "white")```. Finally, in the previous map, the legend's title was taken from the name of the column that was mapped; here, having this title would be redundant, so we can remove the legend title using ```title=""```. We'll assign this map to a new object named ```traffic_stop_map_categorical```: 
+Now that we have created this new categorical variable, let's go ahead and create a map that displays it on our map of Colorado counties. The code below looks very similar to the code used to map the original "bias_index" variable. The main difference is that instead of setting ```col=bias_index```, we set the ```col``` argument equal to ```"apparent_bias``` (i.e. ```col="apparent_bias"```). Another difference worth pointing out is that we use a different 2-color palette (since there are now only two categories to map); this palette is defined by the vector ```c("orangered1", "white")```. Finally, in the previous map, the legend's title was taken from the name of the column that was mapped; here, having this title would be redundant, so we can remove the legend title using ```title=""```. We'll assign this map to a new object named ```traffic_bias_map_categorical```: 
 
 ```{r}
-traffic_stop_map_categorical<-
+traffic_bias_map_categorical<-
   tm_shape(county_shapefile_biasIndex)+
       tm_polygons(col="apparent_bias", 
                   title="", 
@@ -672,10 +672,10 @@ traffic_stop_map_categorical<-
                 legend.outside=TRUE)
 ```
 
-If we print the contents of ```traffic_stop_map_categorical```, we open a map that looks something like this:
+If we print the contents of ```traffic_bias_map_categorical```, we open a map that looks something like this:
 
 ```{r, fig.asp=0.5}
-traffic_stop_map_categorical
+traffic_bias_map_categorical
 ```
 
 # Refining and formatting the maps of the Colorado traffic-stop bias index
@@ -685,7 +685,7 @@ In the previous section, we created and refined two maps based on the index of r
 It looked like this:
 
 ```{r, fig.asp=0.5}
-traffic_stop_map_continuous
+traffic_bias_map_continuous
 ```
 
 The second map created a new categorical variable based on "bias_index", and displayed these categories on a map.
@@ -693,7 +693,7 @@ The second map created a new categorical variable based on "bias_index", and dis
 It looked like this:
 
 ```{r}
-traffic_stop_map_categorical
+traffic_bias_map_categorical
 ```
 
 In this section, we'll continue to refine and customize these maps (for example, by adding titles, map credits, county labels, and labels and titles for the legend). 
@@ -709,7 +709,7 @@ Let's start by fine-tuning the map of the continuous "bias_index" variable. As a
 ```{r, fig.asp=0.5}
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy")
 
-traffic_stop_map_continuous<-
+traffic_bias_map_continuous<-
 tm_shape(county_shapefile_biasIndex)+
   tm_polygons(col="bias_index", 
               palette=my_colors,
@@ -737,13 +737,13 @@ Having read through this code, let's see what that the resulting map looks like:
 
 ```{r}
 # prints updated map assigned to "traffic_stop_map_continuous" object
-traffic_stop_map_continuous
+traffic_bias_map_continuous
 ```
 
 Now, let's unpack the various components of the code.
 
 * The code begins by defining the ```my_colors``` vector; this is the same color vector we used in Section 6.3.3, and is reproduced for convenience here.
-* ```traffic_stop_map_continuous<-``` indicates that the map created through the code on the right side of the assignment operator will be assigned to the object named ```traffic_stop_map_continuous```. This overwrites the previous version of the map assigned to this object.
+* ```traffic_bias_map_continuous<-``` indicates that the map created through the code on the right side of the assignment operator will be assigned to the object named ```traffic_bias_map_continuous```. This overwrites the previous version of the map assigned to this object.
 * The first function that is called is ```tm_shape```; we pass the name of the object that contains the data we want to map to this function ```county_shapefile_biasIndex```, which yields ```tm_shape(county_shapefile_biasIndex)```. 
 * After specifying our dataset with ```tm_shape```, we call the ```tm_polygons``` function. The ```tm_polygons``` function takes several arguments, beginning with ```col="bias_index``` (which specifies the column within ```county_shapefile_biasIndex``` that we want to map), and ```palette=my_colors``` (which specifies that we want to use the colors from the ```my_colors``` vector to represent different interval ranges for the "bias_index" variable). Next, in ```title="(Black % of Traffic Stops) - (Black % of Population)```, we define a subtitle for the legend, so that viewers of the map can discern the intuition behind the bias index that is being mapped. Finally, ```textNA="No Data"``` defines the legend label for "NA" values, and ```breaks=c(-10,-5, 0.01, 2, 4, 5)``` sets the data intervals, which are communicated in the map's legend. Notice that instead of setting one of the break points at 0, this version of the map uses 0.01; that is because the lower bound on data intervals is inclusive, while the upper bound is exclusive (i.e. a hypothetical county with a bias index of exactly 4.00 would be assigned the color that corresponds with the 4.00 to 5.00 legend interval, not the one corresponding to 2.00 to 4.00). As a result, a county with a bias index value of exactly zero would be grouped with counties with a positive value on the index, when it would make more sense to group such a county with counties with negative values on the index. Setting the break point slightly above 0 avoids a scenario where a county with an index value of exactly 0 is grouped together with counties with an index value greater than zero. 
 * The next *tmap* function that is called is the ```tm_layout``` function, which allows us to specify various parameters that shape the map's layout. Recall from before that ```frame=FALSE``` removes the map's bounding box (which surrounds the area displayed on the map), while ```legend.outside=TRUE``` places the legend outside the map's domain, so that it doesn't overlap with any of the counties that are displayed. Next, ```legend.text.size=0.68``` sets the size for legend text elements (that are not part of the legend's title or subtitle), while ```legend.title.size=0.75``` sets the size of the legend's subtitle, and ```title.size=0.75``` sets the size of the text in the legend's main title. Note that when setting the size of text elements on your map, the best approach to use is usually trial and error; start with an arbitrary size, and then iterate from there. ```title="Traffic Stop Racial Bias Index"``` sets the text for legend's main title, and ```title.fontface = 2``` sets the legend's main title text in boldface. ```main.title="Racial Bias in Traffic Stops, by County (Colorado)"``` sets the map's main title, ```main.title.position=0.03``` sets the position/justification of the title, and ```main.title.size=1``` sets the size of the main title's text. Finally, ```attr.outside=TRUE``` specifies that any map elements other than the legend (such as the map credits) are to be placed outside the map boundary. 
@@ -765,17 +765,17 @@ lower bound on legend is inclusive, upper bound exclusive
 
 
 ```{r}
-traffic_stop_map_continuous_labeled<-
-  traffic_stop_map_continuous+
+traffic_bias_map_continuous_labeled<-
+  traffic_bias_map_continuous+
     tm_text("NAME", size=0.30, fontface=2)
 
-traffic_stop_map_continuous_labeled
+traffic_bias_map_continuous_labeled
 ```
 
 ```{r}
 tmap_mode("view")
 
-traffic_stop_map_continuous_labeled
+traffic_bias_map_continuous_labeled
 ```
 
 ```{r}
@@ -785,7 +785,7 @@ tmap_mode("plot")
 ## Refining the map of the categorical bias variable 
 
 ```{r}
-categorical_map<-
+traffic_bias_map_categorical<-
   tm_shape(county_shapefile_biasIndex)+
     tm_polygons(col="apparent_bias", 
                 title="", 
@@ -803,13 +803,13 @@ categorical_map<-
   tm_text("NAME", size=0.30, fontface=2)
       
                     
-categorical_map
+traffic_bias_map_categorical
 ```
 
 # Exporting maps
 
 ```{r}
-tmap_save(traffic_stop_map_continuous_labeled, "traffic_stop_map_continuous_labeled.png")
+tmap_save(traffic_bias_map_continuous_labeled, "traffic_bias_map_continuous_labeled.png")
 ```
 
 # Summary script
@@ -881,7 +881,7 @@ county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_
 
 # make a map of the continuous "excess_stops_index" 
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy") # create color vector
-traffic_stop_map_continuous_labeled<- # object assignment; assigns map to object named "traffic_stop_bias_map"
+traffic_bias_map_continuous_labeled<- # object assignment; assigns map to object named "traffic_stop_bias_map"
   tm_shape(county_shapefile_biasIndex)+ # declares the spatial object that is the basis for the map
   tm_polygons(col="bias_index", # declares variable containing data to be mapped
               palette=my_colors, # sets color scheme (based on "my_colors" vector)
@@ -909,7 +909,7 @@ traffic_stop_map_continuous_labeled<- # object assignment; assigns map to object
 
 ```{r, fig.asp=0.5}
 # Prints map
-traffic_stop_map_continuous_labeled
+traffic_bias_map_continuous_labeled
 ```
 
 
