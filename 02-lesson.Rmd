@@ -827,7 +827,9 @@ Note that if we'd like to export a dynamic/interactive map, we can use the same 
 
 # Summary scripts
 
-## Summary script to prepare data for mapping
+This section summarizes the code we have written over the course of the tutorial to visualize the Colorado traffic patrol stops data on a county-level map. Section 9.1 provides the script to clean and process the original dataset published by the Stanford Open Policing Project, and get that data into a form that is suitable for mapping. Section Section 9.2 provides the script to create a map of the continuous "bias_index" variable, with counties labeled. Section 9.3 provides the script to create a map of a categorical variable that indicates whether a county's value for "bias_index" is greater than zero, or less than/equal to zero, and then make a map of this categorical variable (with counties labeled). 
+
+## Summary script to prepare, clean, and process data for mapping
 
 ```{r, eval=F}
 # Read in Stanford police data for Colorado and assign to object named "co_traffic_stops" 
@@ -898,7 +900,6 @@ county_shapefile_biasIndex<-full_join(co_counties_shapefile, co_counties_census_
 ## Summary script for map of continuous "bias_index" variable
 
 ```{r}
-
 # make a map of the continuous "bias_index" variable
 my_colors<-c("white", "peachpuff", "red1", "red4", "navy") # create color vector
 traffic_bias_map_continuous_labeled<- # object assignment; assigns map to object named "traffic_stop_bias_map"
@@ -926,16 +927,20 @@ traffic_bias_map_continuous_labeled<- # object assignment; assigns map to object
   tm_text("NAME", size=0.30, fontface=2)
 ```
 
-
 ```{r, fig.asp=0.5}
 # Prints map
 traffic_bias_map_continuous_labeled
 ```
 
-
 ## Summary script for categorical map
 
-```{r, fig.asp=0.5}
+```{r}
+# Makes categorical variable
+county_shapefile_biasIndex<-
+  county_shapefile_biasIndex %>% 
+            mutate(apparent_bias=ifelse(bias_index>0, "Apparent Bias", "No Apparent Bias"))
+
+# Makes categorical map and assigns to object named "traffic_bias_map_categorical"
 traffic_bias_map_categorical<-
   tm_shape(county_shapefile_biasIndex)+
     tm_polygons(col="apparent_bias", 
@@ -955,20 +960,10 @@ traffic_bias_map_categorical<-
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-lower bound on legend is inclusive, upper bound exclusive
-
+```{r}
+# prints categorical map
+traffic_bias_map_categorical
+```
 
 
 

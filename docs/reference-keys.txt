@@ -29,7 +29,7 @@ refining-the-categorical-map
 making-a-dynamic-map-of-the-bias-index
 exporting-maps
 summary-scripts
-summary-script-to-prepare-data-for-mapping
+summary-script-to-prepare-clean-and-process-data-for-mapping
 summary-script-for-map-of-continuous-bias_index-variable
 summary-script-for-categorical-map
 using-tidycensus-to-extract-relevant-census-data

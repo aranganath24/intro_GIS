@@ -189,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="exporting-maps.html"><a href="exporting-maps.html"><i class="fa fa-check"></i><b>8</b> Exporting maps</a></li>
 <li class="chapter" data-level="9" data-path="summary-scripts.html"><a href="summary-scripts.html"><i class="fa fa-check"></i><b>9</b> Summary scripts</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-to-prepare-data-for-mapping"><i class="fa fa-check"></i><b>9.1</b> Summary script to prepare data for mapping</a></li>
+<li class="chapter" data-level="9.1" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-to-prepare-clean-and-process-data-for-mapping"><i class="fa fa-check"></i><b>9.1</b> Summary script to prepare, clean, and process data for mapping</a></li>
 <li class="chapter" data-level="9.2" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-map-of-continuous-bias_index-variable"><i class="fa fa-check"></i><b>9.2</b> Summary script for map of continuous “bias_index” variable</a></li>
 <li class="chapter" data-level="9.3" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-categorical-map"><i class="fa fa-check"></i><b>9.3</b> Summary script for categorical map</a></li>
 </ul></li>
@@ -223,8 +223,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="summary-scripts" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Summary scripts</h1>
-<div id="summary-script-to-prepare-data-for-mapping" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Summary script to prepare data for mapping</h2>
+<p>This section summarizes the code we have written over the course of the tutorial to visualize the Colorado traffic patrol stops data on a county-level map. Section 9.1 provides the script to clean and process the original dataset published by the Stanford Open Policing Project, and get that data into a form that is suitable for mapping. Section Section 9.2 provides the script to create a map of the continuous “bias_index” variable, with counties labeled. Section 9.3 provides the script to create a map of a categorical variable that indicates whether a county’s value for “bias_index” is greater than zero, or less than/equal to zero, and then make a map of this categorical variable (with counties labeled).</p>
+<div id="summary-script-to-prepare-clean-and-process-data-for-mapping" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Summary script to prepare, clean, and process data for mapping</h2>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="summary-scripts.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot; </span></span>
 <span id="cb106-2"><a href="summary-scripts.html#cb106-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span>
 <span id="cb106-3"><a href="summary-scripts.html#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -318,27 +319,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb107-25"><a href="summary-scripts.html#cb107-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;NAME&quot;</span>, <span class="at">size=</span><span class="fl">0.30</span>, <span class="at">fontface=</span><span class="dv">2</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="summary-scripts.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints map</span></span>
 <span id="cb108-2"><a href="summary-scripts.html#cb108-2" aria-hidden="true" tabindex="-1"></a>traffic_bias_map_continuous_labeled</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 <div id="summary-script-for-categorical-map" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Summary script for categorical map</h2>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="summary-scripts.html#cb109-1" aria-hidden="true" tabindex="-1"></a>traffic_bias_map_categorical<span class="ot">&lt;-</span></span>
-<span id="cb109-2"><a href="summary-scripts.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(county_shapefile_biasIndex)<span class="sc">+</span></span>
-<span id="cb109-3"><a href="summary-scripts.html#cb109-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;apparent_bias&quot;</span>, </span>
-<span id="cb109-4"><a href="summary-scripts.html#cb109-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">title=</span><span class="st">&quot;&quot;</span>, </span>
-<span id="cb109-5"><a href="summary-scripts.html#cb109-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">palette=</span><span class="fu">c</span>(<span class="st">&quot;orangered1&quot;</span>, <span class="st">&quot;white&quot;</span>), </span>
-<span id="cb109-6"><a href="summary-scripts.html#cb109-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">textNA=</span><span class="st">&quot;No Data&quot;</span>)<span class="sc">+</span></span>
-<span id="cb109-7"><a href="summary-scripts.html#cb109-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>, </span>
-<span id="cb109-8"><a href="summary-scripts.html#cb109-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">legend.outside=</span><span class="cn">TRUE</span>,</span>
-<span id="cb109-9"><a href="summary-scripts.html#cb109-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title=</span><span class="st">&quot;Racial Bias in Traffic Stops, by County (Colorado)&quot;</span>,</span>
-<span id="cb109-10"><a href="summary-scripts.html#cb109-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title.position=</span><span class="fl">0.03</span>,</span>
-<span id="cb109-11"><a href="summary-scripts.html#cb109-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title.size=</span><span class="dv">1</span>,</span>
-<span id="cb109-12"><a href="summary-scripts.html#cb109-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">attr.outside=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
-<span id="cb109-13"><a href="summary-scripts.html#cb109-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;Map Author: NAME</span><span class="sc">\n</span><span class="st">Data Sources: 2010 Decennial Census via tidyverse,</span><span class="sc">\n</span><span class="st">Stanford Open Policing Project,</span><span class="sc">\n</span><span class="st">Colorado GeoLibrary &quot;</span>, <span class="co"># Sets text for map credits</span></span>
-<span id="cb109-14"><a href="summary-scripts.html#cb109-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">0.01</span>), <span class="co"># Specifies location of map credits</span></span>
-<span id="cb109-15"><a href="summary-scripts.html#cb109-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">0.38</span>)<span class="sc">+</span></span>
-<span id="cb109-16"><a href="summary-scripts.html#cb109-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;NAME&quot;</span>, <span class="at">size=</span><span class="fl">0.30</span>, <span class="at">fontface=</span><span class="dv">2</span>)</span></code></pre></div>
-<p>lower bound on legend is inclusive, upper bound exclusive</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="summary-scripts.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Makes categorical variable</span></span>
+<span id="cb109-2"><a href="summary-scripts.html#cb109-2" aria-hidden="true" tabindex="-1"></a>county_shapefile_biasIndex<span class="ot">&lt;-</span></span>
+<span id="cb109-3"><a href="summary-scripts.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  county_shapefile_biasIndex <span class="sc">%&gt;%</span> </span>
+<span id="cb109-4"><a href="summary-scripts.html#cb109-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mutate</span>(<span class="at">apparent_bias=</span><span class="fu">ifelse</span>(bias_index<span class="sc">&gt;</span><span class="dv">0</span>, <span class="st">&quot;Apparent Bias&quot;</span>, <span class="st">&quot;No Apparent Bias&quot;</span>))</span>
+<span id="cb109-5"><a href="summary-scripts.html#cb109-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-6"><a href="summary-scripts.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Makes categorical map and assigns to object named &quot;traffic_bias_map_categorical&quot;</span></span>
+<span id="cb109-7"><a href="summary-scripts.html#cb109-7" aria-hidden="true" tabindex="-1"></a>traffic_bias_map_categorical<span class="ot">&lt;-</span></span>
+<span id="cb109-8"><a href="summary-scripts.html#cb109-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(county_shapefile_biasIndex)<span class="sc">+</span></span>
+<span id="cb109-9"><a href="summary-scripts.html#cb109-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;apparent_bias&quot;</span>, </span>
+<span id="cb109-10"><a href="summary-scripts.html#cb109-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">title=</span><span class="st">&quot;&quot;</span>, </span>
+<span id="cb109-11"><a href="summary-scripts.html#cb109-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">palette=</span><span class="fu">c</span>(<span class="st">&quot;orangered1&quot;</span>, <span class="st">&quot;white&quot;</span>), </span>
+<span id="cb109-12"><a href="summary-scripts.html#cb109-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">textNA=</span><span class="st">&quot;No Data&quot;</span>)<span class="sc">+</span></span>
+<span id="cb109-13"><a href="summary-scripts.html#cb109-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>, </span>
+<span id="cb109-14"><a href="summary-scripts.html#cb109-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">legend.outside=</span><span class="cn">TRUE</span>,</span>
+<span id="cb109-15"><a href="summary-scripts.html#cb109-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title=</span><span class="st">&quot;Racial Bias in Traffic Stops, by County (Colorado)&quot;</span>,</span>
+<span id="cb109-16"><a href="summary-scripts.html#cb109-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title.position=</span><span class="fl">0.03</span>,</span>
+<span id="cb109-17"><a href="summary-scripts.html#cb109-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">main.title.size=</span><span class="dv">1</span>,</span>
+<span id="cb109-18"><a href="summary-scripts.html#cb109-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">attr.outside=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb109-19"><a href="summary-scripts.html#cb109-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;Map Author: NAME</span><span class="sc">\n</span><span class="st">Data Sources: 2010 Decennial Census via tidyverse,</span><span class="sc">\n</span><span class="st">Stanford Open Policing Project,</span><span class="sc">\n</span><span class="st">Colorado GeoLibrary &quot;</span>, <span class="co"># Sets text for map credits</span></span>
+<span id="cb109-20"><a href="summary-scripts.html#cb109-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">0.01</span>), <span class="co"># Specifies location of map credits</span></span>
+<span id="cb109-21"><a href="summary-scripts.html#cb109-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">0.38</span>)<span class="sc">+</span></span>
+<span id="cb109-22"><a href="summary-scripts.html#cb109-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;NAME&quot;</span>, <span class="at">size=</span><span class="fl">0.30</span>, <span class="at">fontface=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="summary-scripts.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints categorical map</span></span>
+<span id="cb110-2"><a href="summary-scripts.html#cb110-2" aria-hidden="true" tabindex="-1"></a>traffic_bias_map_categorical</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <p><a href="https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7">https://geo.colorado.edu/catalog/47540-5e712aeda3d91e0009f59fc7</a></p>
 
 </div>

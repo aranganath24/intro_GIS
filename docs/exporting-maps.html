@@ -189,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="exporting-maps.html"><a href="exporting-maps.html"><i class="fa fa-check"></i><b>8</b> Exporting maps</a></li>
 <li class="chapter" data-level="9" data-path="summary-scripts.html"><a href="summary-scripts.html"><i class="fa fa-check"></i><b>9</b> Summary scripts</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-to-prepare-data-for-mapping"><i class="fa fa-check"></i><b>9.1</b> Summary script to prepare data for mapping</a></li>
+<li class="chapter" data-level="9.1" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-to-prepare-clean-and-process-data-for-mapping"><i class="fa fa-check"></i><b>9.1</b> Summary script to prepare, clean, and process data for mapping</a></li>
 <li class="chapter" data-level="9.2" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-map-of-continuous-bias_index-variable"><i class="fa fa-check"></i><b>9.2</b> Summary script for map of continuous “bias_index” variable</a></li>
 <li class="chapter" data-level="9.3" data-path="summary-scripts.html"><a href="summary-scripts.html#summary-script-for-categorical-map"><i class="fa fa-check"></i><b>9.3</b> Summary script for categorical map</a></li>
 </ul></li>
@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Once you have made a map and are satisfied with its appearance, it is straightforward to export the map from R Studio to a local directory on your computer, where you can then embed your map in papers, projects, presentations, or websites.</p>
 <p>The easiest way to export maps is by using the <code>tmap_save</code> function. This function allows users to specify the desired dimensions and resolution of the exported map, among other things. For our purposes, we’ll simply export the map assigned to <code>traffic_bias_map_continuous_labeled</code> using the default settings. Below, the first argument is the name of the object to which the map we’d like to export has been assigned; here, that is <code>traffic_bias_map_continuous_labeled</code>. The second argument is the desired file name and extension; it is possible to pick any number of extensions, such as PDF, jpeg, and png. Here, we’ll export the map as a png file.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exporting-maps.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(traffic_bias_map_continuous_labeled, <span class="st">&quot;traffic_bias_map_continuous_labeled.png&quot;</span>)</span></code></pre></div>
-<pre><code>## Map saved to traffic_bias_map_continuous_labeled.png</code></pre>
+<pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/intro_GIS/traffic_bias_map_continuous_labeled.png</code></pre>
 <pre><code>## Resolution: 2448.943 by 1800.777 pixels</code></pre>
 <pre><code>## Size: 8.163142 by 6.002591 inches (300 dpi)</code></pre>
 <p>Because we didn’t specify the path to a directory in the second argument, the map will be exported to our working directory.</p>
