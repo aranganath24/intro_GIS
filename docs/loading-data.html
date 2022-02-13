@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-09" />
+<meta name="date" content="2022-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -221,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot;</span></span>
 <span id="cb2-2"><a href="loading-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_character(),
 ##   date = col_date(format = &quot;&quot;),
@@ -238,21 +238,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) to the console; the first few records of the dataset will print</span></span>
 <span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
 <pre><code>## # A tibble: 3,112,853 × 20
-##    raw_row_number      date       time  location county_name subject_age subject_race subject_sex officer_id_hash
-##    &lt;chr&gt;               &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;          
-##  1 1947986|1947987     2013-06-19 NA    19, I70… Mesa County          26 hispanic     male        b942632983     
-##  2 1537576             2012-08-24 NA    254, H2… Jefferson …          NA &lt;NA&gt;         &lt;NA&gt;        f3d4f46927     
-##  3 1581594             2012-09-23 NA    115, I7… Logan Coun…          52 white        male        6e49e2fbc8     
-##  4 1009205             2011-08-25 NA    197, H8… Douglas Co…          32 white        female      eaea851669     
-##  5 1932619             2013-06-08 NA    107, H2… Kiowa Coun…          33 hispanic     male        d18e34d749     
-##  6 1179436             2011-12-23 NA    48, 384… Boulder Co…          NA &lt;NA&gt;         &lt;NA&gt;        b84c696aed     
-##  7 1326795             2012-04-07 NA    0, R250… Boulder Co…          39 white        male        4c0279748e     
-##  8 1786795             2013-03-03 NA    19, E47… Arapahoe C…          44 white        female      e6b5b9bb98     
-##  9 1552164             2012-09-02 NA    224, H2… Park County          NA &lt;NA&gt;         &lt;NA&gt;        43f1f150d3     
-## 10 1004281|1004282|10… 2011-08-21 NA    R2000, … Adams Coun…          32 hispanic     male        dd2f10b6f8     
-## # … with 3,112,843 more rows, and 11 more variables: officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;,
-## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
-## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+##    raw_row_number    date       time  location county_name subject_age subject_race subject_sex
+##    &lt;chr&gt;             &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
+##  1 1947986|1947987   2013-06-19 NA    19, I70… Mesa County          26 hispanic     male       
+##  2 1537576           2012-08-24 NA    254, H2… Jefferson …          NA &lt;NA&gt;         &lt;NA&gt;       
+##  3 1581594           2012-09-23 NA    115, I7… Logan Coun…          52 white        male       
+##  4 1009205           2011-08-25 NA    197, H8… Douglas Co…          32 white        female     
+##  5 1932619           2013-06-08 NA    107, H2… Kiowa Coun…          33 hispanic     male       
+##  6 1179436           2011-12-23 NA    48, 384… Boulder Co…          NA &lt;NA&gt;         &lt;NA&gt;       
+##  7 1326795           2012-04-07 NA    0, R250… Boulder Co…          39 white        male       
+##  8 1786795           2013-03-03 NA    19, E47… Arapahoe C…          44 white        female     
+##  9 1552164           2012-09-02 NA    224, H2… Park County          NA &lt;NA&gt;         &lt;NA&gt;       
+## 10 1004281|1004282|… 2011-08-21 NA    R2000, … Adams Coun…          32 hispanic     male       
+## # … with 3,112,843 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;,
+## #   type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
+## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
+## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 <p>We can also view <code>co_traffic_stops</code> object (or, for that matter, any dataset in R Studio) within the R Studio data viewer by passing the name of the object to the <code>View</code> function:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect ```co_traffic_stops``` in the R Studio data viewer</span></span>
 <span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(co_traffic_stops)</span></code></pre></div>

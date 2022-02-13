@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-09" />
+<meta name="date" content="2022-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,21 +236,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
 <span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
-##    date       Year  county_name      subject_race raw_row_number           time  location subject_age subject_sex
-##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;                    &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;      
-##  1 2010-04-17 2010  Montezuma County white        188721|188722            NA    2, 989,…          16 female     
-##  2 2010-04-17 2010  Montezuma County white        187958                   NA    991, 32           54 male       
-##  3 2010-04-17 2010  Montezuma County hispanic     188451                   NA    9, 280,…          49 male       
-##  4 2010-04-17 2010  Montezuma County white        186989|186990|186991|18… NA    3, 277,…          16 male       
-##  5 2010-04-17 2010  Montezuma County white        186997|186998|186999|18… NA    3, 277,…          37 male       
-##  6 2010-04-17 2010  Montezuma County white        186993|186994|186995|18… NA    3, 277,…          39 male       
-##  7 2010-12-21 2010  Mineral County   &lt;NA&gt;         600865                   NA    164.5, …         110 &lt;NA&gt;       
-##  8 2010-12-21 2010  Mineral County   &lt;NA&gt;         600477                   NA    163, 29…         110 &lt;NA&gt;       
-##  9 2010-01-20 2010  Pueblo County    hispanic     36625|36626              NA    312, H5…          45 male       
-## 10 2010-01-01 2010  Chaffee County   white        275                      NA    127, H2…          17 female     
-## # … with 470,274 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;, type &lt;chr&gt;,
-## #   violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;,
-## #   contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+##    date       Year  county_name      subject_race raw_row_number     time  location subject_age
+##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt;
+##  1 2010-04-17 2010  Montezuma County white        188721|188722      NA    2, 989,…          16
+##  2 2010-04-17 2010  Montezuma County white        187958             NA    991, 32           54
+##  3 2010-04-17 2010  Montezuma County hispanic     188451             NA    9, 280,…          49
+##  4 2010-04-17 2010  Montezuma County white        186989|186990|186… NA    3, 277,…          16
+##  5 2010-04-17 2010  Montezuma County white        186997|186998|186… NA    3, 277,…          37
+##  6 2010-04-17 2010  Montezuma County white        186993|186994|186… NA    3, 277,…          39
+##  7 2010-12-21 2010  Mineral County   &lt;NA&gt;         600865             NA    164.5, …         110
+##  8 2010-12-21 2010  Mineral County   &lt;NA&gt;         600477             NA    163, 29…         110
+##  9 2010-01-20 2010  Pueblo County    hispanic     36625|36626        NA    312, H5…          45
+## 10 2010-01-01 2010  Chaffee County   white        275                NA    127, H2…          17
+## # … with 470,274 more rows, and 13 more variables: subject_sex &lt;chr&gt;, officer_id_hash &lt;chr&gt;,
+## #   officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
+## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
+## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 </div>
 </div>
             </section>
