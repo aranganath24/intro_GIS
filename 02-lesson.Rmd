@@ -778,9 +778,9 @@ traffic_bias_map_categorical<-
                 textNA="No Data")+
     tm_layout(frame=FALSE, 
               legend.outside=TRUE,
-              main.title="Racial Bias in Traffic Stops, by County (Colorado)",
+              main.title="Racial Bias in Traffic Stops, by County in Colorado\n(Based on Whether % of Black Motorists Stopped by Police > County's Adult Black Population %)",
               main.title.position=0.03,
-              main.title.size=1,
+              main.title.size=0.75,
               attr.outside=TRUE)+
   tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
               position=c(0.02,0.01), # Specifies location of map credits
@@ -949,9 +949,9 @@ traffic_bias_map_categorical<-
                 textNA="No Data")+
     tm_layout(frame=FALSE, 
               legend.outside=TRUE,
-              main.title="Racial Bias in Traffic Stops, by County (Colorado)",
+              main.title="Racial Bias in Traffic Stops, by County in Colorado\n(Based on Whether % of Black Motorists Stopped by Police > County's Adult Black Population %)",
               main.title.position=0.03,
-              main.title.size=1,
+              main.title.size=0.75,
               attr.outside=TRUE)+
   tm_credits("Map Author: NAME\nData Sources: 2010 Decennial Census via tidyverse,\nStanford Open Policing Project,\nColorado GeoLibrary ", # Sets text for map credits
               position=c(0.02,0.01), # Specifies location of map credits
@@ -959,11 +959,19 @@ traffic_bias_map_categorical<-
   tm_text("NAME", size=0.30, fontface=2)
 ```
 
-
-```{r}
+```{r, fig.asp=0.5}
 # prints categorical map
 traffic_bias_map_categorical
 ```
+
+# Reflections and Discussion Questions
+
+# Conclusion and Further Reading
+
+# References
+
+
+
 
 
 

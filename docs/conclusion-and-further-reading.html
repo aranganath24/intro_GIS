@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Loading data | Introduction to Geographic Information Systems</title>
-  <meta name="description" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <title>11 Conclusion and Further Reading | Introduction to Geographic Information Systems</title>
+  <meta name="description" content="11 Conclusion and Further Reading | Introduction to Geographic Information Systems" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta property="og:title" content="11 Conclusion and Further Reading | Introduction to Geographic Information Systems" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Loading data | Introduction to Geographic Information Systems" />
+  <meta name="twitter:title" content="11 Conclusion and Further Reading | Introduction to Geographic Information Systems" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="cleaning-and-filtering-data.html"/>
+<link rel="prev" href="reflections-and-discussion-questions.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -229,56 +229,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="loading-data" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Loading data</h1>
-<p>Let’s begin by reading in the Stanford Policing Project State Patrol data for the state of Colorado; the data can be downloaded from this <a href="https://openpolicing.stanford.edu/data/">website</a>, but has also been made available to you as part of the workshop materials as a CSV file. Once, the traffic patrol data has been downloaded into your working directory, pass the name of the file to the <code>read_csv</code> function, and assign it to an object. Here, we’ll assign the traffic patrol data to an object named <code>co_traffic_stops</code>. Note that object names are arbitrary, but ideally should meaningfully describe their contents.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot;</span></span>
-<span id="cb2-2"><a href="loading-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
-## cols(
-##   .default = col_character(),
-##   date = col_date(format = &quot;&quot;),
-##   time = col_logical(),
-##   subject_age = col_double(),
-##   arrest_made = col_logical(),
-##   citation_issued = col_logical(),
-##   warning_issued = col_logical(),
-##   contraband_found = col_logical(),
-##   search_conducted = col_logical()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
-<p>Once the traffic patrol data has been read into R studio and assigned to the object, we can print the contents of the dataset to the console by typing the name of the object into the R Studio console (note that only the first few records will be printed)</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) to the console; the first few records of the dataset will print</span></span>
-<span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
-<pre><code>## # A tibble: 3,112,853 × 20
-##    raw_row_number    date       time  location county_name subject_age subject_race subject_sex
-##    &lt;chr&gt;             &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
-##  1 1947986|1947987   2013-06-19 NA    19, I70… Mesa County          26 hispanic     male       
-##  2 1537576           2012-08-24 NA    254, H2… Jefferson …          NA &lt;NA&gt;         &lt;NA&gt;       
-##  3 1581594           2012-09-23 NA    115, I7… Logan Coun…          52 white        male       
-##  4 1009205           2011-08-25 NA    197, H8… Douglas Co…          32 white        female     
-##  5 1932619           2013-06-08 NA    107, H2… Kiowa Coun…          33 hispanic     male       
-##  6 1179436           2011-12-23 NA    48, 384… Boulder Co…          NA &lt;NA&gt;         &lt;NA&gt;       
-##  7 1326795           2012-04-07 NA    0, R250… Boulder Co…          39 white        male       
-##  8 1786795           2013-03-03 NA    19, E47… Arapahoe C…          44 white        female     
-##  9 1552164           2012-09-02 NA    224, H2… Park County          NA &lt;NA&gt;         &lt;NA&gt;       
-## 10 1004281|1004282|… 2011-08-21 NA    R2000, … Adams Coun…          32 hispanic     male       
-## # … with 3,112,843 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;,
-## #   type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
-## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
-## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
-<p>We can also view <code>co_traffic_stops</code> object (or, for that matter, any dataset in R Studio) within the R Studio data viewer by passing the name of the object to the <code>View</code> function:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect ```co_traffic_stops``` in the R Studio data viewer</span></span>
-<span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(co_traffic_stops)</span></code></pre></div>
+<div id="conclusion-and-further-reading" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Conclusion and Further Reading</h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cleaning-and-filtering-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="reflections-and-discussion-questions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

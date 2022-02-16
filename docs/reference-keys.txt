@@ -1,4 +1,7 @@
 introduction
+workshop-objectives
+data
+r-and-r-studio-installation
 loading-data
 cleaning-and-filtering-data
 create-a-year-field
@@ -32,6 +35,9 @@ summary-scripts
 summary-script-to-prepare-clean-and-process-data-for-mapping
 summary-script-for-map-of-continuous-bias_index-variable
 summary-script-for-categorical-map
+reflections-and-discussion-questions
+conclusion-and-further-reading
+references
 using-tidycensus-to-extract-relevant-census-data
 step-1-define-your-variables
 step-2-extract-the-variables-using-tidycensus
