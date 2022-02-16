@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -150,6 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-objectives"><i class="fa fa-check"></i><b>1.1</b> Workshop Objectives</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>1.3</b> R and R Studio Installation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#the-r-studio-interface"><i class="fa fa-check"></i><b>1.4</b> The R Studio Interface</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#installing-and-loading-packages"><i class="fa fa-check"></i><b>1.5</b> Installing and loading packages</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#setting-your-working-directory"><i class="fa fa-check"></i><b>1.6</b> Setting your working directory</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loading-data.html"><a href="loading-data.html"><i class="fa fa-check"></i><b>2</b> Loading data</a></li>
 <li class="chapter" data-level="3" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning and filtering data</a>
@@ -233,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">8</span> Exporting maps</h1>
 <p>Once you have made a map and are satisfied with its appearance, it is straightforward to export the map from R Studio to a local directory on your computer, where you can then embed your map in papers, projects, presentations, or websites.</p>
 <p>The easiest way to export maps is by using the <code>tmap_save</code> function. This function allows users to specify the desired dimensions and resolution of the exported map, among other things. For our purposes, we’ll simply export the map assigned to <code>traffic_bias_map_continuous_labeled</code> using the default settings. Below, the first argument is the name of the object to which the map we’d like to export has been assigned; here, that is <code>traffic_bias_map_continuous_labeled</code>. The second argument is the desired file name and extension; it is possible to pick any number of extensions, such as PDF, jpeg, and png. Here, we’ll export the map as a png file.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exporting-maps.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(traffic_bias_map_continuous_labeled, <span class="st">&quot;traffic_bias_map_continuous_labeled.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exporting-maps.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_save</span>(traffic_bias_map_continuous_labeled, <span class="st">&quot;traffic_bias_map_continuous_labeled.png&quot;</span>)</span></code></pre></div>
 <pre><code>## Map saved to /Users/adra7980/Documents/git_repositories/intro_GIS/traffic_bias_map_continuous_labeled.png</code></pre>
 <pre><code>## Resolution: 2448.943 by 1800.777 pixels</code></pre>
 <pre><code>## Size: 8.163142 by 6.002591 inches (300 dpi)</code></pre>

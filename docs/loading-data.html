@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -150,6 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-objectives"><i class="fa fa-check"></i><b>1.1</b> Workshop Objectives</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>1.3</b> R and R Studio Installation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#the-r-studio-interface"><i class="fa fa-check"></i><b>1.4</b> The R Studio Interface</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#installing-and-loading-packages"><i class="fa fa-check"></i><b>1.5</b> Installing and loading packages</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#setting-your-working-directory"><i class="fa fa-check"></i><b>1.6</b> Setting your working directory</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loading-data.html"><a href="loading-data.html"><i class="fa fa-check"></i><b>2</b> Loading data</a></li>
 <li class="chapter" data-level="3" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning and filtering data</a>
@@ -232,10 +235,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loading-data" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Loading data</h1>
 <p>Let’s begin by reading in the Stanford Policing Project State Patrol data for the state of Colorado; the data can be downloaded from this <a href="https://openpolicing.stanford.edu/data/">website</a>, but has also been made available to you as part of the workshop materials as a CSV file. Once, the traffic patrol data has been downloaded into your working directory, pass the name of the file to the <code>read_csv</code> function, and assign it to an object. Here, we’ll assign the traffic patrol data to an object named <code>co_traffic_stops</code>. Note that object names are arbitrary, but ideally should meaningfully describe their contents.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="loading-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot;</span></span>
-<span id="cb2-2"><a href="loading-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot;</span></span>
+<span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_character(),
 ##   date = col_date(format = &quot;&quot;),
@@ -249,8 +252,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
 <p>Once the traffic patrol data has been read into R studio and assigned to the object, we can print the contents of the dataset to the console by typing the name of the object into the R Studio console (note that only the first few records will be printed)</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) to the console; the first few records of the dataset will print</span></span>
-<span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) to the console; the first few records of the dataset will print</span></span>
+<span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
 <pre><code>## # A tibble: 3,112,853 × 20
 ##    raw_row_number    date       time  location county_name subject_age subject_race subject_sex
 ##    &lt;chr&gt;             &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
@@ -269,8 +272,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
 ## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 <p>We can also view <code>co_traffic_stops</code> object (or, for that matter, any dataset in R Studio) within the R Studio data viewer by passing the name of the object to the <code>View</code> function:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect ```co_traffic_stops``` in the R Studio data viewer</span></span>
-<span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(co_traffic_stops)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loading-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect ```co_traffic_stops``` in the R Studio data viewer</span></span>
+<span id="cb8-2"><a href="loading-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(co_traffic_stops)</span></code></pre></div>
 </div>
             </section>
 

@@ -968,9 +968,27 @@ traffic_bias_map_categorical
 
 # Conclusion and Further Reading
 
+If you're interested in exploring projects resources that lie at the intersection of GIS, Black history, and the study of structural racism, ESRI's page on racial equity is a good place to start: [https://www.esri.com/en-us/racial-equity/overview](https://www.esri.com/en-us/racial-equity/overview). 
+
+If you're interested in exploring a specific example of a large-scale interdisciplinary project on systemic racism that incorporates spatial analysis, check out the [Mapping Prejudice](https://mappingprejudice.umn.edu/) project from the University of Minnesota. 
+
+If you'd like to read the paper by Pierson et al (2020) for which the police stop data was collected, it is available [here](https://5harad.com/papers/100M-stops.pdf). The Stanford project site also has a useful [tutorial](https://openpolicing.stanford.edu/tutorials/) that introduces the data and provides some guidance in analyzing it. The tutorial includes a discussion of more advanced ways to measure racial bias in stops than the one we used here, and a useful way to extend your knowledge might be to think about how to create and map those measures. 
+
+If you would like to further develop your spatial visualization and mapping skills, an excellent place to start is with the free and open-source book by Lovelace, Nowosad, and Muenchow (2021), entitled [*Geocomputation with R*](https://geocompr.robinlovelace.net/index.html). The book is more than an introduction to making maps; it's a comprehensive guide to spatial analysis and Geographic Information Systems more generally. 
+
 # References
 
+Frazier, Melanie. “R Color Cheatsheet.” Accessed September 28, 2021. https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf.
 
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2021. Geocomputation With R. https://geocompr.robinlovelace.net/.
+
+Pebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” The R Journal 10(1): 439-446. https://doi.org/10.32614/RJ-2018-009.
+
+“R For Social Scientists: Setup.” 2018-2021. Data Carpentry. https://datacarpentry.org/r-socialsci/setup.html.
+
+Tennekes, Martijn. 2018. “tmap: Thematic Maps in R.” Journal of Statistical Software 84(6): 1-39. https://doi.org/10.18637/jss.v084.i06.
+
+Wickham, Hadley, Romain Francois, and Lionel Henry. 2020. “dplyr: A Grammar of Data Manipulation.” R Package version 1.0.2. https://CRAN.R-project.org/package=dplyr.
 
 
 

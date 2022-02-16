@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -150,6 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-objectives"><i class="fa fa-check"></i><b>1.1</b> Workshop Objectives</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>1.3</b> R and R Studio Installation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#the-r-studio-interface"><i class="fa fa-check"></i><b>1.4</b> The R Studio Interface</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#installing-and-loading-packages"><i class="fa fa-check"></i><b>1.5</b> Installing and loading packages</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#setting-your-working-directory"><i class="fa fa-check"></i><b>1.6</b> Setting your working directory</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loading-data.html"><a href="loading-data.html"><i class="fa fa-check"></i><b>2</b> Loading data</a></li>
 <li class="chapter" data-level="3" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning and filtering data</a>
@@ -236,19 +239,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Create a “Year” field</h2>
 <p>To create this new “Year” field within <code>co_traffic_stops</code>, we can use the <code>mutate</code> function, which is a <code>tidyverse</code> function that allows us to define new variables within a dataset, and the <code>substr</code> function, which allows us to extract a subset of a given string.</p>
 <p>The code below takes the data in the <code>co_traffic_stops</code> object, and then (<code>%&gt;%</code>) creates a new field named “Year” using the <code>mutate</code> function; this field is set equal to the the first four digits of the existing “date” field by passing <code>co_traffic_stops$data, 1, 4</code> to the <code>substr</code> function:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cleaning-and-filtering-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
-<span id="cb7-2"><a href="cleaning-and-filtering-data.html#cb7-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="cleaning-and-filtering-data.html#cb7-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
+<span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="cleaning-and-filtering-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
 <p>We can check to make sure that the “Year” field has been successfully created by viewing <code>co_traffic_stops</code> in the R Studio data viewer with <code>View(co_traffic_stops)</code>.</p>
 </div>
 <div id="filter-by-year" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Filter by year</h2>
 <p>Now that we have created the “Year” field, we can use it to filter the 2010 observations, and assign the 2010 stops to a new object named <code>co_traffic_stops_2010</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="cleaning-and-filtering-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
-<span id="cb8-2"><a href="cleaning-and-filtering-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cleaning-and-filtering-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
+<span id="cb10-2"><a href="cleaning-and-filtering-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
 <p>When we print the contents of the newly created <code>co_traffic_stops_2010</code> object, note that the observations are now only from 2010.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
-<span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cleaning-and-filtering-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
+<span id="cb11-2"><a href="cleaning-and-filtering-data.html#cb11-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
 ##    date       Year  county_name      subject_race raw_row_number     time  location subject_age
 ##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt;
