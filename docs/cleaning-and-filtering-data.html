@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-16" />
+<meta name="date" content="2022-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -234,24 +234,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="cleaning-and-filtering-data" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Cleaning and filtering data</h1>
-<p>To make things tractable (after all, the entire dataset has more than 3,000,000 observations), let’s focus our attention on Colorado traffic patrol from the year 2010; this also has the advantage of allowing us to eventually use 2010 census data in crafting our measure of racial bias in traffic stops. Note that currently, there isn’t a separate field which contains the year in which a particular stop took place; rather, there is a “date” field, in which the date is stored in YYYY-MM-DD format. The easiest way to extract observations from the year 2010 is therefore to first extract the YYYY information from the “date” field, and use that information to make a new “Year” field, which only contains the year of a given stop.</p>
+<p>To make things tractable (after all, the entire dataset has more than 3,000,000 observations), let’s focus our attention on Colorado traffic patrol from the year 2010; this also has the advantage of allowing us to eventually use 2010 census data in crafting our measure of racial bias in traffic stops. Note that currently, there isn’t a separate field which contains the year in which a particular stop took place; rather, there is a “date” field, in which the date is stored in YYYY-MM-DD format. The easiest way to extract observations from the year 2010 is therefore to first extract the YYYY information from the “date” field, and use that information to make a new “Year” field, which only contains the year of a given stop; we can then extract the 2010 observations based on the newly generated “Year” field.</p>
 <div id="create-a-year-field" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Create a “Year” field</h2>
 <p>To create this new “Year” field within <code>co_traffic_stops</code>, we can use the <code>mutate</code> function, which is a <code>tidyverse</code> function that allows us to define new variables within a dataset, and the <code>substr</code> function, which allows us to extract a subset of a given string.</p>
-<p>The code below takes the data in the <code>co_traffic_stops</code> object, and then (<code>%&gt;%</code>) creates a new field named “Year” using the <code>mutate</code> function; this field is set equal to the the first four digits of the existing “date” field by passing <code>co_traffic_stops$data, 1, 4</code> to the <code>substr</code> function:</p>
+<p>The code below takes the data in the <code>co_traffic_stops</code> object, and then (<code>%&gt;%</code>) creates a new field named “Year” using the <code>mutate</code> function; this field is set equal to the the first four digits of the existing “date” field by passing <code>co_traffic_stops$data, 1, 4</code> to the <code>substr</code> function. It then uses the assignment operator (<code>&lt;-</code>) to assign this change back to the <code>co_traffic_stops</code> object, which permanently stores the “Year” field in the dataset:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
 <span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
 <span id="cb9-3"><a href="cleaning-and-filtering-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
-<p>We can check to make sure that the “Year” field has been successfully created by viewing <code>co_traffic_stops</code> in the R Studio data viewer with <code>View(co_traffic_stops)</code>.</p>
+<p>Let’s check the updated <code>co_traffice_stops</code> object and make sure that the new field has been successfully created:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cleaning-and-filtering-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">relocate</span>(county_name, date, Year)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cleaning-and-filtering-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
+<pre><code>## # A tibble: 3,112,853 × 21
+##    county_name      date       Year  raw_row_number     time  location subject_age subject_race
+##    &lt;chr&gt;            &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
+##  1 Mesa County      2013-06-19 2013  1947986|1947987    NA    19, I70…          26 hispanic    
+##  2 Jefferson County 2012-08-24 2012  1537576            NA    254, H2…          NA &lt;NA&gt;        
+##  3 Logan County     2012-09-23 2012  1581594            NA    115, I7…          52 white       
+##  4 Douglas County   2011-08-25 2011  1009205            NA    197, H8…          32 white       
+##  5 Kiowa County     2013-06-08 2013  1932619            NA    107, H2…          33 hispanic    
+##  6 Boulder County   2011-12-23 2011  1179436            NA    48, 384…          NA &lt;NA&gt;        
+##  7 Boulder County   2012-04-07 2012  1326795            NA    0, R250…          39 white       
+##  8 Arapahoe County  2013-03-03 2013  1786795            NA    19, E47…          44 white       
+##  9 Park County      2012-09-02 2012  1552164            NA    224, H2…          NA &lt;NA&gt;        
+## 10 Adams County     2011-08-21 2011  1004281|1004282|1… NA    R2000, …          32 hispanic    
+## # … with 3,112,843 more rows, and 13 more variables: subject_sex &lt;chr&gt;, officer_id_hash &lt;chr&gt;,
+## #   officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
+## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
+## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+<p>Note the newly created Year field above. We can check to make sure that the “Year” field has been successfully created by viewing <code>co_traffic_stops</code> in the R Studio data viewer with <code>View(co_traffic_stops)</code>.</p>
 </div>
 <div id="filter-by-year" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Filter by year</h2>
 <p>Now that we have created the “Year” field, we can use it to filter the 2010 observations, and assign the 2010 stops to a new object named <code>co_traffic_stops_2010</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cleaning-and-filtering-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
-<span id="cb10-2"><a href="cleaning-and-filtering-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cleaning-and-filtering-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter 2010 observations and assign to a new object</span></span>
+<span id="cb13-2"><a href="cleaning-and-filtering-data.html#cb13-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
 <p>When we print the contents of the newly created <code>co_traffic_stops_2010</code> object, note that the observations are now only from 2010.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cleaning-and-filtering-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
-<span id="cb11-2"><a href="cleaning-and-filtering-data.html#cb11-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cleaning-and-filtering-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
+<span id="cb14-2"><a href="cleaning-and-filtering-data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
 ##    date       Year  county_name      subject_race raw_row_number     time  location subject_age
 ##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt;
