@@ -23,7 +23,7 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 
 ## Step 1: Define your variables
 
-First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census using the ```load_variables``` function. The arguments to the function below ```(2010, "sf1")``` indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named ```decennial_2010_variables```, which allows us to easily view the table by using the ```View``` function, and refer back to it whenever needed. 
+First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census by using the ```load_variables``` function. The arguments to the function below ```(2010, "sf1")``` indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named ```decennial_2010_variables```, which allows us to easily view the table by using the ```View``` function, and refer back to it whenever needed. 
 
 ```{r}
 # Variable list for 2010 Decennial
@@ -32,11 +32,11 @@ decennial_2010_variables<-load_variables(2010, "sf1")
 
 Based on the information in ```decennial_2010_variables```, we can identify the variable codes for the variables we want to extract. Then, we define a vector, assigned to an object named ```my_vars``` that assigns the variable codes to descriptive names; these descriptive names will be used as column names in the dataset returned by the census API call, while the variable codes will be used by ```tidycensus``` to populate the respective fields with the desired data. 
 
-For the purpose of defining the "bias_index" variable, recall that the two key variables we need are the over-17 total population, and the over-17 Black population (counted at the county level). There is no separate category in the census dataset for these measures, so we must derive it based on the data that is available. 
+For the purpose of defining the "bias_index" variable, recall that the two key variables we need are the over-17 total population, and the over-17 Black population (counted at the county level). There is no separate category in the census dataset for these measures, so we must derive them based on the data that is available. 
 
 Given the available data, to calculate the total over-17 population, we must extract data for the male under-5 population, the male 5 to 9 population, the male 10 to 14 population, and the male 15 to 17 population, and analogous measures for the female population. Subtracting these values from the total overall population (among all age groups) will yield a value for the  total over-17 population. 
 
-To calculate the Black over-17 population, we will extract a variable that defines the total Black population, and a series of variables that measure the Black population for different demographic combinations; subtracting the sum of the latter variables from the total Black population yields a measure of the Black over-17 population. 
+To calculate the Black over-17 population, we will extract a variable that defines the total Black population, and a series of variables that measure the Black population for different demographic (sex/age) combinations under 17 years old; subtracting the sum of the latter variables from the total Black population yields a measure of the Black over-17 population. 
 
 The code below extracts all the variables needed to carry out these calculation:
 
@@ -154,7 +154,7 @@ co_counties_race<-
                             totalpop_women_5to9-totalpop_women_10to14-totalpop_women_15to17)
 ```
 
-Then, we create a new variable named "total_black_pop_over17", which is defined be subtracting the total Black population that is 17 and under from the total Black population:
+Then, we create a new variable named "total_black_pop_over17", which is defined by subtracting the total Black population that is 17 and under from the total Black population:
 
 ```{r}
 # Create variable for total over--17 black population
