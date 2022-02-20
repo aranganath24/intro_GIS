@@ -744,7 +744,7 @@ Now, we can bring up this map whenever we need it:
 traffic_bias_map_continuous
 ```
 
-### Make a categorical map 
+## Make a categorical map 
 
 So far, we have been mapping the the ```bias_index``` variable, which is a continuous variable. This has the advantage of allowing us to visualize the full extent of variation in the ```bias_index``` variable. However, there are also other ways we might visualize the data. For example, we could transform ```bias_index``` from a continuous numeric variable into a categorical variable, and visualize this categorical variable on a map. 
 
@@ -888,7 +888,7 @@ traffic_bias_map_continuous_labeled
 
 ## Refining the categorical map
 
-The code below refines the categorical map we created in Section 6.3.4. The map is largely the same as the one created in that section, but adds and customizes the appearance of the map's title using arguments to the  ```tm_layout``` function that we have already discussed in Section 7.1, and also adds a map credits section that is identical to the one we used in 7.1. The map is assigned to the ```traffic_bias_map_categorical``` object, which overwrites the map we previously assigned to this object in Section 6.3.4. 
+The code below refines the categorical map we created in Section 6.4. The map is largely the same as the one created in that section, but adds and customizes the appearance of the map's title using arguments to the  ```tm_layout``` function that we have already discussed in Section 7.1, and also adds a map credits section that is identical to the one we used in 7.1. The map is assigned to the ```traffic_bias_map_categorical``` object, which overwrites the map we previously assigned to this object in Section 6.4. 
 
 ```{r}
 traffic_bias_map_categorical<-
