@@ -149,9 +149,10 @@ Now that we have a cleaned dataset with all our necessary variables, we can use 
 # Create variable for total over-17 population
 co_counties_race<-
   co_counties_race %>% 
-     mutate(total_pop_over17=total_pop-totalpop_men_u5-totalpop_men_5to9-
-                            totalpop_men_10to14-totalpop_men_15to17-totalpop_women_u5-
-                            totalpop_women_5to9-totalpop_women_10to14-totalpop_women_15to17)
+     mutate(total_pop_over17=
+              total_pop-totalpop_men_u5-totalpop_men_5to9-
+              totalpop_men_10to14-totalpop_men_15to17-totalpop_women_u5-
+              totalpop_women_5to9-totalpop_women_10to14-totalpop_women_15to17)
 ```
 
 Then, we create a new variable named "total_black_pop_over17", which is defined by subtracting the total Black population that is 17 and under from the total Black population:
@@ -160,16 +161,16 @@ Then, we create a new variable named "total_black_pop_over17", which is defined 
 # Create variable for total over--17 black population
 co_counties_race<-
   co_counties_race %>% 
-    mutate(total_black_pop_over17=
-             black_totalpop-black_men_u1-black_men_1-
-             black_men_2-black_men_3-black_men_4-black_men_5-black_men_6-
-             black_men_7-black_men_8-black_men_9-black_men_10-black_men_11-
-             black_men_12-black_men_13-black_men_14-black_men_15-black_men_16-
-             black_men_17-black_women_u1-black_women_1-black_women_2-black_women_3-
-             black_women_4-black_women_5-black_women_6-black_women_7-black_women_8-
-             black_women_9-black_women_10-black_women_11-black_women_12-
-             black_women_13-black_women_14-black_women_15-black_women_16-
-             black_women_17)
+  mutate(total_black_pop_over17=
+          black_totalpop-black_men_u1-black_men_1-
+          black_men_2-black_men_3-black_men_4-black_men_5-black_men_6-
+          black_men_7-black_men_8-black_men_9-black_men_10-black_men_11-
+          black_men_12-black_men_13-black_men_14-black_men_15-black_men_16-
+          black_men_17-black_women_u1-black_women_1-black_women_2-black_women_3-
+          black_women_4-black_women_5-black_women_6-black_women_7-black_women_8-
+          black_women_9-black_women_10-black_women_11-black_women_12-
+          black_women_13-black_women_14-black_women_15-black_women_16-
+          black_women_17)
 ```
 
 ## Step 5: Finalize and export the dataset

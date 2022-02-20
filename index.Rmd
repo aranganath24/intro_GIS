@@ -48,9 +48,9 @@ For example, if you wanted to install *tmap*, you would print the following in y
 install.packages("tmap")
 ```
 
-After installing the required passage, you must load the packages into memory, which you can do with the following:
+After installing the required package, you must load the packages into memory, which you can do with the following:
 
-```{}
+```{r}
 # Loads libraries
 library(tidyverse)
 library(tmap)
