@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -239,9 +239,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Create a “Year” field</h2>
 <p>To create this new “Year” field within <code>co_traffic_stops</code>, we can use the <code>mutate</code> function, which is a <code>tidyverse</code> function that allows us to define new variables within a dataset, and the <code>substr</code> function, which allows us to extract a subset of a given string.</p>
 <p>The code below takes the data in the <code>co_traffic_stops</code> object, and then (<code>%&gt;%</code>) creates a new field named “Year” using the <code>mutate</code> function; this field is set equal to the the first four digits of the existing “date” field by passing <code>co_traffic_stops$data, 1, 4</code> to the <code>substr</code> function. It then uses the assignment operator (<code>&lt;-</code>) to assign this change back to the <code>co_traffic_stops</code> object, which permanently updates the dataset with the addition of the new “Year” field:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, in &quot;co_traffic_stops&quot;</span></span>
-<span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="cleaning-and-filtering-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cleaning-and-filtering-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates &quot;Year&quot; field, that contains the year of a given stop, </span></span>
+<span id="cb9-2"><a href="cleaning-and-filtering-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># in &quot;co_traffic_stops&quot;</span></span>
+<span id="cb9-3"><a href="cleaning-and-filtering-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="cleaning-and-filtering-data.html#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">substr</span>(co_traffic_stops<span class="sc">$</span>date, <span class="dv">1</span>,<span class="dv">4</span>))</span></code></pre></div>
 <p>Let’s check the updated <code>co_traffice_stops</code> object and make sure that the new field has been successfully created:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cleaning-and-filtering-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_traffic_stops&quot;</span></span>
 <span id="cb10-2"><a href="cleaning-and-filtering-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
@@ -267,8 +268,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="filter-by-year" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Filter by year</h2>
 <p>Now that we have created the “Year” field, we can use it to extract the 2010 observations using the <code>filter</code> function , and assign the new dataset of 2010 stops to a new object named <code>co_traffic_stops_2010</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="cleaning-and-filtering-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract 2010 observations and assign to a new object named &quot;co_traffic_stops_2010&quot;</span></span>
-<span id="cb12-2"><a href="cleaning-and-filtering-data.html#cb12-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="cleaning-and-filtering-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract 2010 observations and assign to a new object named </span></span>
+<span id="cb12-2"><a href="cleaning-and-filtering-data.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;co_traffic_stops_2010&quot;</span></span>
+<span id="cb12-3"><a href="cleaning-and-filtering-data.html#cb12-3" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010<span class="ot">&lt;-</span>co_traffic_stops <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2010</span>)</span></code></pre></div>
 <p>When we print the contents of the newly created <code>co_traffic_stops_2010</code> object, note that the observations are now only from 2010.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cleaning-and-filtering-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
 <span id="cb13-2"><a href="cleaning-and-filtering-data.html#cb13-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>

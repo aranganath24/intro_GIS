@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,8 +236,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> Loading data</h1>
 <p>Let’s begin by reading in the dataset on State Patrol traffic stops released by the Stanford Open Policing Project. The data can be downloaded from this <a href="https://openpolicing.stanford.edu/data/">website</a>, but has also been made available to you as part of the workshop materials as a CSV file.</p>
 <p>Once the traffic patrol data has been downloaded into your working directory, pass the name of the file to the <code>read_csv</code> function, and assign it to an object. Here, we’ll assign the traffic patrol data to an object named <code>co_traffic_stops</code>. Note that the name of an object is arbitrary, but ideally should meaningfully describe the data that has been assigned to it.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named &quot;co_traffic_stops&quot;</span></span>
-<span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="loading-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in Stanford police data for Colorado and assign to object named </span></span>
+<span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;co_traffic_stops&quot;</span></span>
+<span id="cb4-3"><a href="loading-data.html#cb4-3" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
@@ -253,8 +254,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
 <p>Once the traffic patrol data has been read into R studio and assigned to an object, we can print the contents of the dataset to the console by typing the name of that object into the R Studio console (note that only the first few records will be printed)</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) to the console; the first few records of the dataset will print</span></span>
-<span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="loading-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the contents of &quot;co_traffic_stops&quot; (i.e. the CO traffic patrol data) </span></span>
+<span id="cb6-2"><a href="loading-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to the console; the first few records of the dataset will print</span></span>
+<span id="cb6-3"><a href="loading-data.html#cb6-3" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
 <pre><code>## # A tibble: 3,112,853 × 20
 ##    raw_row_number    date       time  location county_name subject_age subject_race subject_sex
 ##    &lt;chr&gt;             &lt;date&gt;     &lt;lgl&gt; &lt;chr&gt;    &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
