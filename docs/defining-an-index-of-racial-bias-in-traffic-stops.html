@@ -189,11 +189,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="mapping-the-bias-index.html"><a href="mapping-the-bias-index.html#make-a-categorical-map"><i class="fa fa-check"></i><b>6.4</b> Make a categorical map</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><i class="fa fa-check"></i><b>7</b> Refining and formatting the maps of the Colorado traffic-stop bias index</a>
+<li class="chapter" data-level="7" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html"><i class="fa fa-check"></i><b>7</b> Refining and formatting maps</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-map-of-the-continuous-bias_index-variable"><i class="fa fa-check"></i><b>7.1</b> Refining the map of the continuous “bias_index” variable</a></li>
-<li class="chapter" data-level="7.2" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-categorical-map"><i class="fa fa-check"></i><b>7.2</b> Refining the categorical map</a></li>
-<li class="chapter" data-level="7.3" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#making-a-dynamic-map-of-the-bias-index"><i class="fa fa-check"></i><b>7.3</b> Making a dynamic map of the bias index</a></li>
+<li class="chapter" data-level="7.1" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#refine-the-map-of-the-continuous-bias_index-variable"><i class="fa fa-check"></i><b>7.1</b> Refine the map of the continuous “bias_index” variable</a></li>
+<li class="chapter" data-level="7.2" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#refine-the-categorical-map"><i class="fa fa-check"></i><b>7.2</b> Refine the categorical map</a></li>
+<li class="chapter" data-level="7.3" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#create-a-dynamic-map-of-the-bias-index"><i class="fa fa-check"></i><b>7.3</b> Create a dynamic map of the bias index</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="exporting-maps.html"><a href="exporting-maps.html"><i class="fa fa-check"></i><b>8</b> Exporting maps</a></li>
 <li class="chapter" data-level="9" data-path="summary-scripts.html"><a href="summary-scripts.html"><i class="fa fa-check"></i><b>9</b> Summary scripts</a>
@@ -507,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s print the contents of <code>bias_graph</code> and see what the plot looks like; it will appear in the “plots” tab on the bottom-right of your R Studio interface.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;bias_graph&quot;</span></span>
 <span id="cb59-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb59-2" aria-hidden="true" tabindex="-1"></a>bias_graph</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>As we can see, the graph does show that certain counties have values around zero, or well below zero on the bias index, which drives down the overall value for the state; but in many other counties, the value of the “bias_index” variable is positive and substantively large.</p>
 <p>While the graph does convey valuable information, it’s a little bit confusing to look at; for example, the county names are squished together in a way that makes them unreadable.</p>
 <p>A quick way to make the plot more readable is to invert the axes (such that counties are on the y-axis, and the bias index is arrayed along the x-axis). The code below is largely the same as the code in the previous code block. The differences are twofold, and contribute to a change in the map’s appearance. First, the argument to
@@ -533,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s view the revised plot:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;bias_graph_inverted&quot;</span></span>
 <span id="cb61-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb61-2" aria-hidden="true" tabindex="-1"></a>bias_graph_inverted</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-60-1.png" width="768" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="768" /></p>
 <p>We can see that those relatively small changes produced a more readable and informative plot. We can get a clear sense of how the traffic stops bias index varies across Colorado counties, and identify the counties where policing practices appear excessively punitive towards Black drivers. The plot clearly conveys why focusing solely on aggregated statistics might be problematic: such measures have the potential to obscure more granular patterns of bias within jurisdictions.</p>
 </div>
 </div>

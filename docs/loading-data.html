@@ -189,11 +189,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="mapping-the-bias-index.html"><a href="mapping-the-bias-index.html#make-a-categorical-map"><i class="fa fa-check"></i><b>6.4</b> Make a categorical map</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><i class="fa fa-check"></i><b>7</b> Refining and formatting the maps of the Colorado traffic-stop bias index</a>
+<li class="chapter" data-level="7" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html"><i class="fa fa-check"></i><b>7</b> Refining and formatting maps</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-map-of-the-continuous-bias_index-variable"><i class="fa fa-check"></i><b>7.1</b> Refining the map of the continuous “bias_index” variable</a></li>
-<li class="chapter" data-level="7.2" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#refining-the-categorical-map"><i class="fa fa-check"></i><b>7.2</b> Refining the categorical map</a></li>
-<li class="chapter" data-level="7.3" data-path="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html"><a href="refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index.html#making-a-dynamic-map-of-the-bias-index"><i class="fa fa-check"></i><b>7.3</b> Making a dynamic map of the bias index</a></li>
+<li class="chapter" data-level="7.1" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#refine-the-map-of-the-continuous-bias_index-variable"><i class="fa fa-check"></i><b>7.1</b> Refine the map of the continuous “bias_index” variable</a></li>
+<li class="chapter" data-level="7.2" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#refine-the-categorical-map"><i class="fa fa-check"></i><b>7.2</b> Refine the categorical map</a></li>
+<li class="chapter" data-level="7.3" data-path="refining-and-formatting-maps.html"><a href="refining-and-formatting-maps.html#create-a-dynamic-map-of-the-bias-index"><i class="fa fa-check"></i><b>7.3</b> Create a dynamic map of the bias index</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="exporting-maps.html"><a href="exporting-maps.html"><i class="fa fa-check"></i><b>8</b> Exporting maps</a></li>
 <li class="chapter" data-level="9" data-path="summary-scripts.html"><a href="summary-scripts.html"><i class="fa fa-check"></i><b>9</b> Summary scripts</a>
@@ -241,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-2"><a href="loading-data.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;co_traffic_stops&quot;</span></span>
 <span id="cb4-3"><a href="loading-data.html#cb4-3" aria-hidden="true" tabindex="-1"></a>co_traffic_stops<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_statewide_2020_04_01.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_character(),
 ##   date = col_date(format = &quot;&quot;),
@@ -275,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## #   arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;,
 ## #   search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 <p>We can also view the <code>co_traffic_stops</code> object (or, for that matter, any dataset in R Studio) within the R Studio data viewer by passing the name of the relevant object to the <code>View</code> function:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loading-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect ```co_traffic_stops``` in the R Studio data viewer</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="loading-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect co_traffic_stops in the R Studio data viewer</span></span>
 <span id="cb8-2"><a href="loading-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(co_traffic_stops)</span></code></pre></div>
 </div>
             </section>

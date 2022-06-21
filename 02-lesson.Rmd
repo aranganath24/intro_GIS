@@ -25,7 +25,7 @@ co_traffic_stops
 We can also view the ```co_traffic_stops``` object (or, for that matter, any dataset in R Studio) within the R Studio data viewer by passing the name of the relevant object to the ```View``` function:
 
 ```{r}
-# Inspect ```co_traffic_stops``` in the R Studio data viewer
+# Inspect co_traffic_stops in the R Studio data viewer
 View(co_traffic_stops)
 ```
 
@@ -795,7 +795,7 @@ If we print the contents of ```traffic_bias_map_categorical```, we open a map th
 traffic_bias_map_categorical
 ```
 
-# Refining and formatting the maps of the Colorado traffic-stop bias index
+# Refining and formatting maps
 
 In the previous section, we created and refined two maps based on the index of racial bias in traffic stops we created earlier in the tutorial. The first map shows the spatial distribution of the continuous "bias_index" variable across counties. 
 
@@ -817,7 +817,7 @@ traffic_bias_map_categorical
 
 In this section, we'll continue to refine and customize these maps (for example, by adding titles, map credits, county labels, and labels and titles for the legend). 
 
-## Refining the map of the continuous "bias_index" variable
+## Refine the map of the continuous "bias_index" variable
 
 ```{r, echo=F}
 county_shapefile_biasIndex<-county_shapefile_biasIndex %>% relocate(NAME)
@@ -886,7 +886,7 @@ When we open ```traffic_bias_map_continuous_labeled```, we can see the map with 
 traffic_bias_map_continuous_labeled
 ```
 
-## Refining the categorical map
+## Refine the categorical map
 
 The code below refines the categorical map we created in Section 6.4. The map is largely the same as the one created in that section, but adds and customizes the appearance of the map's title using arguments to the  ```tm_layout``` function that we have already discussed in Section 7.1, and also adds a map credits section that is identical to the one we used in 7.1. The map is assigned to the ```traffic_bias_map_categorical``` object, which overwrites the map we previously assigned to this object in Section 6.4. 
 
@@ -916,7 +916,7 @@ We can print the contents of ```traffic_bias_map_categorical``` to view the upda
 traffic_bias_map_categorical
 ```
 
-## Making a dynamic map of the bias index
+## Create a dynamic map of the bias index
 
 Recall from Section 6.1 that it is possible to render both static maps and interactive maps using the *tmap* package. Thus far, our focus has been on creating static maps to display county-level variation in the "bias_index" variable (or the derivative "apparent_bias" variable). It's worth briefly reminding ourselves that we can easily turn these static maps into dynamic maps by changing the *tmap* mode to "view." For example, let's say we want to display the map assigned to ```traffic_bias_map_continuous``` in a dynamic setting: 
 

@@ -29,10 +29,10 @@ make-a-rough-draft-of-a-map
 make-a-map-with-custom-breaks
 make-a-map-with-custom-colors
 make-a-categorical-map
-refining-and-formatting-the-maps-of-the-colorado-traffic-stop-bias-index
-refining-the-map-of-the-continuous-bias_index-variable
-refining-the-categorical-map
-making-a-dynamic-map-of-the-bias-index
+refining-and-formatting-maps
+refine-the-map-of-the-continuous-bias_index-variable
+refine-the-categorical-map
+create-a-dynamic-map-of-the-bias-index
 exporting-maps
 summary-scripts
 summary-script-to-prepare-clean-and-process-data-for-mapping
