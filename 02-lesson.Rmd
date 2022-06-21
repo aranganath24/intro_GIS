@@ -526,7 +526,7 @@ In order to visualize data on the bias index we created on a map of Colorado cou
 Let's load in the spatial dataset of Colorado counties that was provided to you at the start of the workshop. In particular, the spatial dataset that was provided to you is stored as a shapefile, which is a commonly used file format to store spatial datasets. We can load a shapefile into R Studio using the ```st_read``` function from the *sf* package. Below, we'll load in our shapefile, and assign it to a new object named ```co_counties_shapefile```. Note that a given shapefile is comprised of several different files with various extensions; make sure that all of these files are in your working directory. However, the file name passed to the ```st_read``` function must have an ".shp" extension, as below:  
 
 ```{r, echo=-1}
-setwd("/Users/adra7980/Documents/CU_workshops/gis/data/tl_2019_08_county")
+setwd("co_counties/tl_2019_08_county/")
 # Reads in shapefile and assigns to object named "co_counties_shapefile"
 co_counties_shapefile<-st_read("tl_2019_08_county.shp")
 ```
