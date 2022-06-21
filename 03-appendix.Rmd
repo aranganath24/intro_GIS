@@ -6,7 +6,7 @@ This section provides a script used to extract the census dataset that was read 
 
 To extract the census data required to create the bias index, load the ```tidyverse``` (which was used in the workshop tutorial) and the ```tidycensus``` package, which is an R package that allows users to pull Census Bureau data using the Census API (if tidycensus is not already installed, please install it using ```install.packages("tidycensus")```.
 
-```{r}
+```{r, message=F, warning=F, results=F}
 # Loads libraries required to extract census data
 library(tidycensus)
 library(tidyverse)
@@ -130,10 +130,9 @@ As always, it is also possible to view the dataset in the R Studio data viewer b
 Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the "NAME" field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the NAME field, and updates the ```co_counties_race``` object with this change:
 
 ```{r}
-# Remove state name from name field
+# Remove state name from NAME field
 co_counties_race<-co_counties_race %>% 
-                    separate(col=NAME, c("County", "x"), sep=",") %>% 
-                     select(-x)     
+                  mutate(County=str_remove_all(NAME, ", Colorado"))   
 ```       
 
 ```{r}

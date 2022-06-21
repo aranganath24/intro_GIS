@@ -355,31 +355,30 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 <div id="clean-the-tidycensus-dataset" class="section level2" number="13.3">
 <h2><span class="header-section-number">A.3</span> Clean the tidycensus dataset</h2>
 <p>Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the “NAME” field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the NAME field, and updates the <code>co_counties_race</code> object with this change:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove state name from name field</span></span>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove state name from NAME field</span></span>
 <span id="cb124-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-2" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> </span>
-<span id="cb124-3"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">separate</span>(<span class="at">col=</span>NAME, <span class="fu">c</span>(<span class="st">&quot;County&quot;</span>, <span class="st">&quot;x&quot;</span>), <span class="at">sep=</span><span class="st">&quot;,&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb124-4"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">select</span>(<span class="sc">-</span>x)     </span></code></pre></div>
+<span id="cb124-3"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">mutate</span>(<span class="at">County=</span><span class="fu">str_remove_all</span>(NAME, <span class="st">&quot;, Colorado&quot;</span>))   </span></code></pre></div>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_race&quot;</span></span>
 <span id="cb125-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb125-2" aria-hidden="true" tabindex="-1"></a>co_counties_race</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 48
-##    GEOID County          total_pop totalpop_men_u5 totalpop_men_5to9 totalpop_men_10to14 totalpop_men_15to17
-##    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
-##  1 08023 Costilla County      3524              99               102                 107                  95
-##  2 08025 Crowley County       5823              88               110                 136                  81
-##  3 08027 Custer County        4255              62                95                 113                  85
-##  4 08029 Delta County        30952             887               913                1042                 680
-##  5 08031 Denver County      600158           22252             18894               15319                8920
-##  6 08035 Douglas County     285465           11278             13587               12664                6913
-##  7 08033 Dolores County       2064              58                63                  71                  40
-##  8 08049 Grand County        14843             416               421                 431                 261
-##  9 08039 Elbert County       23086             594               790                 976                 611
-## 10 08041 El Paso County     622263           23152             23050               23252               14097
-## # … with 54 more rows, and 41 more variables: totalpop_women_u5 &lt;dbl&gt;, totalpop_women_5to9 &lt;dbl&gt;,
-## #   totalpop_women_10to14 &lt;dbl&gt;, totalpop_women_15to17 &lt;dbl&gt;, black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;,
-## #   black_men_1 &lt;dbl&gt;, black_men_2 &lt;dbl&gt;, black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;,
-## #   black_men_6 &lt;dbl&gt;, black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;,
-## #   black_men_11 &lt;dbl&gt;, black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;, black_men_15 &lt;dbl&gt;,
-## #   black_men_16 &lt;dbl&gt;, black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, black_women_1 &lt;dbl&gt;, black_women_2 &lt;dbl&gt;,
+<pre><code>## # A tibble: 64 × 49
+##    GEOID NAME  total_pop totalpop_men_u5 totalpop_men_5t… totalpop_men_10… totalpop_men_15… totalpop_women_…
+##    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 08023 Cost…      3524              99              102              107               95               76
+##  2 08025 Crow…      5823              88              110              136               81               94
+##  3 08027 Cust…      4255              62               95              113               85               74
+##  4 08029 Delt…     30952             887              913             1042              680              865
+##  5 08031 Denv…    600158           22252            18894            15319             8920            21263
+##  6 08035 Doug…    285465           11278            13587            12664             6913            10622
+##  7 08033 Dolo…      2064              58               63               71               40               78
+##  8 08049 Gran…     14843             416              421              431              261              422
+##  9 08039 Elbe…     23086             594              790              976              611              563
+## 10 08041 El P…    622263           23152            23050            23252            14097            22060
+## # … with 54 more rows, and 41 more variables: totalpop_women_5to9 &lt;dbl&gt;, totalpop_women_10to14 &lt;dbl&gt;,
+## #   totalpop_women_15to17 &lt;dbl&gt;, black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;, black_men_1 &lt;dbl&gt;,
+## #   black_men_2 &lt;dbl&gt;, black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;, black_men_6 &lt;dbl&gt;,
+## #   black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;, black_men_11 &lt;dbl&gt;,
+## #   black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;, black_men_15 &lt;dbl&gt;, black_men_16 &lt;dbl&gt;,
+## #   black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, black_women_1 &lt;dbl&gt;, black_women_2 &lt;dbl&gt;,
 ## #   black_women_3 &lt;dbl&gt;, black_women_4 &lt;dbl&gt;, black_women_5 &lt;dbl&gt;, black_women_6 &lt;dbl&gt;, …</code></pre>
 </div>
 <div id="define-new-variables" class="section level2" number="13.4">
