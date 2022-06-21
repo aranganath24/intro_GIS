@@ -2,7 +2,7 @@
 
 # Using tidycensus to extract relevant census data
 
-This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, it is recommended to prepare the census dataset required to create the relevant index beforehand, and simply provide students with the relevant dataset. However, if you are looking for a way to extract the census dataset within R, the following script can be used as a guide. 
+This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, we provided you with this census data beforehand. However, if you are looking for a way to extract the census dataset within R Studio yourself from scratch, the following script can be used as a guide to reproduce the workshop’s census dataset.
 
 To extract the census data required to create the bias index, load the ```tidyverse``` (which was used in the workshop tutorial) and the ```tidycensus``` package, which is an R package that allows users to pull Census Bureau data using the Census API (if tidycensus is not already installed, please install it using ```install.packages("tidycensus")```.
 
@@ -21,7 +21,7 @@ census_api_key("INSERT HERE")
 In the workshop, we were working with 2010 police stops data, so it made sense to pull demographic data from the 2010 decennial census (which would have been collected in 2009). 
 The discussion below is therefore framed with respect to the 2010 decennial census; if you choose to use another census dataset to create the index, your code may look slightly different. 
 
-## Step 1: Define your variables
+##  Define your variables
 
 First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census by using the ```load_variables``` function. The arguments to the function below ```(2010, "sf1")``` indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named ```decennial_2010_variables```, which allows us to easily view the table by using the ```View``` function, and refer back to it whenever needed. 
 
@@ -91,7 +91,7 @@ my_vars<-c(total_pop="P001001",
            black_women_17="PCT012B124")
 ```
 
-## Step 2: Extract the variables using tidycensus
+## Extract the variables using tidycensus
 
 Now that we have a vector of the variables we want to extract (along with descriptive names for those variables), we will use the ```get_decennial``` function from *tidycensus* to extract these variables from the 2010 decennial census. Several arguments are passed to the ```get_decennial``` function below:
 
@@ -125,7 +125,7 @@ co_counties_race
 
 As always, it is also possible to view the dataset in the R Studio data viewer by running ```View(co_counties_race)```.
 
-## Step 3: Clean the tidycensus dataset
+## Clean the tidycensus dataset
 
 Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the "NAME" field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the NAME field, and updates the ```co_counties_race``` object with this change:
 
@@ -141,7 +141,7 @@ co_counties_race<-co_counties_race %>%
 co_counties_race
 ```
 
-## Step 4: Define new variables
+##  Define new variables
 
 Now that we have a cleaned dataset with all our necessary variables, we can use these variables to generate the demographic variables needed to calculate the bias index. First, the code below defines a new variable, called "total_pop_over17", that is calculated by subtracting the total population that is 17 and under from the total overall population:
 
@@ -173,7 +173,7 @@ co_counties_race<-
           black_women_17)
 ```
 
-## Step 5: Finalize and export the dataset
+## Finalize and export the dataset
 
 Now that we have our two key variables defined, let's clean up the dataset by removing the variables we no longer need, and only keeping the variables necessary to create the bias index. Below, we take the existing dataset assigned to ```co_counties_race```, and select the "GEOID" and "County" variables (which serve as ID variables), "total_black_pop_over17" and "total_pop_over17" (which are used to compute the bias index), and "total_pop" (which is not necessary to create "bias_index", but which could prove useful in exploring alternate ways of defining a bias index than the one implemented in the tutorial). The new dataset is assigned to an object named ```co_counties_census_2010```:
 

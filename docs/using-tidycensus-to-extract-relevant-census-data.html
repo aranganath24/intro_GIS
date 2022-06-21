@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Using tidycensus to extract relevant census data | Introduction to Geographic Information Systems</title>
-  <meta name="description" content="A Using tidycensus to extract relevant census data | Introduction to Geographic Information Systems" />
+  <title>A Using tidycensus to extract relevant census data | Exploring the Geography of Systemic Racism with Spatial Data Science</title>
+  <meta name="description" content="A Using tidycensus to extract relevant census data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Using tidycensus to extract relevant census data | Introduction to Geographic Information Systems" />
+  <meta property="og:title" content="A Using tidycensus to extract relevant census data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Using tidycensus to extract relevant census data | Introduction to Geographic Information Systems" />
+  <meta name="twitter:title" content="A Using tidycensus to extract relevant census data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   
   
   
 
+<meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-02-19" />
+<meta name="date" content="2022-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -207,11 +208,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using tidycensus to extract relevant census data</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-1-define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Step 1: Define your variables</a></li>
-<li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-2-extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Step 2: Extract the variables using tidycensus</a></li>
-<li class="chapter" data-level="A.3" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-3-clean-the-tidycensus-dataset"><i class="fa fa-check"></i><b>A.3</b> Step 3: Clean the tidycensus dataset</a></li>
-<li class="chapter" data-level="A.4" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-4-define-new-variables"><i class="fa fa-check"></i><b>A.4</b> Step 4: Define new variables</a></li>
-<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-5-finalize-and-export-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Step 5: Finalize and export the dataset</a></li>
+<li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Define your variables</a></li>
+<li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Extract the variables using tidycensus</a></li>
+<li class="chapter" data-level="A.3" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#clean-the-tidycensus-dataset"><i class="fa fa-check"></i><b>A.3</b> Clean the tidycensus dataset</a></li>
+<li class="chapter" data-level="A.4" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-new-variables"><i class="fa fa-check"></i><b>A.4</b> Define new variables</a></li>
+<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#finalize-and-export-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Finalize and export the dataset</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -224,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Geographic Information Systems</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring the Geography of Systemic Racism with Spatial Data Science</a>
           </h1>
         </div>
 
@@ -234,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="using-tidycensus-to-extract-relevant-census-data" class="section level1" number="13">
 <h1><span class="header-section-number">A</span> Using tidycensus to extract relevant census data</h1>
-<p>This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, it is recommended to prepare the census dataset required to create the relevant index beforehand, and simply provide students with the relevant dataset. However, if you are looking for a way to extract the census dataset within R, the following script can be used as a guide.</p>
+<p>This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, we provided you with this census data beforehand. However, if you are looking for a way to extract the census dataset within R Studio yourself from scratch, the following script can be used as a guide to reproduce the workshop’s census dataset.</p>
 <p>To extract the census data required to create the bias index, load the <code>tidyverse</code> (which was used in the workshop tutorial) and the <code>tidycensus</code> package, which is an R package that allows users to pull Census Bureau data using the Census API (if tidycensus is not already installed, please install it using <code>install.packages("tidycensus")</code>.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loads libraries required to extract census data</span></span>
 <span id="cb114-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
@@ -243,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">census_api_key</span>(<span class="st">&quot;INSERT HERE&quot;</span>)</span></code></pre></div>
 <p>In the workshop, we were working with 2010 police stops data, so it made sense to pull demographic data from the 2010 decennial census (which would have been collected in 2009).
 The discussion below is therefore framed with respect to the 2010 decennial census; if you choose to use another census dataset to create the index, your code may look slightly different.</p>
-<div id="step-1-define-your-variables" class="section level2" number="13.1">
-<h2><span class="header-section-number">A.1</span> Step 1: Define your variables</h2>
+<div id="define-your-variables" class="section level2" number="13.1">
+<h2><span class="header-section-number">A.1</span> Define your variables</h2>
 <p>First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census by using the <code>load_variables</code> function. The arguments to the function below <code>(2010, "sf1")</code> indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named <code>decennial_2010_variables</code>, which allows us to easily view the table by using the <code>View</code> function, and refer back to it whenever needed.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable list for 2010 Decennial</span></span>
 <span id="cb116-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb116-2" aria-hidden="true" tabindex="-1"></a>decennial_2010_variables<span class="ot">&lt;-</span><span class="fu">load_variables</span>(<span class="dv">2010</span>, <span class="st">&quot;sf1&quot;</span>)</span></code></pre></div>
@@ -302,8 +303,8 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 <span id="cb117-47"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb117-47" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_16=</span><span class="st">&quot;PCT012B123&quot;</span>,</span>
 <span id="cb117-48"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb117-48" aria-hidden="true" tabindex="-1"></a>           <span class="at">black_women_17=</span><span class="st">&quot;PCT012B124&quot;</span>)</span></code></pre></div>
 </div>
-<div id="step-2-extract-the-variables-using-tidycensus" class="section level2" number="13.2">
-<h2><span class="header-section-number">A.2</span> Step 2: Extract the variables using tidycensus</h2>
+<div id="extract-the-variables-using-tidycensus" class="section level2" number="13.2">
+<h2><span class="header-section-number">A.2</span> Extract the variables using tidycensus</h2>
 <p>Now that we have a vector of the variables we want to extract (along with descriptive names for those variables), we will use the <code>get_decennial</code> function from <em>tidycensus</em> to extract these variables from the 2010 decennial census. Several arguments are passed to the <code>get_decennial</code> function below:</p>
 <ul>
 <li><code>geography="county"</code> specifies that we want the census data to be provided at the county level</li>
@@ -330,29 +331,29 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_counties_race&quot;</span></span>
 <span id="cb122-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb122-2" aria-hidden="true" tabindex="-1"></a>co_counties_race</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 48
-##    GEOID NAME      total_pop totalpop_men_u5 totalpop_men_5t… totalpop_men_10… totalpop_men_15…
-##    &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 08023 Costilla…      3524              99              102              107               95
-##  2 08025 Crowley …      5823              88              110              136               81
-##  3 08027 Custer C…      4255              62               95              113               85
-##  4 08029 Delta Co…     30952             887              913             1042              680
-##  5 08031 Denver C…    600158           22252            18894            15319             8920
-##  6 08035 Douglas …    285465           11278            13587            12664             6913
-##  7 08033 Dolores …      2064              58               63               71               40
-##  8 08049 Grand Co…     14843             416              421              431              261
-##  9 08039 Elbert C…     23086             594              790              976              611
-## 10 08041 El Paso …    622263           23152            23050            23252            14097
-## # … with 54 more rows, and 41 more variables: totalpop_women_u5 &lt;dbl&gt;,
-## #   totalpop_women_5to9 &lt;dbl&gt;, totalpop_women_10to14 &lt;dbl&gt;, totalpop_women_15to17 &lt;dbl&gt;,
-## #   black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;, black_men_1 &lt;dbl&gt;, black_men_2 &lt;dbl&gt;,
-## #   black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;, black_men_6 &lt;dbl&gt;,
-## #   black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;,
-## #   black_men_11 &lt;dbl&gt;, black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;,
-## #   black_men_15 &lt;dbl&gt;, black_men_16 &lt;dbl&gt;, black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, …</code></pre>
+##    GEOID NAME  total_pop totalpop_men_u5 totalpop_men_5t… totalpop_men_10… totalpop_men_15… totalpop_women_…
+##    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1 08023 Cost…      3524              99              102              107               95               76
+##  2 08025 Crow…      5823              88              110              136               81               94
+##  3 08027 Cust…      4255              62               95              113               85               74
+##  4 08029 Delt…     30952             887              913             1042              680              865
+##  5 08031 Denv…    600158           22252            18894            15319             8920            21263
+##  6 08035 Doug…    285465           11278            13587            12664             6913            10622
+##  7 08033 Dolo…      2064              58               63               71               40               78
+##  8 08049 Gran…     14843             416              421              431              261              422
+##  9 08039 Elbe…     23086             594              790              976              611              563
+## 10 08041 El P…    622263           23152            23050            23252            14097            22060
+## # … with 54 more rows, and 40 more variables: totalpop_women_5to9 &lt;dbl&gt;, totalpop_women_10to14 &lt;dbl&gt;,
+## #   totalpop_women_15to17 &lt;dbl&gt;, black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;, black_men_1 &lt;dbl&gt;,
+## #   black_men_2 &lt;dbl&gt;, black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;, black_men_6 &lt;dbl&gt;,
+## #   black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;, black_men_11 &lt;dbl&gt;,
+## #   black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;, black_men_15 &lt;dbl&gt;, black_men_16 &lt;dbl&gt;,
+## #   black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, black_women_1 &lt;dbl&gt;, black_women_2 &lt;dbl&gt;,
+## #   black_women_3 &lt;dbl&gt;, black_women_4 &lt;dbl&gt;, black_women_5 &lt;dbl&gt;, black_women_6 &lt;dbl&gt;, …</code></pre>
 <p>As always, it is also possible to view the dataset in the R Studio data viewer by running <code>View(co_counties_race)</code>.</p>
 </div>
-<div id="step-3-clean-the-tidycensus-dataset" class="section level2" number="13.3">
-<h2><span class="header-section-number">A.3</span> Step 3: Clean the tidycensus dataset</h2>
+<div id="clean-the-tidycensus-dataset" class="section level2" number="13.3">
+<h2><span class="header-section-number">A.3</span> Clean the tidycensus dataset</h2>
 <p>Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the “NAME” field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the NAME field, and updates the <code>co_counties_race</code> object with this change:</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove state name from name field</span></span>
 <span id="cb124-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb124-2" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span>co_counties_race <span class="sc">%&gt;%</span> </span>
@@ -361,28 +362,28 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_race&quot;</span></span>
 <span id="cb125-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb125-2" aria-hidden="true" tabindex="-1"></a>co_counties_race</span></code></pre></div>
 <pre><code>## # A tibble: 64 × 48
-##    GEOID County    total_pop totalpop_men_u5 totalpop_men_5t… totalpop_men_10… totalpop_men_15…
-##    &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-##  1 08023 Costilla…      3524              99              102              107               95
-##  2 08025 Crowley …      5823              88              110              136               81
-##  3 08027 Custer C…      4255              62               95              113               85
-##  4 08029 Delta Co…     30952             887              913             1042              680
-##  5 08031 Denver C…    600158           22252            18894            15319             8920
-##  6 08035 Douglas …    285465           11278            13587            12664             6913
-##  7 08033 Dolores …      2064              58               63               71               40
-##  8 08049 Grand Co…     14843             416              421              431              261
-##  9 08039 Elbert C…     23086             594              790              976              611
-## 10 08041 El Paso …    622263           23152            23050            23252            14097
-## # … with 54 more rows, and 41 more variables: totalpop_women_u5 &lt;dbl&gt;,
-## #   totalpop_women_5to9 &lt;dbl&gt;, totalpop_women_10to14 &lt;dbl&gt;, totalpop_women_15to17 &lt;dbl&gt;,
-## #   black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;, black_men_1 &lt;dbl&gt;, black_men_2 &lt;dbl&gt;,
-## #   black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;, black_men_6 &lt;dbl&gt;,
-## #   black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;,
-## #   black_men_11 &lt;dbl&gt;, black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;,
-## #   black_men_15 &lt;dbl&gt;, black_men_16 &lt;dbl&gt;, black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, …</code></pre>
+##    GEOID County          total_pop totalpop_men_u5 totalpop_men_5to9 totalpop_men_10to14 totalpop_men_15to17
+##    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;               &lt;dbl&gt;
+##  1 08023 Costilla County      3524              99               102                 107                  95
+##  2 08025 Crowley County       5823              88               110                 136                  81
+##  3 08027 Custer County        4255              62                95                 113                  85
+##  4 08029 Delta County        30952             887               913                1042                 680
+##  5 08031 Denver County      600158           22252             18894               15319                8920
+##  6 08035 Douglas County     285465           11278             13587               12664                6913
+##  7 08033 Dolores County       2064              58                63                  71                  40
+##  8 08049 Grand County        14843             416               421                 431                 261
+##  9 08039 Elbert County       23086             594               790                 976                 611
+## 10 08041 El Paso County     622263           23152             23050               23252               14097
+## # … with 54 more rows, and 41 more variables: totalpop_women_u5 &lt;dbl&gt;, totalpop_women_5to9 &lt;dbl&gt;,
+## #   totalpop_women_10to14 &lt;dbl&gt;, totalpop_women_15to17 &lt;dbl&gt;, black_totalpop &lt;dbl&gt;, black_men_u1 &lt;dbl&gt;,
+## #   black_men_1 &lt;dbl&gt;, black_men_2 &lt;dbl&gt;, black_men_3 &lt;dbl&gt;, black_men_4 &lt;dbl&gt;, black_men_5 &lt;dbl&gt;,
+## #   black_men_6 &lt;dbl&gt;, black_men_7 &lt;dbl&gt;, black_men_8 &lt;dbl&gt;, black_men_9 &lt;dbl&gt;, black_men_10 &lt;dbl&gt;,
+## #   black_men_11 &lt;dbl&gt;, black_men_12 &lt;dbl&gt;, black_men_13 &lt;dbl&gt;, black_men_14 &lt;dbl&gt;, black_men_15 &lt;dbl&gt;,
+## #   black_men_16 &lt;dbl&gt;, black_men_17 &lt;dbl&gt;, black_women_u1 &lt;dbl&gt;, black_women_1 &lt;dbl&gt;, black_women_2 &lt;dbl&gt;,
+## #   black_women_3 &lt;dbl&gt;, black_women_4 &lt;dbl&gt;, black_women_5 &lt;dbl&gt;, black_women_6 &lt;dbl&gt;, …</code></pre>
 </div>
-<div id="step-4-define-new-variables" class="section level2" number="13.4">
-<h2><span class="header-section-number">A.4</span> Step 4: Define new variables</h2>
+<div id="define-new-variables" class="section level2" number="13.4">
+<h2><span class="header-section-number">A.4</span> Define new variables</h2>
 <p>Now that we have a cleaned dataset with all our necessary variables, we can use these variables to generate the demographic variables needed to calculate the bias index. First, the code below defines a new variable, called “total_pop_over17”, that is calculated by subtracting the total population that is 17 and under from the total overall population:</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable for total over-17 population</span></span>
 <span id="cb127-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a>co_counties_race<span class="ot">&lt;-</span></span>
@@ -406,8 +407,8 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 <span id="cb128-12"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb128-12" aria-hidden="true" tabindex="-1"></a>          black_women_13<span class="sc">-</span>black_women_14<span class="sc">-</span>black_women_15<span class="sc">-</span>black_women_16<span class="sc">-</span></span>
 <span id="cb128-13"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb128-13" aria-hidden="true" tabindex="-1"></a>          black_women_17)</span></code></pre></div>
 </div>
-<div id="step-5-finalize-and-export-the-dataset" class="section level2" number="13.5">
-<h2><span class="header-section-number">A.5</span> Step 5: Finalize and export the dataset</h2>
+<div id="finalize-and-export-the-dataset" class="section level2" number="13.5">
+<h2><span class="header-section-number">A.5</span> Finalize and export the dataset</h2>
 <p>Now that we have our two key variables defined, let’s clean up the dataset by removing the variables we no longer need, and only keeping the variables necessary to create the bias index. Below, we take the existing dataset assigned to <code>co_counties_race</code>, and select the “GEOID” and “County” variables (which serve as ID variables), “total_black_pop_over17” and “total_pop_over17” (which are used to compute the bias index), and “total_pop” (which is not necessary to create “bias_index”, but which could prove useful in exploring alternate ways of defining a bias index than the one implemented in the tutorial). The new dataset is assigned to an object named <code>co_counties_census_2010</code>:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Clean data by select relevant variables for analysis, and assign selection to new object named &quot;co_counties_census_2010&quot;</span></span>
 <span id="cb129-2"><a href="using-tidycensus-to-extract-relevant-census-data.html#cb129-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span></span>

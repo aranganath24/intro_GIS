@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Cleaning and filtering data | Introduction to Geographic Information Systems</title>
-  <meta name="description" content="3 Cleaning and filtering data | Introduction to Geographic Information Systems" />
+  <title>3 Cleaning and filtering data | Exploring the Geography of Systemic Racism with Spatial Data Science</title>
+  <meta name="description" content="3 Cleaning and filtering data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Cleaning and filtering data | Introduction to Geographic Information Systems" />
+  <meta property="og:title" content="3 Cleaning and filtering data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Cleaning and filtering data | Introduction to Geographic Information Systems" />
+  <meta name="twitter:title" content="3 Cleaning and filtering data | Exploring the Geography of Systemic Racism with Spatial Data Science" />
   
   
   
 
+<meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-02-19" />
+<meta name="date" content="2022-06-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -207,11 +208,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using tidycensus to extract relevant census data</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-1-define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Step 1: Define your variables</a></li>
-<li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-2-extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Step 2: Extract the variables using tidycensus</a></li>
-<li class="chapter" data-level="A.3" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-3-clean-the-tidycensus-dataset"><i class="fa fa-check"></i><b>A.3</b> Step 3: Clean the tidycensus dataset</a></li>
-<li class="chapter" data-level="A.4" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-4-define-new-variables"><i class="fa fa-check"></i><b>A.4</b> Step 4: Define new variables</a></li>
-<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#step-5-finalize-and-export-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Step 5: Finalize and export the dataset</a></li>
+<li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Define your variables</a></li>
+<li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Extract the variables using tidycensus</a></li>
+<li class="chapter" data-level="A.3" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#clean-the-tidycensus-dataset"><i class="fa fa-check"></i><b>A.3</b> Clean the tidycensus dataset</a></li>
+<li class="chapter" data-level="A.4" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-new-variables"><i class="fa fa-check"></i><b>A.4</b> Define new variables</a></li>
+<li class="chapter" data-level="A.5" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#finalize-and-export-the-dataset"><i class="fa fa-check"></i><b>A.5</b> Finalize and export the dataset</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -224,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Geographic Information Systems</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploring the Geography of Systemic Racism with Spatial Data Science</a>
           </h1>
         </div>
 
@@ -247,22 +248,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="cleaning-and-filtering-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_traffic_stops&quot;</span></span>
 <span id="cb10-2"><a href="cleaning-and-filtering-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops</span></code></pre></div>
 <pre><code>## # A tibble: 3,112,853 × 21
-##    county_name      date       Year  raw_row_number     time  location subject_age subject_race
-##    &lt;chr&gt;            &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;       
-##  1 Mesa County      2013-06-19 2013  1947986|1947987    NA    19, I70…          26 hispanic    
-##  2 Jefferson County 2012-08-24 2012  1537576            NA    254, H2…          NA &lt;NA&gt;        
-##  3 Logan County     2012-09-23 2012  1581594            NA    115, I7…          52 white       
-##  4 Douglas County   2011-08-25 2011  1009205            NA    197, H8…          32 white       
-##  5 Kiowa County     2013-06-08 2013  1932619            NA    107, H2…          33 hispanic    
-##  6 Boulder County   2011-12-23 2011  1179436            NA    48, 384…          NA &lt;NA&gt;        
-##  7 Boulder County   2012-04-07 2012  1326795            NA    0, R250…          39 white       
-##  8 Arapahoe County  2013-03-03 2013  1786795            NA    19, E47…          44 white       
-##  9 Park County      2012-09-02 2012  1552164            NA    224, H2…          NA &lt;NA&gt;        
-## 10 Adams County     2011-08-21 2011  1004281|1004282|1… NA    R2000, …          32 hispanic    
-## # … with 3,112,843 more rows, and 13 more variables: subject_sex &lt;chr&gt;, officer_id_hash &lt;chr&gt;,
-## #   officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
-## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
-## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+##    county_name      date       Year  raw_row_number      time  location subject_age subject_race subject_sex
+##    &lt;chr&gt;            &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;               &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
+##  1 Mesa County      2013-06-19 2013  1947986|1947987     NA    19, I70…          26 hispanic     male       
+##  2 Jefferson County 2012-08-24 2012  1537576             NA    254, H2…          NA &lt;NA&gt;         &lt;NA&gt;       
+##  3 Logan County     2012-09-23 2012  1581594             NA    115, I7…          52 white        male       
+##  4 Douglas County   2011-08-25 2011  1009205             NA    197, H8…          32 white        female     
+##  5 Kiowa County     2013-06-08 2013  1932619             NA    107, H2…          33 hispanic     male       
+##  6 Boulder County   2011-12-23 2011  1179436             NA    48, 384…          NA &lt;NA&gt;         &lt;NA&gt;       
+##  7 Boulder County   2012-04-07 2012  1326795             NA    0, R250…          39 white        male       
+##  8 Arapahoe County  2013-03-03 2013  1786795             NA    19, E47…          44 white        female     
+##  9 Park County      2012-09-02 2012  1552164             NA    224, H2…          NA &lt;NA&gt;         &lt;NA&gt;       
+## 10 Adams County     2011-08-21 2011  1004281|1004282|10… NA    R2000, …          32 hispanic     male       
+## # … with 3,112,843 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;, type &lt;chr&gt;,
+## #   violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;,
+## #   contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 <p>Note the newly created Year field above. We can also check to make sure that the “Year” field has been successfully created by viewing <code>co_traffic_stops</code> in the R Studio data viewer with <code>View(co_traffic_stops)</code>.</p>
 </div>
 <div id="filter-by-year" class="section level2" number="3.2">
@@ -275,22 +275,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cleaning-and-filtering-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print contents of &quot;co_traffic_stops_2010&quot; object</span></span>
 <span id="cb13-2"><a href="cleaning-and-filtering-data.html#cb13-2" aria-hidden="true" tabindex="-1"></a>co_traffic_stops_2010</span></code></pre></div>
 <pre><code>## # A tibble: 470,284 × 21
-##    date       Year  county_name      subject_race raw_row_number     time  location subject_age
-##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;              &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt;
-##  1 2010-04-17 2010  Montezuma County white        188721|188722      NA    2, 989,…          16
-##  2 2010-04-17 2010  Montezuma County white        187958             NA    991, 32           54
-##  3 2010-04-17 2010  Montezuma County hispanic     188451             NA    9, 280,…          49
-##  4 2010-04-17 2010  Montezuma County white        186989|186990|186… NA    3, 277,…          16
-##  5 2010-04-17 2010  Montezuma County white        186997|186998|186… NA    3, 277,…          37
-##  6 2010-04-17 2010  Montezuma County white        186993|186994|186… NA    3, 277,…          39
-##  7 2010-12-21 2010  Mineral County   &lt;NA&gt;         600865             NA    164.5, …         110
-##  8 2010-12-21 2010  Mineral County   &lt;NA&gt;         600477             NA    163, 29…         110
-##  9 2010-01-20 2010  Pueblo County    hispanic     36625|36626        NA    312, H5…          45
-## 10 2010-01-01 2010  Chaffee County   white        275                NA    127, H2…          17
-## # … with 470,274 more rows, and 13 more variables: subject_sex &lt;chr&gt;, officer_id_hash &lt;chr&gt;,
-## #   officer_sex &lt;chr&gt;, type &lt;chr&gt;, violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;,
-## #   warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;, contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;,
-## #   search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
+##    date       Year  county_name      subject_race raw_row_number      time  location subject_age subject_sex
+##    &lt;date&gt;     &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;               &lt;lgl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;      
+##  1 2010-04-17 2010  Montezuma County white        188721|188722       NA    2, 989,…          16 female     
+##  2 2010-04-17 2010  Montezuma County white        187958              NA    991, 32           54 male       
+##  3 2010-04-17 2010  Montezuma County hispanic     188451              NA    9, 280,…          49 male       
+##  4 2010-04-17 2010  Montezuma County white        186989|186990|1869… NA    3, 277,…          16 male       
+##  5 2010-04-17 2010  Montezuma County white        186997|186998|1869… NA    3, 277,…          37 male       
+##  6 2010-04-17 2010  Montezuma County white        186993|186994|1869… NA    3, 277,…          39 male       
+##  7 2010-12-21 2010  Mineral County   &lt;NA&gt;         600865              NA    164.5, …         110 &lt;NA&gt;       
+##  8 2010-12-21 2010  Mineral County   &lt;NA&gt;         600477              NA    163, 29…         110 &lt;NA&gt;       
+##  9 2010-01-20 2010  Pueblo County    hispanic     36625|36626         NA    312, H5…          45 male       
+## 10 2010-01-01 2010  Chaffee County   white        275                 NA    127, H2…          17 female     
+## # … with 470,274 more rows, and 12 more variables: officer_id_hash &lt;chr&gt;, officer_sex &lt;chr&gt;, type &lt;chr&gt;,
+## #   violation &lt;chr&gt;, arrest_made &lt;lgl&gt;, citation_issued &lt;lgl&gt;, warning_issued &lt;lgl&gt;, outcome &lt;chr&gt;,
+## #   contraband_found &lt;lgl&gt;, search_conducted &lt;lgl&gt;, search_basis &lt;chr&gt;, raw_Ethnicity &lt;chr&gt;</code></pre>
 </div>
 </div>
             </section>
