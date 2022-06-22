@@ -30,7 +30,7 @@ The workshop makes use of the following three datasets:
 
 For convenience, all of this data can be downloaded from this [Dropbox Folder](https://www.dropbox.com/sh/sd7wwi5b0r9s9mn/AABscRHrEvXRoX26e_yqEiTFa?dl=0). 
 
-## R and R Studio Installation
+## Install R and R Studio 
 
 In order to follow along with the lesson, you must install both R and R Studio. Please see the [installation instructions from this Data Carpentry lesson](https://datacarpentry.org/r-socialsci/setup.html) for additional guidance regarding R and R Studio installation. 
 
@@ -38,7 +38,7 @@ In order to follow along with the lesson, you must install both R and R Studio. 
 
 If you haven’t used R Studio before, you can take a quick tour of the R Studio interface and get oriented by consulting this Data Carpentry tutorial titled [Introduction to R and R Studio](https://datacarpentry.org/r-intro-geospatial/01-rstudio-intro/index.html). See, in particular the section of the tutorial titled “Introduction to R Studio.”
 
-## Installing and loading packages
+## Install and load packages
 
 In order to carry out the analysis in the workshop, you must install the *tidyverse* (a suite of R packages that facilitate data science and analysis), *sf* (a package used to load and process spatial datasets in R), and *tmap* (a package that allows one to create maps in R). If you haven't already installed one or more of these packages, you can do so by placing the package name in quotes as an argument to the **```install.packages()```**  function. 
 
@@ -61,7 +61,7 @@ Note that you only need to install packages once on a given computer, and (usual
 
 If you would like additional information about how R packages work and the installation process, please see the **Installing Packages** section in this [Data Carpentry tutorial](https://datacarpentry.org/r-intro-geospatial/01-rstudio-intro/index.html).
 
-## Setting your working directory
+## Set working directory
 
 Before we can bring our data into R Studio and begin the tutorial, we have to specify the location of the relevant data on our computer. This step is known as setting one's working directory. Before setting the working directory, make sure that you've downloaded the data provided at the [folder](https://www.dropbox.com/sh/sd7wwi5b0r9s9mn/AABscRHrEvXRoX26e_yqEiTFa?dl=0) mentioned above to a directory on your computer. 
 

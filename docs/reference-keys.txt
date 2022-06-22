@@ -1,10 +1,10 @@
 introduction
 workshop-objectives
 data
-r-and-r-studio-installation
+install-r-and-r-studio
 the-r-studio-interface
-installing-and-loading-packages
-setting-your-working-directory
+install-and-load-packages
+set-working-directory
 loading-data
 cleaning-and-filtering-data
 create-a-year-field

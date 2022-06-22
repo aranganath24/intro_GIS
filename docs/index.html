@@ -24,7 +24,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-06-21" />
+<meta name="date" content="2022-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -150,10 +150,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#workshop-objectives"><i class="fa fa-check"></i><b>1.1</b> Workshop Objectives</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>1.3</b> R and R Studio Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#install-r-and-r-studio"><i class="fa fa-check"></i><b>1.3</b> Install R and R Studio</a></li>
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#the-r-studio-interface"><i class="fa fa-check"></i><b>1.4</b> The R Studio Interface</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#installing-and-loading-packages"><i class="fa fa-check"></i><b>1.5</b> Installing and loading packages</a></li>
-<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#setting-your-working-directory"><i class="fa fa-check"></i><b>1.6</b> Setting your working directory</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#install-and-load-packages"><i class="fa fa-check"></i><b>1.5</b> Install and load packages</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#set-working-directory"><i class="fa fa-check"></i><b>1.6</b> Set working directory</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="loading-data.html"><a href="loading-data.html"><i class="fa fa-check"></i><b>2</b> Loading data</a></li>
 <li class="chapter" data-level="3" data-path="cleaning-and-filtering-data.html"><a href="cleaning-and-filtering-data.html"><i class="fa fa-check"></i><b>3</b> Cleaning and filtering data</a>
@@ -236,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Exploring the Geography of Systemic Racism with Spatial Data Science</h1>
 <p class="author"><em>Aditya Ranganath</em></p>
-<p class="date"><em>2022-06-21</em></p>
+<p class="date"><em>2022-06-22</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
@@ -262,16 +262,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>For convenience, all of this data can be downloaded from this <a href="https://www.dropbox.com/sh/sd7wwi5b0r9s9mn/AABscRHrEvXRoX26e_yqEiTFa?dl=0">Dropbox Folder</a>.</p>
 </div>
-<div id="r-and-r-studio-installation" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> R and R Studio Installation</h2>
+<div id="install-r-and-r-studio" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Install R and R Studio</h2>
 <p>In order to follow along with the lesson, you must install both R and R Studio. Please see the <a href="https://datacarpentry.org/r-socialsci/setup.html">installation instructions from this Data Carpentry lesson</a> for additional guidance regarding R and R Studio installation.</p>
 </div>
 <div id="the-r-studio-interface" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> The R Studio Interface</h2>
 <p>If you haven’t used R Studio before, you can take a quick tour of the R Studio interface and get oriented by consulting this Data Carpentry tutorial titled <a href="https://datacarpentry.org/r-intro-geospatial/01-rstudio-intro/index.html">Introduction to R and R Studio</a>. See, in particular the section of the tutorial titled “Introduction to R Studio.”</p>
 </div>
-<div id="installing-and-loading-packages" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Installing and loading packages</h2>
+<div id="install-and-load-packages" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Install and load packages</h2>
 <p>In order to carry out the analysis in the workshop, you must install the <em>tidyverse</em> (a suite of R packages that facilitate data science and analysis), <em>sf</em> (a package used to load and process spatial datasets in R), and <em>tmap</em> (a package that allows one to create maps in R). If you haven’t already installed one or more of these packages, you can do so by placing the package name in quotes as an argument to the <strong><code>install.packages()</code></strong> function.</p>
 <p>For example, if you wanted to install <em>tmap</em>, you would print the following in your R Studio console, or run it from a script (which you can open by clicking <strong>File</strong>, selecting <strong>New File</strong>, and then clicking <strong>R Script</strong>):</p>
 <pre eval="FALSE"><code>install.packages(&quot;tmap&quot;)</code></pre>
@@ -283,8 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that you only need to install packages once on a given computer, and (usually) do not need to reinstall packages after quitting an R session and opening up a new one. However, you <em>do</em> need to reload any necessary libraries each time you open a new R session.</p>
 <p>If you would like additional information about how R packages work and the installation process, please see the <strong>Installing Packages</strong> section in this <a href="https://datacarpentry.org/r-intro-geospatial/01-rstudio-intro/index.html">Data Carpentry tutorial</a>.</p>
 </div>
-<div id="setting-your-working-directory" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> Setting your working directory</h2>
+<div id="set-working-directory" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Set working directory</h2>
 <p>Before we can bring our data into R Studio and begin the tutorial, we have to specify the location of the relevant data on our computer. This step is known as setting one’s working directory. Before setting the working directory, make sure that you’ve downloaded the data provided at the <a href="https://www.dropbox.com/sh/sd7wwi5b0r9s9mn/AABscRHrEvXRoX26e_yqEiTFa?dl=0">folder</a> mentioned above to a directory on your computer.</p>
 <p>If you’re unfamiliar with the concept of file paths, the easiest way to set your working directory is through the R Studio menu. To do so, follow these steps:</p>
 <ul>
