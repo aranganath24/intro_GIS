@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="conclusion-and-further-reading.html"><a href="conclusion-and-further-reading.html"><i class="fa fa-check"></i><b>11</b> Conclusion and Further Reading</a></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using tidycensus to extract relevant census data</a>
+<li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using <em>tidycensus</em> to extract relevant census data</a>
 <ul>
 <li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Define your variables</a></li>
 <li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Extract the variables using tidycensus</a></li>
@@ -235,24 +235,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="defining-an-index-of-racial-bias-in-traffic-stops" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Defining an index of racial bias in traffic stops</h1>
-<p>Let’s briefly take stock of where we are. We started with a massive dataset (over 3,000,000 observations) of traffic patrol stops in the state of Colorado over the course of almost a decade. Over several steps, we have worked our way to a county-level dataset containing information on the total number of traffoc stops, and the number of those stops involving a Black motorist, over the course of the year 2010. That dataset looks something like this:</p>
+<p>Let’s briefly take stock of where we are. We started with a massive dataset (over 3,000,000 observations) of traffic patrol stops in the state of Colorado over the course of almost a decade. Over several steps, we have worked our way to a county-level dataset containing information on the total number of traffic stops, and the number of those stops involving a Black motorist, over the course of the year 2010. That dataset looks something like this:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_county_black_stops&quot;</span></span>
 <span id="cb33-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb33-2" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 3
-## # Rowwise:  county_name
-##    county_name       black_stops total_stops
-##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
-##  1 Adams County             1208       34350
-##  2 Alamosa County             43        4478
-##  3 Arapahoe County          1819       17520
-##  4 Archuleta County           28        5091
-##  5 Baca County                61        1511
-##  6 Bent County                46        1808
-##  7 Boulder County            192       13053
-##  8 Broomfield County          22        1095
-##  9 Chaffee County             37        6521
-## 10 Cheyenne County            38        1106
-## # … with 54 more rows</code></pre>
+<pre><code># A tibble: 64 × 3
+# Rowwise:  county_name
+   county_name       black_stops total_stops
+   &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
+ 1 Adams County             1208       34350
+ 2 Alamosa County             43        4478
+ 3 Arapahoe County          1819       17520
+ 4 Archuleta County           28        5091
+ 5 Baca County                61        1511
+ 6 Bent County                46        1808
+ 7 Boulder County            192       13053
+ 8 Broomfield County          22        1095
+ 9 Chaffee County             37        6521
+10 Cheyenne County            38        1106
+# … with 54 more rows</code></pre>
 <p>Now, let’s think about how to use this information to develop a measure of the extent to which traffic police stops may have been driven by racial bias (whether conscious or unconscious) against Black motorists. We might expect that in a discrimination-free world, the share of traffic stops for a given racial group will reflect their share of the overall adult (over-17) population (we’ll consider the over-17 population as our baseline, since that is the demographic eligible to drive). For example, if the Black percentage of a given county’s adult population is 5%, we could form a simple baseline expectation that in a discrimination-free world where “driving while Black” is not effectively criminalized, the percentage of traffic stops involving Black motorists would not exceed 5%. To the extent that the percentage of traffic stops involving Black motorists <strong>did</strong> exceed 5%, we might assume a statistical pattern consistent with racial discrimination.</p>
 <p>Based on this logic, a simple county-level indicator of anti-Black bias in traffic stops would simply be the difference between the percentage of traffic stops in a given county involving Black motorists, and the percentage of the county’s overall population that is Black:</p>
 <p><strong>County-Level Traffic Stop Bias Index</strong>=
@@ -262,59 +262,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s create this index for Colorado counties in the year 2010. Note that we already have the data to compute the first part of the bias index (i.e. the percentage of traffic stops involving Black motorists); this is contained in <code>co_county_black_stops</code>:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_county_black_stops&quot;</span></span>
 <span id="cb35-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb35-2" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 3
-## # Rowwise:  county_name
-##    county_name       black_stops total_stops
-##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
-##  1 Adams County             1208       34350
-##  2 Alamosa County             43        4478
-##  3 Arapahoe County          1819       17520
-##  4 Archuleta County           28        5091
-##  5 Baca County                61        1511
-##  6 Bent County                46        1808
-##  7 Boulder County            192       13053
-##  8 Broomfield County          22        1095
-##  9 Chaffee County             37        6521
-## 10 Cheyenne County            38        1106
-## # … with 54 more rows</code></pre>
+<pre><code># A tibble: 64 × 3
+# Rowwise:  county_name
+   county_name       black_stops total_stops
+   &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
+ 1 Adams County             1208       34350
+ 2 Alamosa County             43        4478
+ 3 Arapahoe County          1819       17520
+ 4 Archuleta County           28        5091
+ 5 Baca County                61        1511
+ 6 Bent County                46        1808
+ 7 Boulder County            192       13053
+ 8 Broomfield County          22        1095
+ 9 Chaffee County             37        6521
+10 Cheyenne County            38        1106
+# … with 54 more rows</code></pre>
 <p>Let’s therefore turn to calculating the second part of the index: the percentage of each county’s population that is Black. We’ll carry out this calculation using demographic data from the 2010 decennial census.</p>
 <div id="read-in-and-join-2010-census-data-to-co_county_black_stops" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Read in and join 2010 census data to <code>co_county_black_stops</code></h2>
-<p>First, let’s read in the census dataset that was provided to you at the start of workshop (please see the Appendix to see how the data was extracted) using the <code>read_csv</code> function, and assign it to an object named <code>co_counties_census_2010</code>:</p>
+<p>First, let’s read in the census dataset that was provided to you at the start of workshop (please see the Appendix to see how the data was extracted) using the **<code>read_csv()</code> function, and assign it to an object named <code>co_counties_census_2010</code>:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reads in census data and assigns to object named &quot;co_counties_census_2010&quot;</span></span>
 <span id="cb37-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb37-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">&quot;co_county_decennial_census.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
-## cols(
-##   GEOID = col_character(),
-##   County = col_character(),
-##   total_pop = col_double(),
-##   total_black_pop_over17 = col_double(),
-##   total_pop_over17 = col_double()
-## )</code></pre>
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────────────────────────────────
+cols(
+  GEOID = col_character(),
+  County = col_character(),
+  total_pop = col_double(),
+  total_black_pop_over17 = col_double(),
+  total_pop_over17 = col_double()
+)</code></pre>
 <p>Let’s print the contents of this census dataset:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_census_2010&quot;</span></span>
 <span id="cb39-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb39-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_2010</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 5
-##    GEOID County          total_pop total_black_pop_over17 total_pop_over17
-##    &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
-##  1 08023 Costilla County      3524                     18             2788
-##  2 08025 Crowley County       5823                    556             5034
-##  3 08027 Custer County        4255                     37             3525
-##  4 08029 Delta County        30952                    139            24101
-##  5 08031 Denver County      600158                  45338           471392
-##  6 08035 Douglas County     285465                   2447           198453
-##  7 08033 Dolores County       2064                      4             1602
-##  8 08049 Grand County        14843                     43            11825
-##  9 08039 Elbert County       23086                    122            17232
-## 10 08041 El Paso County     622263                  27280           459587
-## # … with 54 more rows</code></pre>
+<pre><code># A tibble: 64 × 5
+   GEOID County          total_pop total_black_pop_over17 total_pop_over17
+   &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 08023 Costilla County      3524                     18             2788
+ 2 08025 Crowley County       5823                    556             5034
+ 3 08027 Custer County        4255                     37             3525
+ 4 08029 Delta County        30952                    139            24101
+ 5 08031 Denver County      600158                  45338           471392
+ 6 08035 Douglas County     285465                   2447           198453
+ 7 08033 Dolores County       2064                      4             1602
+ 8 08049 Grand County        14843                     43            11825
+ 9 08039 Elbert County       23086                    122            17232
+10 08041 El Paso County     622263                  27280           459587
+# … with 54 more rows</code></pre>
 <p>Note that it contains county-level information on the overall population (i.e. all age groups and all racial categories), the adult (over-17) population (for all racial groups), and the adult (over-17) Black population. We can use the latter two variables to compute the second part of our bias index.</p>
 </div>
 <div id="join-census-data-to-co_county_black_stops" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Join census data to <code>co_county_black_stops</code></h2>
 <p>Before doing so, however, let’s join the census dataset we just viewed (<code>co_counties_census_2010</code>) to the dataset containing information on county-level police stops (<code>co_county_black_stops</code>); this will allow us to calculate the bias index using the information from the single dataset that results from this join.</p>
-<p>The code below uses the <code>full_join</code> function to join <code>co_counties_census_2010</code> (the second argument), to <code>co_county_black_stops</code> (the first argument), using the “county_name” column (from <code>co_county_black_stops</code>) and the “County” column (from <code>co_counties_census_2010</code>) as the join fields; it assigns the dataset which results from the join to a new object named <code>co_counties_census_trafficstops</code>:</p>
+<p>The code below uses the <strong><code>full_join()</code></strong> function to join <code>co_counties_census_2010</code> (the second argument), to <code>co_county_black_stops</code> (the first argument), using the “county_name” column (from <code>co_county_black_stops</code>) and the “County” column (from <code>co_counties_census_2010</code>) as the join fields; it assigns the dataset which results from the join to a new object named <code>co_counties_census_trafficstops</code>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Joins &quot;co_counties_census_2010&quot; to &quot;co_counties_black_stops&quot; using the</span></span>
 <span id="cb41-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;county_name&quot; and &quot;County&quot; fields as the join fields; assigns the product </span></span>
 <span id="cb41-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># of the join to an object named &quot;co_counties_census_trafficstops&quot;</span></span>
@@ -325,25 +325,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When we open <code>co_counties_census_trafficstops</code>, we should see information from both of the constituent datasets (<code>co_county_black_stops</code> and <code>co_counties_census_2010</code>):</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_census_trafficstops&quot;</span></span>
 <span id="cb42-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb42-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 7
-## # Rowwise:  county_name
-##    county_name       black_stops total_stops GEOID total_pop total_black_pop_over17 total_pop_over17
-##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
-##  1 Adams County             1208       34350 08001    441603                   9396           315480
-##  2 Alamosa County             43        4478 08003     15445                    142            11617
-##  3 Arapahoe County          1819       17520 08005    572003                  40558           424679
-##  4 Archuleta County           28        5091 08007     12084                     19             9676
-##  5 Baca County                61        1511 08009      3788                     15             2974
-##  6 Bent County                46        1808 08011      6499                    486             5403
-##  7 Boulder County            192       13053 08013    294567                   1961           231813
-##  8 Broomfield County          22        1095 08014     55889                    415            41237
-##  9 Chaffee County             37        6521 08015     17809                    264            14821
-## 10 Cheyenne County            38        1106 08017      1836                      4             1386
-## # … with 54 more rows</code></pre>
+<pre><code># A tibble: 64 × 7
+# Rowwise:  county_name
+   county_name       black_stops total_stops GEOID total_pop total_black_pop_over17 total_pop_over17
+   &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;
+ 1 Adams County             1208       34350 08001    441603                   9396           315480
+ 2 Alamosa County             43        4478 08003     15445                    142            11617
+ 3 Arapahoe County          1819       17520 08005    572003                  40558           424679
+ 4 Archuleta County           28        5091 08007     12084                     19             9676
+ 5 Baca County                61        1511 08009      3788                     15             2974
+ 6 Bent County                46        1808 08011      6499                    486             5403
+ 7 Boulder County            192       13053 08013    294567                   1961           231813
+ 8 Broomfield County          22        1095 08014     55889                    415            41237
+ 9 Chaffee County             37        6521 08015     17809                    264            14821
+10 Cheyenne County            38        1106 08017      1836                      4             1386
+# … with 54 more rows</code></pre>
 </div>
 <div id="define-the-variables-that-will-be-used-in-the-bias-index" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Define the variables that will be used in the bias index</h2>
-<p>Now that we have all the information in one dataset, let’s calculate the constituent parts of the bias index. The code below takes the current <code>co_counties_census_trafficstops</code> object that we created above, and then uses the <code>mutate</code> function to create two new variables. The first variable, named “black_stop_pct”, is defined as the percentage of traffic stops that involved a Black motorist. The second variable, named “black_pop_pct”, is defined as the percentage of a given county’s adult population that is Black. The dataset that includes these two new variables is assigned back to <code>co_counties_census_trafficstops</code>:</p>
+<p>Now that we have all the information in one dataset, let’s calculate the constituent parts of the bias index. The code below takes the current <code>co_counties_census_trafficstops</code> object that we created above, and then uses the <strong><code>mutate()</code></strong> function to create two new variables. The first variable, named “black_stop_pct”, is defined as the percentage of traffic stops that involved a Black motorist. The second variable, named “black_pop_pct”, is defined as the percentage of a given county’s adult population that is Black. The dataset that includes these two new variables is assigned back to <code>co_counties_census_trafficstops</code>:</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes &quot;co_counties_census_trafficstops&quot; and then creates two new variables; </span></span>
 <span id="cb44-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># one new variable is named &quot;black_stop_pct&quot; (the Black percentage of </span></span>
 <span id="cb44-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># traffic stops) and the other is &quot;black_pop_pct&quot; (the Black percentage </span></span>
@@ -357,21 +357,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Having created these two new variables (i.e. the components of the bias index we’ll calculate below) in <code>co_counties_census_trafficstops</code>, let’s view the contents below:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_counties_census_trafficstops&quot; object</span></span>
 <span id="cb45-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb45-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 9
-## # Rowwise:  county_name
-##    county_name       black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop total_black_pop_o…
-##    &lt;chr&gt;                      &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;              &lt;dbl&gt;
-##  1 Adams County               3.52          2.98         1208       34350 08001    441603               9396
-##  2 Alamosa County             0.960         1.22           43        4478 08003     15445                142
-##  3 Arapahoe County           10.4           9.55         1819       17520 08005    572003              40558
-##  4 Archuleta County           0.550         0.196          28        5091 08007     12084                 19
-##  5 Baca County                4.04          0.504          61        1511 08009      3788                 15
-##  6 Bent County                2.54          9.00           46        1808 08011      6499                486
-##  7 Boulder County             1.47          0.846         192       13053 08013    294567               1961
-##  8 Broomfield County          2.01          1.01           22        1095 08014     55889                415
-##  9 Chaffee County             0.567         1.78           37        6521 08015     17809                264
-## 10 Cheyenne County            3.44          0.289          38        1106 08017      1836                  4
-## # … with 54 more rows, and 1 more variable: total_pop_over17 &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 64 × 9
+# Rowwise:  county_name
+   county_name       black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop total_black_pop_o…
+   &lt;chr&gt;                      &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;              &lt;dbl&gt;
+ 1 Adams County               3.52          2.98         1208       34350 08001    441603               9396
+ 2 Alamosa County             0.960         1.22           43        4478 08003     15445                142
+ 3 Arapahoe County           10.4           9.55         1819       17520 08005    572003              40558
+ 4 Archuleta County           0.550         0.196          28        5091 08007     12084                 19
+ 5 Baca County                4.04          0.504          61        1511 08009      3788                 15
+ 6 Bent County                2.54          9.00           46        1808 08011      6499                486
+ 7 Boulder County             1.47          0.846         192       13053 08013    294567               1961
+ 8 Broomfield County          2.01          1.01           22        1095 08014     55889                415
+ 9 Chaffee County             0.567         1.78           37        6521 08015     17809                264
+10 Cheyenne County            3.44          0.289          38        1106 08017      1836                  4
+# … with 54 more rows, and 1 more variable: total_pop_over17 &lt;dbl&gt;</code></pre>
 </div>
 <div id="calculate-the-bias-index" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Calculate the bias index</h2>
@@ -385,21 +385,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that the “bias_index” variable is now in the dataset assigned to the <code>co_counties_census_trafficstops</code> object:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_counties_census_trafficstops&quot;</span></span>
 <span id="cb48-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb48-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 10
-## # Rowwise:  county_name
-##    county_name       bias_index black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop
-##    &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
-##  1 Adams County           0.538          3.52          2.98         1208       34350 08001    441603
-##  2 Alamosa County        -0.262          0.960         1.22           43        4478 08003     15445
-##  3 Arapahoe County        0.832         10.4           9.55         1819       17520 08005    572003
-##  4 Archuleta County       0.354          0.550         0.196          28        5091 08007     12084
-##  5 Baca County            3.53           4.04          0.504          61        1511 08009      3788
-##  6 Bent County           -6.45           2.54          9.00           46        1808 08011      6499
-##  7 Boulder County         0.625          1.47          0.846         192       13053 08013    294567
-##  8 Broomfield County      1.00           2.01          1.01           22        1095 08014     55889
-##  9 Chaffee County        -1.21           0.567         1.78           37        6521 08015     17809
-## 10 Cheyenne County        3.15           3.44          0.289          38        1106 08017      1836
-## # … with 54 more rows, and 2 more variables: total_black_pop_over17 &lt;dbl&gt;, total_pop_over17 &lt;dbl&gt;</code></pre>
+<pre><code># A tibble: 64 × 10
+# Rowwise:  county_name
+   county_name       bias_index black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop
+   &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1 Adams County           0.538          3.52          2.98         1208       34350 08001    441603
+ 2 Alamosa County        -0.262          0.960         1.22           43        4478 08003     15445
+ 3 Arapahoe County        0.832         10.4           9.55         1819       17520 08005    572003
+ 4 Archuleta County       0.354          0.550         0.196          28        5091 08007     12084
+ 5 Baca County            3.53           4.04          0.504          61        1511 08009      3788
+ 6 Bent County           -6.45           2.54          9.00           46        1808 08011      6499
+ 7 Boulder County         0.625          1.47          0.846         192       13053 08013    294567
+ 8 Broomfield County      1.00           2.01          1.01           22        1095 08014     55889
+ 9 Chaffee County        -1.21           0.567         1.78           37        6521 08015     17809
+10 Cheyenne County        3.15           3.44          0.289          38        1106 08017      1836
+# … with 54 more rows, and 2 more variables: total_black_pop_over17 &lt;dbl&gt;, total_pop_over17 &lt;dbl&gt;</code></pre>
 <p>We can use this information to calculate an aggregated bias index for the state of Colorado as a whole in the year 2010:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculates the total number of Black traffic stops in Colorado and assigns </span></span>
 <span id="cb50-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the value to an object named &quot;colorado_total_black_stops&quot;</span></span>
@@ -437,22 +437,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now, let’s print the value of <code>CO_bias_index</code>:</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints value of &quot;CO_bias_index&quot;</span></span>
 <span id="cb51-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb51-2" aria-hidden="true" tabindex="-1"></a>CO_bias_index</span></code></pre></div>
-<pre><code>## [1] -1.112616</code></pre>
+<pre><code>[1] -1.112616</code></pre>
 <p>Interestingly, the value of the aggregate state-level bias index is negative; specifically, this result suggests that in 2010, the Black share of traffic stops in Colorado was about 1.11 percentage points less than the Black share of Colorado’s adult population. At first glance, this might suggest that “driving while black” was not criminalized in Colorado( during the year under consideration), according to our simple bias indicator. However, it might still be the case that there are specific areas in the state where racial bias in traffic stops <strong>is</strong> a problem, and focusing on an aggregated state-level measure of the bias index obscures possible micro-level variation in patterns of anti-Black bias with respect to traffic stops. Documenting this micro-level variation is an important task, since it would allow us to identify “problem areas” that might be excessively punitive towards Black drivers. The remainder of the lesson attempts to document this micro-geography of systemic bias in traffic stops (as measured by the index we’ve defined)</p>
 </div>
 <div id="compute-summary-statistics-for-the-bias-index" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Compute summary statistics for the bias index</h2>
-<p>Recall that we have a measure of the bias index for each county in Colorado; a simple way to document the spatial distribution in the bias index would be to simply compute some basic summary statistics for the “bias_index” variable in <code>co_counties_census_trafficstops</code>, which will give us a sense of how the bias index varies across counties. We can generate these summary statistics using the <code>sum</code> function.</p>
-<p>Below, the argument to the <code>summary</code> function, which reads <code>co_counties_census_trafficstops$bias_index</code> simply specifies that we want summary statistics for the “bias_index” variable that is in the dataset assigned to the <code>co_counties_census_trafficstops</code> data object:</p>
+<p>Recall that we have a measure of the bias index for each county in Colorado; a simple way to document the spatial distribution in the bias index would be to simply compute some basic summary statistics for the “bias_index” variable in <code>co_counties_census_trafficstops</code>, which will give us a sense of how the bias index varies across counties. We can generate these summary statistics using the <strong><code>summary()</code></strong> function.</p>
+<p>Below, the argument to the <strong><code>summary()</code></strong> function, which reads <code>co_counties_census_trafficstops$bias_index</code> simply specifies that we want summary statistics for the “bias_index” variable that is in the dataset assigned to the <code>co_counties_census_trafficstops</code> data object:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Produces summary statistics for &quot;bias_index&quot; variable calculated above</span></span>
 <span id="cb53-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(co_counties_census_trafficstops<span class="sc">$</span>bias_index)</span></code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-## -9.8430  0.1978  0.4727  0.5278  0.9832  4.2589       2</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+-9.8430  0.1978  0.4727  0.5278  0.9832  4.2589       2 </code></pre>
 <p>This table of summary statistics shows that the mean bias index across counties was 0.53 and the median value of the bias index was 0.47; this clearly suggests that even though the bias index for the state as a whole was negative, there are many counties with a <strong><em>positive</em></strong> bias index. In other words, many Colorado counties appear to have been stopping black motorists at disproportionately high rates relative to their share of the county population. Moreover, there is a fairly large range in the bias index with respect to counties; the county with the largest value for “bias_index” had an index of 4.26 (i.e. the share of Black motorists stopped by the police was 4.26 percentage points higher than the share of Black county residents in the over-17 age demographic), while the county with the smallest value for the index had an index value of -9.84 (i.e. the share of Black motorists stopped by police was 9.84 percentage points lower than the share of Black county residents in the 17+ age demographic). These basic results suggest that a few outlier parts of the state where racial bias (as we are measuring it here) does not appear to be a problem are driving down the state’s overall bias index, despite the fact that in many areas of the state, Black motorists are indeed subject to disproportionately aggressive policing. One way to quickly explore this possibility further might be to create a quick visualization that conveys county-level variation in the bias index. In Section 5.6, we’ll visualize this county-level variation in the bias index on a simple graph.</p>
 </div>
 <div id="visualize-county-level-variation-in-the-bias-index-using-ggplot" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> Visualize county-level variation in the bias index using <code>ggplot</code></h2>
-<p>There are many possible ways to visualize county-level variation in the “bias_index” variable. Here, we’ll make a simple bar graph using <code>ggplot</code>, a popular visualization package that is part of the <em>tidyverse</em> suite of packages.</p>
+<p>There are many possible ways to visualize county-level variation in the “bias_index” variable. Here, we’ll make a simple bar graph using <em>ggplot2</em>, a popular visualization package that is part of the <em>tidyverse</em> suite of packages.</p>
 <p>Before making this graph, let’s quickly make a new column in <code>co_counties_census_trafficstops</code>, named “County”, that takes the information in the existing “county_name” field (which takes the form of “<County Name> County”) and removes the part of the string that reads “County”. This will result in a cleaner-looking graph, since we can convey that our geographic units are counties in the graph’s main title.</p>
 <p>The following code takes the dataset currently assigned to the<code>co_counties_census_trafficstops</code> object, and then uses the mutate function to create a new field named “County”, which is populated by taking the existing “county_name” column and using the <code>str_remove</code> function to remove the part of the “county_name” string that reads “County”. It then assigns the modified dataset back to the <code>co_counties_census_trafficstops</code> object, which overwrites the previous version of the dataset:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creates new variable named &quot;County&quot; that removes &quot;County&quot; string</span></span>
@@ -463,30 +463,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s confirm that the new “County” field has been successfully created:</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints &quot;co_counties_census_trafficstops&quot;</span></span>
 <span id="cb56-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb56-2" aria-hidden="true" tabindex="-1"></a>co_counties_census_trafficstops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 11
-## # Rowwise:  county_name
-##    county_name       County  bias_index black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop
-##    &lt;chr&gt;             &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
-##  1 Adams County      Adams        0.538          3.52          2.98         1208       34350 08001    441603
-##  2 Alamosa County    Alamosa     -0.262          0.960         1.22           43        4478 08003     15445
-##  3 Arapahoe County   Arapah…      0.832         10.4           9.55         1819       17520 08005    572003
-##  4 Archuleta County  Archul…      0.354          0.550         0.196          28        5091 08007     12084
-##  5 Baca County       Baca         3.53           4.04          0.504          61        1511 08009      3788
-##  6 Bent County       Bent        -6.45           2.54          9.00           46        1808 08011      6499
-##  7 Boulder County    Boulder      0.625          1.47          0.846         192       13053 08013    294567
-##  8 Broomfield County Broomf…      1.00           2.01          1.01           22        1095 08014     55889
-##  9 Chaffee County    Chaffee     -1.21           0.567         1.78           37        6521 08015     17809
-## 10 Cheyenne County   Cheyen…      3.15           3.44          0.289          38        1106 08017      1836
-## # … with 54 more rows, and 2 more variables: total_black_pop_over17 &lt;dbl&gt;, total_pop_over17 &lt;dbl&gt;</code></pre>
-<p>Now, we’re ready to use <code>ggplot</code> to make our bar graph.</p>
+<pre><code># A tibble: 64 × 11
+# Rowwise:  county_name
+   county_name       County  bias_index black_stop_pct black_pop_pct black_stops total_stops GEOID total_pop
+   &lt;chr&gt;             &lt;chr&gt;        &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;       &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1 Adams County      Adams        0.538          3.52          2.98         1208       34350 08001    441603
+ 2 Alamosa County    Alamosa     -0.262          0.960         1.22           43        4478 08003     15445
+ 3 Arapahoe County   Arapah…      0.832         10.4           9.55         1819       17520 08005    572003
+ 4 Archuleta County  Archul…      0.354          0.550         0.196          28        5091 08007     12084
+ 5 Baca County       Baca         3.53           4.04          0.504          61        1511 08009      3788
+ 6 Bent County       Bent        -6.45           2.54          9.00           46        1808 08011      6499
+ 7 Boulder County    Boulder      0.625          1.47          0.846         192       13053 08013    294567
+ 8 Broomfield County Broomf…      1.00           2.01          1.01           22        1095 08014     55889
+ 9 Chaffee County    Chaffee     -1.21           0.567         1.78           37        6521 08015     17809
+10 Cheyenne County   Cheyen…      3.15           3.44          0.289          38        1106 08017      1836
+# … with 54 more rows, and 2 more variables: total_black_pop_over17 &lt;dbl&gt;, total_pop_over17 &lt;dbl&gt;</code></pre>
+<p>Now, we’re ready to use <strong>ggplot2</strong> to make our bar graph.</p>
 <p>The following code takes <code>co_counties_trafficstops</code>, and then:</p>
 <ul>
-<li>Uses the <code>drop_na</code> function to remove counties for which the “bias_index” value has an “NA” value (there are two such counties), so that they do not show up on the graph.</li>
-<li>It then enters the <code>ggplot</code> environment by calling the <code>ggplot</code> function.</li>
-<li>It then uses the <code>geom_col</code> function to indicate that the desired output is a bar graph. Within the <code>geom_col</code> function, the expression that reads <code>aes(x=County, y-bias_index)</code> specifies which variables we want to represent on the graph, and how we want to represent those variables (i.e. which variable do we want on the x- axis, and which variable on the y-axis?). The instructions used to translate the variables in a tabular dataset into a visual representation are known as an “aesthetic mapping”, which is abbreviated within the grammar of <code>ggplot</code> to <code>aes</code>.</li>
-<li>After specifiying that we want a bar graph based on the <code>co_counties_census_trafficstops</code> object (with the “County” column mapped to the x-axis and the “bias_index” column mapped to the y-axis), we use the <code>labs</code> function (short for “labels”) to designate the graph’s main title, and the labels for x and y axis.</li>
-<li>In <code>ggplot</code>, the <code>theme</code> function is a versatile function that helps to customize the appearance of a <code>ggplot</code> object; here, we set the <code>axis.title.x</code> argument equal to <code>element_text(size=9)</code>, which effectively sets the size of the x axis labels. In addition, we set the <code>plot.title</code> argument within the <code>theme</code> function equal to <code>element_text(hjust=0.5)</code>, which effectively center-justifies the plot’s main title. Next, we use the <code>scale_y_continuous</code> function to set the interval breaks of the y-axis; this range defined as a vector passed to the <code>breaks</code> argument, where each numeric element of the vector denotes a desired interval break.</li>
-<li>The <code>expand_limits</code> function allows us to expand the range of either axis beyond the range established by the axis interval markers; here, by specifying <code>y=c(-10,10)</code> as an argument to the <code>expand_limits</code> function, we effectively stretch out the y-axis range from -10 to 10, even though the highest Y-axis tick-mark is set at 7.5.</li>
+<li>Uses the <strong><code>drop_na()</code></strong> function to remove counties for which the “bias_index” value has an “NA” value (there are two such counties), so that they do not show up on the graph.</li>
+<li>It then initiates <em>ggplot2</em> by calling the <strong><code>ggplot()</code></strong> function.</li>
+<li>It then uses the <strong><code>geom_col()</code></strong> function to indicate that the desired output is a bar graph. Within the <strong><code>geom_col()</code></strong> function, the expression that reads <code>aes(x=County, y-bias_index)</code> specifies which variables we want to represent on the graph, and how we want to represent those variables (i.e. which variable do we want on the x- axis, and which variable on the y-axis?). The instructions used to translate the variables in a tabular dataset into a visual representation are known as an “aesthetic mapping”, which is abbreviated within the grammar of <em>ggplot2</em> to <code>aes</code>.</li>
+<li>After specifiying that we want a bar graph based on the <code>co_counties_census_trafficstops</code> object (with the “County” column mapped to the x-axis and the “bias_index” column mapped to the y-axis), we use the <strong><code>labs()</code></strong> function (short for “labels”) to designate the graph’s main title, and the labels for x and y axis.</li>
+<li>In <em>ggplot2</em>, the <strong><code>theme()</code></strong> function is a versatile function that helps to customize the appearance of a <em>ggplot2</em> object; here, we set the <code>axis.title.x</code> argument equal to <code>element_text(size=9)</code>, which effectively sets the size of the x axis labels. In addition, we set the <code>plot.title</code> argument within the <strong><code>theme()</code></strong> function equal to <code>element_text(hjust=0.5)</code>, which effectively center-justifies the plot’s main title. Next, we use the <strong><code>scale_y_continuous()</code></strong> function to set the interval breaks of the y-axis; this range is defined as a vector passed to the <code>breaks</code> argument, where each numeric element of the vector denotes a desired interval break.</li>
+<li>The <strong><code>expand_limits()</code></strong> function allows us to expand the range of either axis beyond the range established by the axis interval markers; here, by specifying <code>y=c(-10,10)</code> as an argument to the <strong><code>expand_limits()</code></strong> function, we effectively stretch out the y-axis range from -10 to 10, even though the highest Y-axis tick-mark is set at 7.5.</li>
 <li>Finally, we assign the plot that is created with this code to a new object named <code>bias_graph</code>:</li>
 </ul>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses ggplot to create bar graph of &quot;bias_index&quot; variable, with &quot;bias_index&quot; </span></span>
@@ -511,7 +511,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As we can see, the graph does show that certain counties have values around zero, or well below zero on the bias index, which drives down the overall value for the state; but in many other counties, the value of the “bias_index” variable is positive and substantively large.</p>
 <p>While the graph does convey valuable information, it’s a little bit confusing to look at; for example, the county names are squished together in a way that makes them unreadable.</p>
 <p>A quick way to make the plot more readable is to invert the axes (such that counties are on the y-axis, and the bias index is arrayed along the x-axis). The code below is largely the same as the code in the previous code block. The differences are twofold, and contribute to a change in the map’s appearance. First, the argument to
-<code>geom_col</code> looks a bit different. Instead of simply specifying <code>(aes(x=County, y=bias_index)</code>, we instead specify <code>(aes(x=reorder(County, bias_index), y=bias_index)</code>. The <code>reorder</code> function is essentially specifying that we want the x-axis variable (“County”), to be arrayed in descending order with respect to “bias_index”. Arraying the values in descending order makes for a graph that is easier to read. Second, we call the <code>coord_flip()</code> function, which inverts the axes such that the x-axis and y-axis (specified as arguments to <code>geom_col</code>) are inverted. We’ll assign this new plot to a new object named <code>bias_graph_inverted</code>:</p>
+<code>geom_col</code> looks a bit different. Instead of simply specifying <code>(aes(x=County, y=bias_index)</code>, we instead specify <code>(aes(x=reorder(County, bias_index), y=bias_index)</code>. The <strong><code>reorder()</code></strong> function is essentially specifying that we want the x-axis variable (“County”), to be arrayed in descending order with respect to “bias_index”. Arraying the values in descending order makes for a graph that is easier to read. Second, we call the <strong><code>coord_flip()</code></strong> function, which inverts the axes such that the x-axis and y-axis (specified as arguments to <strong><code>geom_col()</code></strong>) are inverted. We’ll assign this new plot to a new object named <code>bias_graph_inverted</code>:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses ggplot to create bar graph of &quot;bias_index&quot; variable, with &quot;bias_index&quot; </span></span>
 <span id="cb60-2"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># on X-axis and counties on y-axis; assigned to object named </span></span>
 <span id="cb60-3"><a href="defining-an-index-of-racial-bias-in-traffic-stops.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;bias_graph_inverted&quot;</span></span>

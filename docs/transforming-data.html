@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="conclusion-and-further-reading.html"><a href="conclusion-and-further-reading.html"><i class="fa fa-check"></i><b>11</b> Conclusion and Further Reading</a></li>
 <li class="chapter" data-level="12" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>12</b> References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using tidycensus to extract relevant census data</a>
+<li class="chapter" data-level="A" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html"><i class="fa fa-check"></i><b>A</b> Using <em>tidycensus</em> to extract relevant census data</a>
 <ul>
 <li class="chapter" data-level="A.1" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#define-your-variables"><i class="fa fa-check"></i><b>A.1</b> Define your variables</a></li>
 <li class="chapter" data-level="A.2" data-path="using-tidycensus-to-extract-relevant-census-data.html"><a href="using-tidycensus-to-extract-relevant-census-data.html#extract-the-variables-using-tidycensus"><i class="fa fa-check"></i><b>A.2</b> Extract the variables using tidycensus</a></li>
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now that we have created a new data object that contains information on traffic stops from our year of interest (2010), let’s do a bit of work with the data so that we can find out the total number of traffic stops within each county, and the number of stops within each county in which the person stopped by the traffic police was Black.</p>
 <div id="tabulate-county-level-count-of-traffic-stops-by-race" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Tabulate county-level count of traffic stops by race</h2>
-<p>First, let’s find out the racial breakdown of stops for each county, using the data in the “subject_race” field of <code>co_traffice_stops_2010</code>.</p>
+<p>First, let’s find out the racial breakdown of stops for each county, using the data in the “subject_race” field of <code>co_traffic_stops_2010</code>.</p>
 <p>Below, we take the <code>co_traffic_stops_2010</code> object, declare “county_name” as a grouping variable using <code>group_by(county_name)</code>, and then count up the number of stops associated with each racial category within each county using <code>count(subject_race)</code>. The dataset thats results from these operations is assigned to a new object named <code>co_county_summary</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="transforming-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute county-level count of traffic stops by race</span></span>
 <span id="cb15-2"><a href="transforming-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>co_county_summary<span class="ot">&lt;-</span>co_traffic_stops_2010 <span class="sc">%&gt;%</span> </span>
@@ -247,28 +247,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s print the first few rows from the dataset and observe its structure:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="transforming-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_county_summary&quot;</span></span>
 <span id="cb16-2"><a href="transforming-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>co_county_summary</span></code></pre></div>
-<pre><code>## # A tibble: 439 × 3
-## # Groups:   county_name [65]
-##    county_name    subject_race               n
-##    &lt;chr&gt;          &lt;chr&gt;                  &lt;int&gt;
-##  1 Adams County   asian/pacific islander   582
-##  2 Adams County   black                   1208
-##  3 Adams County   hispanic                8012
-##  4 Adams County   other                     36
-##  5 Adams County   unknown                  462
-##  6 Adams County   white                  20225
-##  7 Adams County   &lt;NA&gt;                    3825
-##  8 Alamosa County asian/pacific islander    18
-##  9 Alamosa County black                     43
-## 10 Alamosa County hispanic                1537
-## # … with 429 more rows</code></pre>
+<pre><code># A tibble: 439 × 3
+# Groups:   county_name [65]
+   county_name    subject_race               n
+   &lt;chr&gt;          &lt;chr&gt;                  &lt;int&gt;
+ 1 Adams County   asian/pacific islander   582
+ 2 Adams County   black                   1208
+ 3 Adams County   hispanic                8012
+ 4 Adams County   other                     36
+ 5 Adams County   unknown                  462
+ 6 Adams County   white                  20225
+ 7 Adams County   &lt;NA&gt;                    3825
+ 8 Alamosa County asian/pacific islander    18
+ 9 Alamosa County black                     43
+10 Alamosa County hispanic                1537
+# … with 429 more rows</code></pre>
 <p>Note that each row contains information on the number of times a person from a given racial category was stopped by the traffic police in a given county. For example, in Adams County, CO, Asian/Pacific Islander motorists were stopped 582 times, Black motorists were stopped 1208 times, and white motorists were stopped 20225 times. The dataset contains information on the racial and ethnic breakdown of police stops for each county in Colorado, in the year 2010.</p>
 </div>
 <div id="reshape-the-data" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Reshape the data</h2>
 <p>Note that <code>co_county_summary</code> is currently a “long” dataset, in which there are multiple rows associated with each county, with each row corresponding to a distinct county/racial category combination, and the <code>n</code> column providing information on the number of stops associated with that county/racial category pairing.</p>
 <p>It will be easier to instead work with a “wide” dataset, in which each county is associated with a single row, and each racial category is assigned to its own column. Each cell in this “wide” dataset would correspond to the number of stops associated with a given county (defined by the row) for a given racial category (defined by the column).</p>
-<p>To reshape the dataset from its current “long” format into a “wide” format, we can use the <code>pivot_wider</code> function. The code below takes the current <code>co_county_summary</code> data object (in “long” format), and then transforms it into a “wide” format with <code>pivot_wider(names_from=subject_race, values_from=n)</code>. The <code>names_from</code> argument specifies the name of the current column which contains the categories which we want to transform into columns (here, <code>subject_race</code>), while the <code>values_from</code> argument specifies the name of the current column which contains the values that will be associated with each county/racial category combination (here, <code>n</code>). Finally, the code below assigns the transformed dataset to a new object named <code>co_county_summary_wide</code>:</p>
+<p>To reshape the dataset from its current “long” format into a “wide” format, we can use the <strong><code>pivot_wider()</code></strong> function. The code below takes the current <code>co_county_summary</code> data object (in “long” format), and then transforms it into a “wide” format with <code>pivot_wider(names_from=subject_race, values_from=n)</code>. The <code>names_from</code> argument specifies the name of the current column which contains the categories which we want to transform into columns (here, <code>subject_race</code>), while the <code>values_from</code> argument specifies the name of the current column which contains the values that will be associated with each county/racial category combination (here, <code>n</code>). Finally, the code below assigns the transformed dataset to a new object named <code>co_county_summary_wide</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="transforming-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforms &quot;co_county_summary&quot; from long format to wide, and assigns </span></span>
 <span id="cb18-2"><a href="transforming-data.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the reshaped dataset to a new object named &quot;co_county_summary_wide&quot;</span></span>
 <span id="cb18-3"><a href="transforming-data.html#cb18-3" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide<span class="ot">&lt;-</span>co_county_summary <span class="sc">%&gt;%</span> </span>
@@ -276,27 +276,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s print the contents of <code>co_county_summary_wide</code> to ensure that the data has indeed been transformed into a “wide” format:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="transforming-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;co_county_summary_wide&quot;</span></span>
 <span id="cb19-2"><a href="transforming-data.html#cb19-2" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide</span></code></pre></div>
-<pre><code>## # A tibble: 65 × 8
-## # Groups:   county_name [65]
-##    county_name       `asian/pacific islander` black hispanic other unknown white  `NA`
-##    &lt;chr&gt;                                &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1 Adams County                           582  1208     8012    36     462 20225  3825
-##  2 Alamosa County                          18    43     1537     9      30  2427   414
-##  3 Arapahoe County                        540  1819     1862    12     300 11089  1898
-##  4 Archuleta County                        17    28      392    71      41  4125   417
-##  5 Baca County                             11    61      288    NA       6   971   174
-##  6 Bent County                              8    46      314     1       6  1155   278
-##  7 Boulder County                         345   192     1050    10     180  9682  1594
-##  8 Broomfield County                       32    22      104     3      18   690   226
-##  9 Chaffee County                          43    37      361     9      71  4806  1194
-## 10 Cheyenne County                         10    38      147     3       2   821    85
-## # … with 55 more rows</code></pre>
+<pre><code># A tibble: 65 × 8
+# Groups:   county_name [65]
+   county_name       `asian/pacific islander` black hispanic other unknown white  `NA`
+   &lt;chr&gt;                                &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 Adams County                           582  1208     8012    36     462 20225  3825
+ 2 Alamosa County                          18    43     1537     9      30  2427   414
+ 3 Arapahoe County                        540  1819     1862    12     300 11089  1898
+ 4 Archuleta County                        17    28      392    71      41  4125   417
+ 5 Baca County                             11    61      288    NA       6   971   174
+ 6 Bent County                              8    46      314     1       6  1155   278
+ 7 Boulder County                         345   192     1050    10     180  9682  1594
+ 8 Broomfield County                       32    22      104     3      18   690   226
+ 9 Chaffee County                          43    37      361     9      71  4806  1194
+10 Cheyenne County                         10    38      147     3       2   821    85
+# … with 55 more rows</code></pre>
 <p>Indeed, we can see that each row is now associated with a single county, and each column is now associated with a given racial category.</p>
 </div>
 <div id="calculate-total-stops-for-each-county-in-co_county_summary_wide" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Calculate total stops for each county in <code>co_county_summary_wide</code></h2>
 <p>Now that we have our dataset in “wide” format, let’s create a new column, named “total_stops” that contains information on the total number of traffic stops for each county. We can create this column by calculating the sum total of stops across all of the racial categories for each county, which yields the total number of stops for each county.</p>
-<p>The code below takes the <code>co_county_summary_wide</code> object, and then calls the <code>rowise</code> function, which allows us to make calculations across the rows of a data frame. It then creates a new column, called “total_stops” using the now-familiar <code>mutate</code> function; this “total_stops” column is populated by taking the sum of traffic stops across racial categories for each county. This is accomplished with <code>sum(c_across(where(is.integer)), na.rm=TRUE)</code>. This expression can be translated as follows: “for each row in the dataset, calculate the sum across the columns whenever the value in a column is an integer; whenever a cell value is ‘NA’, simply ignore it in the calculation.” We’ll assign the dataset, with the newly added “total_stops” column, back to the same <code>co_county_summary_wide</code> object; this effectively overwrites the contents of the current <code>co_county_summary_wide</code> object (a dataset without the “total_stops” column), with the new dataset (which does have the “total_stops” column).</p>
+<p>The code below takes the <code>co_county_summary_wide</code> object, and then calls the <strong><code>rowise()</code></strong> function, which allows us to make calculations across the rows of a data frame. It then creates a new column, called “total_stops” using the now-familiar <strong><code>mutate()</code></strong> function; this “total_stops” column is populated by taking the sum of traffic stops across racial categories for each county. This is accomplished with <code>sum(c_across(where(is.integer)), na.rm=TRUE)</code>. This expression can be translated as follows: “for each row in the dataset, calculate the sum across the columns whenever the value in a column is an integer; whenever a cell value is ‘NA’, simply ignore it in the calculation.” We’ll assign the dataset, with the newly added “total_stops” column, back to the same <code>co_county_summary_wide</code> object; this effectively overwrites the contents of the current <code>co_county_summary_wide</code> object (a dataset without the “total_stops” column), with the new dataset (which does have the “total_stops” column).</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="transforming-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes the existing &quot;co_county_summary_wide&quot; dataset, and creates a new column </span></span>
 <span id="cb21-2"><a href="transforming-data.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># called &quot;total_stops&quot; that sums the values across columns for each row; </span></span>
 <span id="cb21-3"><a href="transforming-data.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the revised dataset is assigned back to &quot;co_county_summary_wide&quot;, </span></span>
@@ -308,26 +308,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s print the contents of the <code>co_county_summary_wide</code> object and confirm that the new column has been successfully created:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="transforming-data.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints updated contents of &quot;co_county_summary_wide&quot;</span></span>
 <span id="cb22-2"><a href="transforming-data.html#cb22-2" aria-hidden="true" tabindex="-1"></a>co_county_summary_wide</span></code></pre></div>
-<pre><code>## # A tibble: 65 × 9
-## # Rowwise:  county_name
-##    county_name       total_stops `asian/pacific islander` black hispanic other unknown white  `NA`
-##    &lt;chr&gt;                   &lt;int&gt;                    &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
-##  1 Adams County            34350                      582  1208     8012    36     462 20225  3825
-##  2 Alamosa County           4478                       18    43     1537     9      30  2427   414
-##  3 Arapahoe County         17520                      540  1819     1862    12     300 11089  1898
-##  4 Archuleta County         5091                       17    28      392    71      41  4125   417
-##  5 Baca County              1511                       11    61      288    NA       6   971   174
-##  6 Bent County              1808                        8    46      314     1       6  1155   278
-##  7 Boulder County          13053                      345   192     1050    10     180  9682  1594
-##  8 Broomfield County        1095                       32    22      104     3      18   690   226
-##  9 Chaffee County           6521                       43    37      361     9      71  4806  1194
-## 10 Cheyenne County          1106                       10    38      147     3       2   821    85
-## # … with 55 more rows</code></pre>
+<pre><code># A tibble: 65 × 9
+# Rowwise:  county_name
+   county_name       total_stops `asian/pacific islander` black hispanic other unknown white  `NA`
+   &lt;chr&gt;                   &lt;int&gt;                    &lt;int&gt; &lt;int&gt;    &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1 Adams County            34350                      582  1208     8012    36     462 20225  3825
+ 2 Alamosa County           4478                       18    43     1537     9      30  2427   414
+ 3 Arapahoe County         17520                      540  1819     1862    12     300 11089  1898
+ 4 Archuleta County         5091                       17    28      392    71      41  4125   417
+ 5 Baca County              1511                       11    61      288    NA       6   971   174
+ 6 Bent County              1808                        8    46      314     1       6  1155   278
+ 7 Boulder County          13053                      345   192     1050    10     180  9682  1594
+ 8 Broomfield County        1095                       32    22      104     3      18   690   226
+ 9 Chaffee County           6521                       43    37      361     9      71  4806  1194
+10 Cheyenne County          1106                       10    38      147     3       2   821    85
+# … with 55 more rows</code></pre>
 </div>
 <div id="clean-co_county_summary_wide-and-assign-to-new-object" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Clean <code>co_county_summary_wide</code> and assign to new object</h2>
 <p>Let’s clean up the <code>co_county_summmary_wide</code> dataset a bit more to make it easier to work with. First, because our interest in this workshop is in exploring the possibility that Black motorists suffer disproportionately high traffic stop rates (relative to their share of the overall adult population), let’s create a new object that only contains the data that is essential for the subsequent analysis: the county’s name (“county_name”), the number of Black motorists that were stopped (“black”), and the total number of stops in the county across all racial categories ("total_stops).</p>
-<p>The code below takes the existing <code>co_county_summary_wide</code> object, and then uses the <code>select</code> function to select the columns we want to keep. It then assigns this selection to a new object named “co_county_black_stops”:</p>
+<p>The code below takes the existing <code>co_county_summary_wide</code> object, and then uses the <strong><code>select()</code></strong> function to select the columns we want to keep. It then assigns this selection to a new object named “co_county_black_stops”:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="transforming-data.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selects the &quot;county_name&quot;, &quot;black&quot;, and &quot;total_stops&quot; columns </span></span>
 <span id="cb24-2"><a href="transforming-data.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from the &quot;co_county_summary_wide&quot; object, and assigns the selection </span></span>
 <span id="cb24-3"><a href="transforming-data.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to a new object named &quot;co_county_black_stops&quot;</span></span>
@@ -337,23 +337,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s open up the newly created <code>co_county_black_stops</code> object to ensure that these changes have been successfully implemented:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="transforming-data.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_county_black_stops&quot;</span></span>
 <span id="cb25-2"><a href="transforming-data.html#cb25-2" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
-<pre><code>## # A tibble: 65 × 3
-## # Rowwise:  county_name
-##    county_name       black total_stops
-##    &lt;chr&gt;             &lt;int&gt;       &lt;int&gt;
-##  1 Adams County       1208       34350
-##  2 Alamosa County       43        4478
-##  3 Arapahoe County    1819       17520
-##  4 Archuleta County     28        5091
-##  5 Baca County          61        1511
-##  6 Bent County          46        1808
-##  7 Boulder County      192       13053
-##  8 Broomfield County    22        1095
-##  9 Chaffee County       37        6521
-## 10 Cheyenne County      38        1106
-## # … with 55 more rows</code></pre>
+<pre><code># A tibble: 65 × 3
+# Rowwise:  county_name
+   county_name       black total_stops
+   &lt;chr&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adams County       1208       34350
+ 2 Alamosa County       43        4478
+ 3 Arapahoe County    1819       17520
+ 4 Archuleta County     28        5091
+ 5 Baca County          61        1511
+ 6 Bent County          46        1808
+ 7 Boulder County      192       13053
+ 8 Broomfield County    22        1095
+ 9 Chaffee County       37        6521
+10 Cheyenne County      38        1106
+# … with 55 more rows</code></pre>
 <p>As expected, we now have a dataset that contains information on the total number of traffic stops for each Colorado county in 2010 (“total_stops”), and the number of traffic stops that involved Black motorists (“black”).</p>
-<p>The name of the column containing information on the number of Black motorists stopped by the traffic patrol is simply “black”, which was inherited from the initial dataset from the Stanford Policing project. However, this column name is somewhat vague, and may cause confusion down the road when we work with census demographic data. Therefore, let’s rename that column name to “black_stops” using the <code>rename</code> function, and assign that change back to <code>co_county_black_stops</code>:</p>
+<p>The name of the column containing information on the number of Black motorists stopped by the traffic patrol is simply “black”, which was inherited from the initial dataset from the Stanford Policing project. However, this column name is somewhat vague, and may cause confusion down the road when we work with census demographic data. Therefore, let’s rename that column name to “black_stops” using the <strong><code>rename()</code></strong> function, and assign that change back to <code>co_county_black_stops</code>:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="transforming-data.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes the existing &quot;co_county_black_stops&quot; object and renames the column named </span></span>
 <span id="cb27-2"><a href="transforming-data.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;black&quot; to &quot;black_stops&quot;; assigns the modified dataset back to </span></span>
 <span id="cb27-3"><a href="transforming-data.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;co_county_black_stops&quot;, which overwrites the existing contents of </span></span>
@@ -363,23 +363,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s now print the modified <code>co_county_black_stops</code> object:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="transforming-data.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_county_black_stops&quot;</span></span>
 <span id="cb28-2"><a href="transforming-data.html#cb28-2" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
-<pre><code>## # A tibble: 65 × 3
-## # Rowwise:  county_name
-##    county_name       black_stops total_stops
-##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
-##  1 Adams County             1208       34350
-##  2 Alamosa County             43        4478
-##  3 Arapahoe County          1819       17520
-##  4 Archuleta County           28        5091
-##  5 Baca County                61        1511
-##  6 Bent County                46        1808
-##  7 Boulder County            192       13053
-##  8 Broomfield County          22        1095
-##  9 Chaffee County             37        6521
-## 10 Cheyenne County            38        1106
-## # … with 55 more rows</code></pre>
+<pre><code># A tibble: 65 × 3
+# Rowwise:  county_name
+   county_name       black_stops total_stops
+   &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
+ 1 Adams County             1208       34350
+ 2 Alamosa County             43        4478
+ 3 Arapahoe County          1819       17520
+ 4 Archuleta County           28        5091
+ 5 Baca County                61        1511
+ 6 Bent County                46        1808
+ 7 Boulder County            192       13053
+ 8 Broomfield County          22        1095
+ 9 Chaffee County             37        6521
+10 Cheyenne County            38        1106
+# … with 55 more rows</code></pre>
 <p>Note that the name of the column has successfully been changed, and is now more descriptive.</p>
-<p>Finally, if we view <code>co_county_black_stops</code> within the R Studio data viewer (<code>View(co_county_black_stops)</code>), we’ll note a small quirk in the dataset. In particular, while Colorado has 64 counties, the dataset has 65 rows; one of the rows is an extra row, with an “NA” value associated with the “county_name” field, and 20 total traffic stops associated with it. Because we’re interested in a county-level analysis, and these stops are not associated with an actual county, we’ll go ahead and delete that row with the following code, which takes the current <code>co_county_black_stops</code> object, and then uses the <code>filter</code> function to select only those rows for which “county_name” is NOT EQUAl (<code>!=</code>) to “NA”; after effectively deleting the row where “county_name” is set to “NA”, the code assigns the modified dataset back to <code>co_county_black_stops</code>:</p>
+<p>Finally, if we view <code>co_county_black_stops</code> within the R Studio data viewer (<code>View(co_county_black_stops)</code>), we’ll note a small quirk in the dataset. In particular, while Colorado has 64 counties, the dataset has 65 rows; one of the rows is an extra row, with an “NA” value associated with the “county_name” field, and 20 total traffic stops associated with it. Because we’re interested in a county-level analysis, and these stops are not associated with an actual county, we’ll go ahead and delete that row with the following code, which takes the current <code>co_county_black_stops</code> object, and then uses the <strong><code>filter()</code></strong> function to select only those rows for which “county_name” is NOT EQUAl (<code>!=</code>) to “NA”; after effectively deleting the row where “county_name” is set to “NA”, the code assigns the modified dataset back to <code>co_county_black_stops</code>:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="transforming-data.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Takes the &quot;co_county_black_stops&quot; object and removes the row for which </span></span>
 <span id="cb30-2"><a href="transforming-data.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;county_name&quot; is &quot;NA&quot;; assigns the modified dataset back to </span></span>
 <span id="cb30-3"><a href="transforming-data.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;co_county_black_stops&quot;, which overwrites the dataset that is </span></span>
@@ -389,21 +389,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that <code>co_county_black_stops</code> now contains 64 rows:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="transforming-data.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prints contents of &quot;co_county_black_stops&quot;</span></span>
 <span id="cb31-2"><a href="transforming-data.html#cb31-2" aria-hidden="true" tabindex="-1"></a>co_county_black_stops</span></code></pre></div>
-<pre><code>## # A tibble: 64 × 3
-## # Rowwise:  county_name
-##    county_name       black_stops total_stops
-##    &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
-##  1 Adams County             1208       34350
-##  2 Alamosa County             43        4478
-##  3 Arapahoe County          1819       17520
-##  4 Archuleta County           28        5091
-##  5 Baca County                61        1511
-##  6 Bent County                46        1808
-##  7 Boulder County            192       13053
-##  8 Broomfield County          22        1095
-##  9 Chaffee County             37        6521
-## 10 Cheyenne County            38        1106
-## # … with 54 more rows</code></pre>
+<pre><code># A tibble: 64 × 3
+# Rowwise:  county_name
+   county_name       black_stops total_stops
+   &lt;chr&gt;                   &lt;int&gt;       &lt;int&gt;
+ 1 Adams County             1208       34350
+ 2 Alamosa County             43        4478
+ 3 Arapahoe County          1819       17520
+ 4 Archuleta County           28        5091
+ 5 Baca County                61        1511
+ 6 Bent County                46        1808
+ 7 Boulder County            192       13053
+ 8 Broomfield County          22        1095
+ 9 Chaffee County             37        6521
+10 Cheyenne County            38        1106
+# … with 54 more rows</code></pre>
 </div>
 </div>
             </section>

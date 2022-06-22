@@ -1,10 +1,10 @@
 # (APPENDIX) Appendix {-} 
 
-# Using tidycensus to extract relevant census data
+# Using *tidycensus* to extract relevant census data
 
 This section provides a script used to extract the census dataset that was read into R Studio in Section 5.1. To save time during a workshop, we provided you with this census data beforehand. However, if you are looking for a way to extract the census dataset within R Studio yourself from scratch, the following script can be used as a guide to reproduce the workshop’s census dataset.
 
-To extract the census data required to create the bias index, load the ```tidyverse``` (which was used in the workshop tutorial) and the ```tidycensus``` package, which is an R package that allows users to pull Census Bureau data using the Census API (if tidycensus is not already installed, please install it using ```install.packages("tidycensus")```.
+To extract the census data required to create the bias index, load the ```tidyverse``` (which was used in the workshop tutorial) and the ```tidycensus``` package, which is an R package that allows users to pull Census Bureau data using the Census API (if *tidycensus* is not already installed, please install it using ```install.packages("tidycensus")```.
 
 ```{r, message=F, warning=F, results=F}
 # Loads libraries required to extract census data
@@ -23,14 +23,14 @@ The discussion below is therefore framed with respect to the 2010 decennial cens
 
 ##  Define your variables
 
-First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census by using the ```load_variables``` function. The arguments to the function below ```(2010, "sf1")``` indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named ```decennial_2010_variables```, which allows us to easily view the table by using the ```View``` function, and refer back to it whenever needed. 
+First, we can generate a table that contains the various variables (and associated variable codes) for the 2010 decennial census by using the **```load_variables()```** function. The arguments to the function below ```(2010, "sf1")``` indicate that we want to extract variable names and codes for the 2010 decennial census. We assign the table to an object named ```decennial_2010_variables```, which allows us to easily view the table by using the **```View()```** function, and refer back to it whenever needed. 
 
 ```{r}
 # Variable list for 2010 Decennial
 decennial_2010_variables<-load_variables(2010, "sf1")
 ```
 
-Based on the information in ```decennial_2010_variables```, we can identify the variable codes for the variables we want to extract. Then, we define a vector, assigned to an object named ```my_vars``` that assigns the variable codes to descriptive names; these descriptive names will be used as column names in the dataset returned by the census API call, while the variable codes will be used by ```tidycensus``` to populate the respective fields with the desired data. 
+Based on the information in ```decennial_2010_variables```, we can identify the variable codes for the variables we want to extract. Then, we define a vector, assigned to an object named ```my_vars``` that assigns the variable codes to descriptive names; these descriptive names will be used as column names in the dataset returned by the census API call, while the variable codes will be used by *tidycensus* to populate the respective fields with the desired data. 
 
 For the purpose of defining the "bias_index" variable, recall that the two key variables we need are the over-17 total population, and the over-17 Black population (counted at the county level). There is no separate category in the census dataset for these measures, so we must derive them based on the data that is available. 
 
@@ -93,7 +93,7 @@ my_vars<-c(total_pop="P001001",
 
 ## Extract the variables using tidycensus
 
-Now that we have a vector of the variables we want to extract (along with descriptive names for those variables), we will use the ```get_decennial``` function from *tidycensus* to extract these variables from the 2010 decennial census. Several arguments are passed to the ```get_decennial``` function below:
+Now that we have a vector of the variables we want to extract (along with descriptive names for those variables), we will use the **```get_decennial()```** function from *tidycensus* to extract these variables from the 2010 decennial census. Several arguments are passed to the **```get_decennial()```** function below:
 
 * ```geography="county"``` specifies that we want the census data to be provided at the county level
 * ```variables=my_vars``` specifies the variables we want to extract, and the names they are to be given in the dataset; this information is contained in the ```my_vars``` vector defined above
@@ -118,7 +118,7 @@ get_decennial(
 
 We can print the first few lines of the dataset to the console to view its structure, and ensure that everything looks in order:
 
-```{r}
+```{r, comment=""}
 # prints contents of "co_counties_race"
 co_counties_race
 ```
@@ -127,7 +127,7 @@ As always, it is also possible to view the dataset in the R Studio data viewer b
 
 ## Clean the tidycensus dataset
 
-Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the "NAME" field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the NAME field, and updates the ```co_counties_race``` object with this change:
+Having extracted the dataset, you may want to tidy it up depending on your needs and preferences. For example, the "NAME" field includes the name of the state, which is not really necessary here since there are only observations from Colorado in the dataset. The code below removes the state name from the "NAME" field, and updates the ```co_counties_race``` object with this change:
 
 ```{r}
 # Remove state name from NAME field
@@ -135,7 +135,7 @@ co_counties_race<-co_counties_race %>%
                   mutate(County=str_remove_all(NAME, ", Colorado"))   
 ```       
 
-```{r}
+```{r, comment=""}
 # Prints contents of "co_counties_race"
 co_counties_race
 ```
@@ -185,14 +185,14 @@ co_counties_census_2010<-
 
 Let's view the dataset's contents:
 
-```{r}
+```{r, comment=""}
 # prints contents of "co_counties_census_2010"
 co_counties_census_2010
 ```
 
 At this point, we now have the census data used in the tutorial. This data was exported from R Studio, and provided to workshop participants as a CSV file that was included in the workshop materials. 
 
-To export the data, use the ```write_csv``` function; below, the first argument is the name of the object which contains the dataset to be exported, and the second argument is the desired file name. The data is exported to the current working directory, and can subsequently be opened on your spreadsheet software of choice as a CSV file. 
+To export the data, use the **```write_csv()```** function; below, the first argument is the name of the object which contains the dataset to be exported, and the second argument is the desired file name. The data is exported to the current working directory, and can subsequently be opened on your spreadsheet software of choice as a CSV file. 
 
 ```{r, eval=FALSE}
 # Exports the data
